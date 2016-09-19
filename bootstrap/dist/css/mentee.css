@@ -1,0 +1,106 @@
+body {
+  padding-top: 0px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signin {
+  max-width: 400px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 40px;
+  margin-left: 50px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+  margin-left: 90px;
+  margin-bottom: 10px;
+}
+
+.form-control {
+  margin-bottom: 10px;
+}
+
+#signinbtn {
+  margin-bottom: 30px;
+}
+
+.form-register {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-register .form-register-heading {
+  margin-bottom: 25px;
+  margin-left: 60px;
+}
+
+#menteeRegBtn,
+#mentorRegBtn {
+  margin-bottom: 10px;
+}
+
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.studentRadios {
+  text-align: center;
+}
+
+.levelRadios {
+  text-align: center;
+}
+
+#postGradCheck {
+  margin-left: 120px;
+}
+
+
+/*MenteeForm stuff*/
+
+#mentorPrefID {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.regUploadBtns {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+#MenteeFormHeader {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+#menteeContBtn2 {
+  margin-top: 30px;
+}
