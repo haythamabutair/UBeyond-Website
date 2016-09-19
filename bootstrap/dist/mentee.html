@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Register | UBeyond</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/mentee.css" rel="stylesheet">
+
+    <!-- Custom javascript for this template -->
+    <script src="js/mentee.js"></script>
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-xs-12 registercol">
+
+          <form class="form-signin">
+            <h2 class="form-signin-heading">Mentee Registration</h2>
+
+            <div class="form-group">
+              <label for="firstName" class="sr-only">First Name</label>
+              <input type="text" id="firstName" class="form-control" placeholder="First Name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="lastName" class="sr-only">Last Name</label>
+              <input type="text" id="lastName" class="form-control" placeholder="Last Name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="preferredName" class="sr-only">Preferred Name</label>
+              <input type="text" id="preferredName" class="form-control" placeholder="Preferred Name">
+            </div>
+
+            <div class="">
+              <label for="inputEmail" class="sr-only">Email address</label>
+              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword" class="sr-only">Password</label>
+              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword" class="sr-only">Password</label>
+              <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+            </div>
+
+            <div class="form-group">
+              <label for="bday">Birthdate</label>
+              <input type="date" id="bday" class="form-control" placeholder="Birth Date" required>
+            </div>
+
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <select class="form-control" id="gender">
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+
+            <!-- ADD IN THE JAVASCRIPT and onclick to show/hide the different divs -->
+            <div class="form-group studentRadios">
+              <label class="radio-inline"> <input type="radio" name="studentRadio" id="studentRad" onclick="showHideRegisterInfo()" checked>Student</label>
+              <label class="radio-inline"> <input type="radio" name="studentRadio" id="notStudentRad" onclick="showHideRegisterInfo()">Not a Student</label>
+            </div>
+
+            <div class="form-group levelRadios" id="levelRadios" style="display:block">
+              <label class="radio-inline"> <input type="radio" name="levelRadio" value="">High School</label>
+              <label class="radio-inline"> <input type="radio" name="levelRadio" value="">Undergraduate</label>
+              <label class="radio-inline"> <input type="radio" name="levelRadio" value="">Graduate</label>
+            </div>
+
+            <div class="form-group" id="studentRegForm" style="display:block">
+
+              <div class="form-group">
+                <label for="currentSchool" class="sr-only">Current School</label>
+                <input type="text" id="currentSchool" class="form-control" placeholder="Current School" required>
+              </div>
+
+              <div class="form-group">
+                <label for="major" class="sr-only">Major</label>
+                <input type="text" id="major" class="form-control" placeholder="Major" required>
+              </div>
+
+              <div class="form-group">
+                <label for="minor" class="sr-only">Minor</label>
+                <input type="text" id="minor" class="form-control" placeholder="Minor">
+              </div>
+
+              <div class="form-group">
+                <label for="afterGrad" class="sr-only">Plans after Graduation</label>
+                <input type="text" id="afterGrad" class="form-control" placeholder="Plans after Graduation">
+              </div>
+
+              <div class="form-group">
+                <label for="studentGradDate" >Graduation Date</label>
+                <input type="date" id="studentGradDate" class="form-control" placeholder="Graduation Date">
+              </div>
+
+              <label class="checkbox" id="postGradCheck"> <input type="checkbox">Interested in Post-Grad</label>
+
+            </div><!-- /.studentRegForm -->
+
+            <div class="form-group" id="employedRegForm" style="display:none">
+
+              <div class="form-group">
+                <label for="currentEmployer" class="sr-only">Current Employer</label>
+                <input type="text" id="currentEmployer" class="form-control" placeholder="Current Employer">
+              </div>
+
+              <div class="form-group">
+                <label for="latestDegree" class="sr-only">Latest Degree</label>
+                <input type="text" id="latestDegree" class="form-control" placeholder="Latest Degree">
+              </div>
+
+              <div class="form-group">
+                <label for="latestSchool" class="sr-only">Latest School</label>
+                <input type="text" id="latestSchool" class="form-control" placeholder="School Name">
+              </div>
+
+              <div class="form-group">
+                <label for="employedGradDate">Graduation Date</label>
+                <input type="date" id="employedGradDate" class="form-control" placeholder="Graduation Date">
+              </div>
+
+              <div class="form-group">
+                <label for="careerPlan">Career Plan</label>
+                <textarea class="form-control" id="careerPlan" rows="2" placeholder=""></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="careerGoals">Career Goals</label>
+                <textarea class="form-control" id="careerGoals" rows="2" placeholder=""></textarea>
+              </div>
+
+            </div><!-- /.employedRegForm -->
+
+            <div class="form-group">
+              <a href="menteeForm.html" class="btn btn-lg btn-danger btn-block" role="button" id="menteeContBtn">Continue</a>
+            </div>
+
+          </form>
+        </div> <!-- /.signincol -->
+
+
+      </div> <!-- /row -->
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

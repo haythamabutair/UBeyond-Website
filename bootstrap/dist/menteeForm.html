@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Register | UBeyond</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/mentee.css" rel="stylesheet">
+
+    <!-- Custom javascript for this template -->
+    <script src="js/mentee.js"></script>
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-xs-12 registercol">
+
+          <form class="form-signin">
+
+            <h2 class="form-signin-heading">Mentee Registration</h2>
+
+            <h4 id="mentorPrefID">Mentor Preferences</h4>
+
+            <div class="form-group">
+              <label for="languagePref" class="sr-only">Language Preference</label>
+              <input type="text" id="languagePref" class="form-control" placeholder="Language Preferrence">
+            </div>
+
+            <div class="form-group">
+              <label for="fieldPref" class="sr-only">Field Preference</label>
+              <input type="text" id="fieldPref" class="form-control" placeholder="Field Preferrence">
+            </div>
+
+            <div class="form-group">
+              <!-- <label for="gender">Gender</label> -->
+              <select class="form-control" id="gender">
+                <option>Male</option>
+                <option>Female</option>
+                <option>No Preference</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="meetingDatePref">Initial Meeting Date Preferrence</label>
+              <input type="date" id="meetingDatePref" class="form-control">
+            </div>
+
+            <div class="">
+              <label for="menteeBio">Mentee Bio</label>
+              <textarea class="form-control" id="menteeBio" rows="3" placeholder=""></textarea>
+            </div>
+
+
+
+            <div class="col-xs-12 regUploadBtns">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <label class="btn btn-md btn-danger btn-file">
+                    Upload Resume <input type="file" style="display: none;">
+                  </label>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <label class="btn btn-md btn-danger btn-file">
+                    Upload Picture<input type="file" style="display: none;">
+                  </label>
+                </div>
+              </div>
+            </div>
+
+
+            <h4 id="MenteeFormHeader">Mentee Form</h4>
+            <div class="form-group">
+              <label for="mFormQ1">Where do you want to improve?</label>
+              <textarea class="form-control menteeForm" id="mFormQ1" rows="3" placeholder=""></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="mFormQ2">What will you do to achieve this?</label>
+              <textarea class="form-control menteeForm" id="mFormQ2" rows="3" placeholder=""></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="mFormQ3">How will you know you succeeded?</label>
+              <textarea class="form-control menteeForm" id="mFormQ3" rows="3" placeholder=""></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="mFormQ4">When will you be satisfied?</label>
+              <textarea class="form-control menteeForm" id="mFormQ4" rows="3" placeholder=""></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="mFormQ5">How can my mentor help me?</label>
+              <textarea class="form-control menteeForm" id="mFormQ5" rows="3" placeholder=""></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="mFormQ6">What is my time frame to suceed?</label>
+              <textarea class="form-control menteeForm" id="mFormQ6" rows="3" placeholder=""></textarea>
+            </div>
+
+
+
+            <div class="form-group">
+              <input type="submit" class="btn btn-lg btn-danger btn-block" href="#" id="menteeContBtn2" value="Register">
+            </div>
+            <!-- <button class="btn btn-lg btn-danger btn-block" type="submit" href="#" id="menteeContBtn2">Register</button> -->
+
+
+
+          </form>
+        </div> <!-- /.signincol -->
+
+
+      </div> <!-- /row -->
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
