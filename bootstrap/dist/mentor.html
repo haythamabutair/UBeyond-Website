@@ -20,6 +20,9 @@
     <!-- Custom styles for this template -->
     <link href="css/mentor.css" rel="stylesheet">
 
+    <!-- Custom javascript for this template -->
+    <script src="js/mentee.js"></script>
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="assets/js/ie-emulation-modes-warning.js"></script>
@@ -45,7 +48,7 @@
 
             <div class="form-group">
               <label for="firstName" class="sr-only">First Name</label>
-              <input type="text" id="firstName" class="form-control" placeholder="First Name" required>
+              <input type="text" id="firstName" class="form-control" placeholder="First Name" required autofocus>
             </div>
 
             <div class="form-group">
@@ -60,7 +63,7 @@
 
             <div class="form-group">
               <label for="inputEmail" class="sr-only">Email address</label>
-              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
             </div>
 
             <div class="form-group">
@@ -75,8 +78,9 @@
             </div>
 
             <div class="form-group">
-              <label for="confirmPassword" class="sr-only">Password</label>
-              <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+              <label for="confirmPassword" class="sr-only">Confirm Password</label>
+              <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" onkeyup="checkPasswordsMatch();" required>
+              <span id="confirmMessage" class="confirmMessage"></span>
             </div>
 
             <div class="form-group">
