@@ -18,33 +18,6 @@ namespace MatchingService
     {
 
         /// <summary>
-        /// A web service that verifies that a user exists in the database
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        [WebMethod]
-        public Boolean UserExists(String username)
-        {
-            // TODO: retrieve user from database and ensure he exists.
-            return false;
-        }
-
-        /// <summary>
-        /// Checks if the
-        /// </summary>
-        /// <param name="mentorUsername"></param>
-        /// <param name="menteeUsername"></param>
-        /// <returns></returns>
-        [WebMethod]
-        public Boolean IsMatchable(String mentorUsername, String menteeUsername)
-        {
-            //TODO: Retrieve mentor and mentee data from database
-
-            //TODO: Check if the mentor and mentee have the basic mecessary requirements to match
-            return false;
-        }
-
-        /// <summary>
         /// Returns a value that determines how close of a match the mentor and mentee are.
         /// </summary>
         /// <param name="mentorUsername"></param>
@@ -61,12 +34,12 @@ namespace MatchingService
 
         /// <summary>
         /// A method that will be called whenever a Mentee clicks the "Find a Mentor" button.
-        /// This will initiate the process for matching a mentee with a mentor. and finds a list of top 5 mentors
+        /// This will initiate the process for matching a mentee with a mentor. and finds a list of mentors
         /// to be reviewed by an admin.
         /// </summary>
         /// <param name="Username"></param>
         [WebMethod]
-        public List<String> MatchMenteeWithMentor(String menteeUsername)
+        public List<String> MatchMenteeWithMentors(String menteeUsername)
         {
             //TODO: Query Database and find all users that are available.
 
@@ -85,7 +58,7 @@ namespace MatchingService
              * }
              */
 
-            //TODO: return list of top 5 mentors
+            //TODO: return list of mentors sorted by matchability
             return null;
         }
     }
