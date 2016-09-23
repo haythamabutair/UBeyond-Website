@@ -17,6 +17,7 @@ namespace Matching.Controllers
         /// to be reviewed by an admin.
         /// </summary>
         /// <param name="menteeUsername"></param>
+        [Route("matching/{menteeUsername}/list")]
         public IEnumerable<string> GetMatchedListOfMentors(string menteeUsername)
         {
             //TODO: Query Database and find all users that are available.
@@ -46,7 +47,7 @@ namespace Matching.Controllers
         /// <param name="mentorUsername"></param>
         /// <param name="menteeUsername"></param>
         /// <returns></returns>
-        [HttpGet()]
+        [Route("matching/{menteeUsername}/{mentorUsername}/index")]
         public IHttpActionResult GetMatchingIndex(string menteeUsername, string mentorUsername)
         {
             //TODO: Retrieve mentor and mentee data from database
