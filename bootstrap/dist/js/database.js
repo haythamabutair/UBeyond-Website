@@ -10,7 +10,6 @@
  *
  * TODO:
  * - Can we port this to npm? That way we can simply require() firebase.
- * - Eventually, we should try to make this file be all-inclusive. IE registerUser(...)
  * - Keep track of DB schema so we can't add a data endpoint that doesn't exist.
  *
  * -----------------------------------------------------------------------------------------------
@@ -58,6 +57,52 @@ var Database = (function() {
         });
     }
 
+    /*
+     * Attempt to log the specified user in.
+     *
+     * This function uses an asynchronous firebase call, thus it will provide its return value to
+     * the provided callback function.
+     *
+     * Returns true if the login succeeded, otherwise false.
+     *
+     * Note: in production, make sure password encrypted end-to-end.
+     */
+    var login = function(username, password, callback) {
+        var ref = firebase.database();
+        authenticate();
+
+        // Fetch all users
+        var users = ref.ref("Users/");
+        users.once("value").then(function(snapshot) {
+            var admins = snapshot.child("Admins");
+            var mentees = snapshot.child("Mentees");
+            var mentors = snapshot.child("Mentors");
+
+            // TODO: Could return {status: true/false, class: admin/mentor/mentee}
+            // TODO: Could distinguish between password failure and username unrecognized
+            // TODO: Support encryption
+
+            // Check admins
+            if (admins.hasChild(username)) {
+                callback(admins.child(username).child("password").val() == password);
+            }
+            // Check mentees
+            else if (mentees.hasChild(username)) {
+                callback(mentees.child(username).child("password").val() == password);
+            }
+            // Check mentors
+            else if (mentors.hasChild(username)) {
+                callback(mentors.child(username).child("password").val() == password);
+            }
+            // Username not found
+            else {
+                callback(false);
+            }
+
+            // TODO: sign out / unauthenticate
+        });
+    }
+
     //
     // Mentee functions (TODO: Reorganize)
     //
@@ -76,7 +121,7 @@ var Database = (function() {
 
         var mentee = ref.ref("Users/Mentees/" + menteeID);
 
-        // Read data and
+        // Read data
         mentee.once("value").then(function(snapshot) {
             var status = "success";
 
@@ -128,6 +173,8 @@ var Database = (function() {
                 mentee.update(fields);
             }
 
+            // TODO: signout / unauthenticate
+
             // Return status
             callback(status);
         });
@@ -138,7 +185,8 @@ var Database = (function() {
     //
     return {
         initialize: initialize,
-        // authenticate: authenticate, // Disallowed for now
+        authenticate: authenticate, // Disallowed for now
+        login: login,
         registerMentee: registerMentee,
         updateMenteeData: updateMenteeData
     }
