@@ -77,7 +77,7 @@ function onMenteeContBtnClick(caller) {
       Database.updateMenteeData(username, data);
 
       // Now navigate to target href
-      window.location.href = href;
+      window.location.href = href + "?username=" + username;
     }
     else {
       // TODO: some other alert would be better probably

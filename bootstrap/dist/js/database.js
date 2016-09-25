@@ -133,10 +133,10 @@ var Database = (function() {
         // Read data
         users.once("value").then(function(snapshot) {
             var status = "success";
-            var isUnique = snapshot.hasChild("Admins/" + username)
-                    || snapshot.hasChild("Mentees/" + username)
-                    || snapshot.hasChild("Mentors/" + username);
-
+            var isUnique = !snapshot.hasChild("Admins/" + username)
+                    && !snapshot.hasChild("Mentees/" + username)
+                    && !snapshot.hasChild("Mentors/" + username);
+            
             // Check if username already registered
             if (!isUnique) {
                 status = "error: " + username + " already registered.";
@@ -191,6 +191,20 @@ var Database = (function() {
             // Return status
             callback(status);
         });
+    }
+
+    var updateMenteeFormData = function(menteeID, fields, callback) {
+        var ref = firebase.database();
+        authenticate();
+
+        // TODO: Could check to make sure mentee exists
+        // TODO: Could require authentication to make sure menteeID actually signed-in
+
+        var menteeForm = ref.ref("MenteeQuestionnaires/" + menteeID);
+        menteeForm.set(fields);
+
+        unauthenticate();
+        callback(true);
     }
 
     //
@@ -283,6 +297,7 @@ var Database = (function() {
         signin: signin,
         registerMentee: registerMentee,
         updateMenteeData: updateMenteeData,
+        updateMenteeFormData: updateMenteeFormData,
         registerMentor: registerMentor,
         updateMentorData: updateMentorData
     }
