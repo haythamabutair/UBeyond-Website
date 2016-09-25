@@ -74,7 +74,7 @@ var Database = (function() {
      *
      * Note: in production, make sure password encrypted end-to-end.
      */
-    var login = function(username, password, callback) {
+    var signin = function(username, password, callback) {
         var ref = firebase.database();
         authenticate();
 
@@ -133,8 +133,8 @@ var Database = (function() {
         // Read data
         users.once("value").then(function(snapshot) {
             var status = "success";
-            var isUnique = snapshot.hasChild("Admins/" + username) \
-                    || snapshot.hasChild("Mentees/" + username) \
+            var isUnique = snapshot.hasChild("Admins/" + username)
+                    || snapshot.hasChild("Mentees/" + username)
                     || snapshot.hasChild("Mentors/" + username);
 
             // Check if username already registered
@@ -215,8 +215,8 @@ var Database = (function() {
         // Read data
         users.once("value").then(function(snapshot) {
             var status = "success";
-            var isUnique = snapshot.hasChild("Admins/" + username) \
-                    || snapshot.hasChild("Mentees/" + username) \
+            var isUnique = snapshot.hasChild("Admins/" + username)
+                    || snapshot.hasChild("Mentees/" + username)
                     || snapshot.hasChild("Mentors/" + username);
 
             // Check if username already registered
@@ -280,7 +280,7 @@ var Database = (function() {
     //
     return {
         initialize: initialize,
-        login: login,
+        signin: signin,
         registerMentee: registerMentee,
         updateMenteeData: updateMenteeData,
         registerMentor: registerMentor,
