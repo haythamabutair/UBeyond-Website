@@ -9,7 +9,7 @@ function onMenteeContBtn2Click(caller) {
 
   // Get username from URL parameter
   var username = Global.getParameterByName("username", window.href);
-alert(username);
+
   // Make sure username was found
   if (username == null) {
     // TODO: navigate back to mentee.html
@@ -54,7 +54,7 @@ alert(username);
         };
 
         // Submit mentee form
-        Database.updateMenteeFormData(username, menteeFormData, function(result){
+        Database.setMenteeFormData(username, menteeFormData, function(result){
           // TODO: Could use a better alert system
           alert("Registration completed!");
         });

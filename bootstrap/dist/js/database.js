@@ -31,6 +31,10 @@ var Database = (function() {
         messagingSenderId: "1065235196568"
     };
 
+    var ADMIN_GROUP = "Admins";
+    var MENTEE_GROUP = "Mentees";
+    var MENTOR_GROUP = "Mentors";
+
     //
     // Meta functions.
     //
@@ -81,9 +85,9 @@ var Database = (function() {
         // Fetch all users
         var users = ref.ref("Users/");
         users.once("value").then(function(snapshot) {
-            var admins = snapshot.child("Admins");
-            var mentees = snapshot.child("Mentees");
-            var mentors = snapshot.child("Mentors");
+            var admins = snapshot.child(ADMIN_GROUP);
+            var mentees = snapshot.child(MENTEE_GROUP);
+            var mentors = snapshot.child(MENTOR_GROUP);
 
             // TODO: Could return {status: true/false, class: admin/mentor/mentee}
             // TODO: Could distinguish between password failure and username unrecognized
@@ -112,13 +116,13 @@ var Database = (function() {
     }
 
     //
-    // Mentee functions
+    // Generic functions
     //
 
     /*
-     * Registers a new mentee in the database.
+     * Registers a new user in the database.
      */
-    var registerMentee = function(username, email, password, callback) {
+    var registerUser = function(username, group, email, password, callback) {
         var ref = firebase.database();
         authenticate();
 
@@ -128,14 +132,14 @@ var Database = (function() {
         // TODO: Check if email already registered
 
         var users = ref.ref("Users/");
-        var mentee = ref.ref("Users/Mentees/" + username);
+        var target = ref.ref("Users/" + group + "/" + username);
 
         // Read data
         users.once("value").then(function(snapshot) {
             var status = "success";
-            var isUnique = !snapshot.hasChild("Admins/" + username)
-                    && !snapshot.hasChild("Mentees/" + username)
-                    && !snapshot.hasChild("Mentors/" + username);
+            var isUnique = !snapshot.hasChild(ADMIN_GROUP + "/" + username)
+                    && !snapshot.hasChild(MENTEE_GROUP + "/" + username)
+                    && !snapshot.hasChild(MENTOR_GROUP + "/" + username);
             
             // Check if username already registered
             if (!isUnique) {
@@ -143,7 +147,7 @@ var Database = (function() {
             }
             // Set up initial user information
             else {
-                mentee.set({
+                target.set({
                     "email": email, 
                     "password": password,
                     "isAvailable": false
@@ -159,7 +163,7 @@ var Database = (function() {
     }
 
     /*
-     * Updates mentee fields in the database.
+     * Updates user fields in the database.
      *
      * Note: in production, use a token to ensure that the person requesting this update has perms,
      *       or use firebase perms.
@@ -167,22 +171,22 @@ var Database = (function() {
      * Note: could use proper JS classes/etc... instead of accepting any random fields user suggests
      *       (could overwrite pass, for instance)
      */
-    var updateMenteeData = function(menteeID, fields, callback) {
+    var updateUserData = function(username, group, fields, callback) {
         var ref = firebase.database();
         authenticate();
 
-        var mentee = ref.ref("Users/Mentees/" + menteeID);
+        var user = ref.ref("Users/" + group + "/" + username);
 
-        // Update data if mentee exists
-        mentee.once("value").then(function(snapshot) {
+        // Update data if user exists
+        user.once("value").then(function(snapshot) {
             var status = "success";
 
-            // Check that menteeID exists
+            // Check that username exists
             if (!snapshot.exists()) {
-                status = "error: " + menteeID + " not found.";
+                status = "error: " + username + " not found.";
             }
             else {
-                mentee.update(fields);
+                user.update(fields);
             }
 
             // Close connection
@@ -193,14 +197,35 @@ var Database = (function() {
         });
     }
 
-    var updateMenteeFormData = function(menteeID, fields, callback) {
+    //
+    // Mentee functions
+    //
+
+    /*
+     * Registers a new mentee in the database.
+     */
+    var registerMentee = function(username, email, password, callback) {
+        registerUser(username, MENTEE_GROUP, email, password, callback);
+    }
+
+    /*
+     * Updates mentee fields in the database.
+     */
+    var updateMenteeData = function(username, fields, callback) {
+        updateUserData(username, MENTEE_GROUP, fields, callback);
+    }
+
+    /*
+     * Set the mentee's MenteeQuestionnaire data.
+     */
+    var setMenteeFormData = function(username, fields, callback) {
         var ref = firebase.database();
         authenticate();
 
         // TODO: Could check to make sure mentee exists
-        // TODO: Could require authentication to make sure menteeID actually signed-in
+        // TODO: Could require authentication to make sure <username> actually signed-in
 
-        var menteeForm = ref.ref("MenteeQuestionnaires/" + menteeID);
+        var menteeForm = ref.ref("MenteeQuestionnaires/" + username);
         menteeForm.set(fields);
 
         unauthenticate();
@@ -215,78 +240,31 @@ var Database = (function() {
      * Registers a new mentor in the database.
      */
     var registerMentor = function(username, email, password, callback) {
-        var ref = firebase.database();
-        authenticate();
-
-        // TODO: Adhere to schema via schema definitions (i.e., variables)
-        //       (low-priority, since eventually moving backend)
-        //
-        // TODO: Check if email already registered
-
-        var users = ref.ref("Users/");
-        var mentor = ref.ref("Users/Mentors/" + username);
-
-        // Read data
-        users.once("value").then(function(snapshot) {
-            var status = "success";
-            var isUnique = snapshot.hasChild("Admins/" + username)
-                    || snapshot.hasChild("Mentees/" + username)
-                    || snapshot.hasChild("Mentors/" + username);
-
-            // Check if username already registered
-            if (!isUnique) {
-                status = "error: " + username + " already registered.";
-            }
-            // Set up initial user information
-            else {
-                mentor.set({
-                    "email": email, 
-                    "password": password,
-                    "isAvailable": false
-                });
-            }
-
-            // Close connection
-            unauthenticate();
-
-            // Return status
-            callback(status);
-        });
+        registerUser(username, MENTOR_GROUP, email, password, callback);
     }
 
     /*
      * Updates mentor fields in the database.
-     *
-     * Note: in production, use a token to ensure that the person requesting this update has perms,
-     *       or use firebase perms.
-     *
-     * Note: could use proper JS classes/etc... instead of accepting any random fields user suggests
-     *       (could overwrite pass, for instance)
      */
-    var updateMentorData = function(mentorID, fields, callback) {
+    var updateMentorData = function(username, fields, callback) {
+        updateUserData(username, MENTOR_GROUP, fields, callback);
+    }
+
+    /*
+     * Set the mentor's MentorQuestionnaire data.
+     */
+    var setMentorFormData = function(username, fields, callback) {
         var ref = firebase.database();
         authenticate();
 
-        var mentor = ref.ref("Users/Mentors/" + mentorID);
+        // TODO: Could check to make sure mentor exists
+        // TODO: Could require authentication to make sure <username> actually signed-in
 
-        // Update data if mentee exists
-        mentor.once("value").then(function(snapshot) {
-            var status = "success";
+        var mentorForm = ref.ref("MentorQuestionnaires/" + username);
+        mentorForm.set(fields);
 
-            // Check that mentorID exists
-            if (!snapshot.exists()) {
-                status = "error: " + mentorID + " not found.";
-            }
-            else {
-                mentor.update(fields);
-            }
-
-            // Close connection
-            unauthenticate();
-
-            // Return status
-            callback(status);
-        });
+        unauthenticate();
+        callback(true);
     }
 
     //
@@ -295,10 +273,13 @@ var Database = (function() {
     return {
         initialize: initialize,
         signin: signin,
+        
         registerMentee: registerMentee,
         updateMenteeData: updateMenteeData,
-        updateMenteeFormData: updateMenteeFormData,
+        setMenteeFormData: setMenteeFormData,
+
         registerMentor: registerMentor,
-        updateMentorData: updateMentorData
+        updateMentorData: updateMentorData,
+        setMentorFormData: setMentorFormData
     }
 })();

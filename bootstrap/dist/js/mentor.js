@@ -22,8 +22,8 @@ function checkPasswordsMatch() {
 
 }
 
-// function to register new mentee in database
-function onMenteeContBtnClick(caller) {
+// function to register new mentor in database
+function onMentorContBtnClick(caller) {
   event.preventDefault(); // Stop auto-navigation to href (chrome, firefox)
   
   // So we can navigate to the target HREF on success
@@ -35,10 +35,11 @@ function onMenteeContBtnClick(caller) {
   var password = document.getElementById('inputPassword').value;
 
   // Call register function and store result
-  var result = Database.registerMentee(username, email, password, function(result) {
+  var result = Database.registerMentor(username, email, password, function(result) {
     if (result == "success") {
-      // Update rest of mentee data
+      // Update rest of mentor data
       var genderObj = document.getElementById('gender');
+      var stateObj = document.getElementById('state_id');
 
       var data = {
         "birthdate": document.getElementById('bday').value,
@@ -49,34 +50,17 @@ function onMenteeContBtnClick(caller) {
           "last": document.getElementById('lastName').value,
           "preferred": document.getElementById('preferredName').value
         },
-        "phone": document.getElementById('phoneNumber').value
+        "phone": document.getElementById('phoneNumber').value,
+        "address": {
+          "street1": document.getElementById('street1ID').value,
+          "street2": document.getElementById('street2ID').value,
+          "city": document.getElementById('cityID').value,
+          "state": stateObj.options[stateObj.selectedIndex].value,
+          "zip": document.getElementById('zipID').value
+        }
       };
 
-      // Student data
-      if (document.getElementById('studentRad').checked) {
-        // TODO: include if interested in grad school
-        data["studentInfo"] = {
-          "currentSchool": document.getElementById('currentSchool').value,
-          "major": document.getElementById('major').value,
-          "minor": document.getElementById('minor').value,
-          "futurePlans": document.getElementById('afterGrad').value,
-          "expectedGraduationDate": document.getElementById('studentGradDate').value,
-          "interestedInPostGrad": document.getElementById('postGradCheckBx').checked
-        };
-      }
-      // Employer data
-      else {
-        data["employeeInfo"] = {
-          "employer": document.getElementById('currentEmployer').value,
-          "latestDegree": document.getElementById('latestDegree').value,
-          "latestSchool": document.getElementById('latestSchool').value,
-          "graduationDate": document.getElementById('employedGradDate').value,
-          "careerPlans": document.getElementById('careerPlan').value,
-          "careerGoals": document.getElementById('careerGoals').value
-        };
-      }
-
-      Database.updateMenteeData(username, data);
+      Database.updateMentorData(username, data);
 
       // Now navigate to target href
       window.location.href = href + "?username=" + username;

@@ -35,6 +35,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- Firebase setup -->
     <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
     <script>
       /*
@@ -63,6 +64,12 @@
             <div class="">
               <label for="inputEmail" class="sr-only">Email address</label>
               <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
+            </div>
+
+            <div class="form-group">
+              <!-- get this phone number attributes working so only phone numbers allowed -->
+              <label for="phoneNumber" class="sr-only">Phone Number</label>
+              <input type="text" id="phoneNumber" class="form-control" placeholder="Phone Number" required>
             </div>
 
             <div class="form-group">
@@ -150,7 +157,7 @@
                 <input type="date" id="studentGradDate" class="form-control" placeholder="Graduation Date">
               </div>
 
-              <label class="checkbox" id="postGradCheck"> <input type="checkbox">Interested in Post-Grad</label>
+              <label class="checkbox" id="postGradCheck"> <input type="checkbox" id="postGradCheckBx">Interested in Post-Grad</label>
 
             </div><!-- /.studentRegForm -->
 
