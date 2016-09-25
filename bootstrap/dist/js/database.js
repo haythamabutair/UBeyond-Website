@@ -58,6 +58,13 @@ var Database = (function() {
     }
 
     /*
+     * Sign out of the database.
+     */
+    var unauthenticate = function() {
+        firebase.auth().signOut();
+    }
+
+    /*
      * Attempt to log the specified user in.
      *
      * This function uses an asynchronous firebase call, thus it will provide its return value to
@@ -99,18 +106,19 @@ var Database = (function() {
                 callback(false);
             }
 
-            // TODO: sign out / unauthenticate
+            // Close connection
+            unauthenticate();
         });
     }
 
     //
-    // Mentee functions (TODO: Reorganize)
+    // Mentee functions
     //
 
     /*
      * Registers a new mentee in the database.
      */
-    var registerMentee = function(menteeID, email, password, callback) {
+    var registerMentee = function(username, email, password, callback) {
         var ref = firebase.database();
         authenticate();
 
@@ -119,17 +127,20 @@ var Database = (function() {
         //
         // TODO: Check if email already registered
 
-        var mentee = ref.ref("Users/Mentees/" + menteeID);
+        var users = ref.ref("Users/");
+        var mentee = ref.ref("Users/Mentees/" + username);
 
         // Read data
-        mentee.once("value").then(function(snapshot) {
+        users.once("value").then(function(snapshot) {
             var status = "success";
+            var isUnique = snapshot.hasChild("Admins/" + username) \
+                    || snapshot.hasChild("Mentees/" + username) \
+                    || snapshot.hasChild("Mentors/" + username);
 
-            // Check if menteeID already exists
-            if (snapshot.exists()) {
-                status = "error: " + menteeID + " already registered.";
+            // Check if username already registered
+            if (!isUnique) {
+                status = "error: " + username + " already registered.";
             }
-
             // Set up initial user information
             else {
                 mentee.set({
@@ -139,7 +150,8 @@ var Database = (function() {
                 });
             }
 
-            // TODO: signout/unauthenticate
+            // Close connection
+            unauthenticate();
 
             // Return status
             callback(status);
@@ -173,7 +185,90 @@ var Database = (function() {
                 mentee.update(fields);
             }
 
-            // TODO: signout / unauthenticate
+            // Close connection
+            unauthenticate();
+
+            // Return status
+            callback(status);
+        });
+    }
+
+    //
+    // Mentor functions
+    //
+
+    /*
+     * Registers a new mentor in the database.
+     */
+    var registerMentor = function(username, email, password, callback) {
+        var ref = firebase.database();
+        authenticate();
+
+        // TODO: Adhere to schema via schema definitions (i.e., variables)
+        //       (low-priority, since eventually moving backend)
+        //
+        // TODO: Check if email already registered
+
+        var users = ref.ref("Users/");
+        var mentor = ref.ref("Users/Mentors/" + username);
+
+        // Read data
+        users.once("value").then(function(snapshot) {
+            var status = "success";
+            var isUnique = snapshot.hasChild("Admins/" + username) \
+                    || snapshot.hasChild("Mentees/" + username) \
+                    || snapshot.hasChild("Mentors/" + username);
+
+            // Check if username already registered
+            if (!isUnique) {
+                status = "error: " + username + " already registered.";
+            }
+            // Set up initial user information
+            else {
+                mentor.set({
+                    "email": email, 
+                    "password": password,
+                    "isAvailable": false
+                });
+            }
+
+            // Close connection
+            unauthenticate();
+
+            // Return status
+            callback(status);
+        });
+    }
+
+    /*
+     * Updates mentor fields in the database.
+     *
+     * Note: in production, use a token to ensure that the person requesting this update has perms,
+     *       or use firebase perms.
+     *
+     * Note: could use proper JS classes/etc... instead of accepting any random fields user suggests
+     *       (could overwrite pass, for instance)
+     */
+    var updateMentorData = function(mentorID, fields, callback) {
+        var ref = firebase.database();
+        authenticate();
+
+        var mentor = ref.ref("Users/Mentors/" + mentorID);
+
+        // Update data if mentee exists
+        mentor.once("value").then(function(snapshot) {
+            var status = "success";
+
+            // Check that mentorID exists
+            if (!snapshot.exists()) {
+                status = "error: " + mentorID + " not found.";
+            }
+            else {
+                mentor.update(fields);
+            }
+
+            // Close connection
+            unauthenticate();
 
             // Return status
             callback(status);
@@ -185,9 +280,10 @@ var Database = (function() {
     //
     return {
         initialize: initialize,
-        authenticate: authenticate, // Disallowed for now
         login: login,
         registerMentee: registerMentee,
-        updateMenteeData: updateMenteeData
+        updateMenteeData: updateMenteeData,
+        registerMentor: registerMentor,
+        updateMentorData: updateMentorData
     }
 })();
