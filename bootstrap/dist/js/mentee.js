@@ -22,25 +22,29 @@ function checkPasswordsMatch() {
 
 }
 
-// function to register new mentee in database
+/*
+ * Begin registering a mentee in the database.
+ *
+ * TODO: Instead of alert(), use a more user-friendly alert system.
+ */
 function onMenteeContBtnClick(caller) {
   event.preventDefault(); // Stop auto-navigation to href (chrome, firefox)
   
   // So we can navigate to the target HREF on success
   var href = document.getElementById(caller.id).href;
 
-  // Get initial register variables
-  var username = document.getElementById('inputUsername').value;
   var email = document.getElementById('inputEmail').value;
   var password = document.getElementById('inputPassword').value;
 
-  // Call register function and store result
-  var result = Database.registerMentee(username, email, password, function(result) {
-    if (result == "success") {
+  // Attempt to register the specified email and password
+  Database.registerUser(email, password, function(success, response) {
+    if (success) {
       // Update rest of mentee data
       var genderObj = document.getElementById('gender');
 
       var data = {
+        "userType": "mentee",
+        "email": email,
         "birthdate": document.getElementById('bday').value,
         "gender": genderObj.options[genderObj.selectedIndex].text,
         "name": {
@@ -54,7 +58,6 @@ function onMenteeContBtnClick(caller) {
 
       // Student data
       if (document.getElementById('studentRad').checked) {
-        // TODO: include if interested in grad school
         data["studentInfo"] = {
           "currentSchool": document.getElementById('currentSchool').value,
           "major": document.getElementById('major').value,
@@ -76,14 +79,19 @@ function onMenteeContBtnClick(caller) {
         };
       }
 
-      Database.updateMenteeData(username, data);
-
-      // Now navigate to target href
-      window.location.href = href + "?username=" + username;
+      // Update database entry for newly-registered used and navigate to next page
+      Database.updateUserData(data, function(success, response) {
+        if(success) {
+          // Now navigate to target href
+          window.location.href = href;
+        }
+        else {
+          alert(response);
+        }
+      });
     }
     else {
-      // TODO: some other alert would be better probably
-      alert(result);
+      alert(response);
     }
   });
 

@@ -1,23 +1,27 @@
+/*
+ * Attempt to sign in to the website.
+ */
 function onSigninBtnClick(caller) {
   event.preventDefault(); // Stop auto-navigation to href (chrome, firefox)
   
   // So we can navigate to the target HREF on success
   var href = document.getElementById(caller.id).href;
 
-  var username = document.getElementById('inputUsername').value;
+  var email = document.getElementById('inputEmail').value;
   var password = document.getElementById('inputPassword').value;
   
-  // Try sign-in
-  Database.signin(username, password, function(result) {
-    // TODO: Probably should use a better alert method
+  Database.authenticate(email, password, function(success, response) {
+    // Sign-in succeeded
+    if (success) {
+      var userID = response;
 
-    // True: signed in
-    if (result) {
-        alert("Welcome back to U-Beyond, " + username + "!")
+      // TODO: Eventually, navigate to home page
+      alert("Sign-in successful! userID: " + userID);
     }
-    // False: incorrect username/password
+    // Sign-in failed
     else {
-        alert("Incorrect username/password.");
+      // TODO: Eventually, use a different notification system
+      alert("Sign-in failed. Error:\n" + response);
     }
   });
 

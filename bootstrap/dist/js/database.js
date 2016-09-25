@@ -23,6 +23,7 @@ var Database = (function() {
     // Module members
     //
 
+    // Database configurations
     var config = {
         apiKey: "AIzaSyAz1Z5At4sp5oZ6EIrxLZQeYS2BGIpgIbg",
         authDomain: "ubeyond-website.firebaseapp.com",
@@ -31,170 +32,161 @@ var Database = (function() {
         messagingSenderId: "1065235196568"
     };
 
-    var ADMIN_GROUP = "Admins";
-    var MENTEE_GROUP = "Mentees";
-    var MENTOR_GROUP = "Mentors";
+    // URI headers for questionnaires
+    var MENTEE_FORM = "MenteeQuestionnaires";
+    var MENTOR_FORM = "MentorQuestionnaires";
 
     //
     // Meta functions.
     //
 
     /*
-     * Call this function on page load. Initializes the firebase connection.
+     * TODO: Documentation
      */
     var initialize = function() {
         firebase.initializeApp(config);
     }
 
     /*
-     * Anonymously sign-in to the database so we can read/write.
+     * Authenticate the user via email/password.
      *
-     * Note: Anonymous sign-in must only be used during private development stage.
+     * Since the authentication is done asynchronously, the result of the authentication is returned
+     * via a callback function.
+     *
+     * Callback: function(success, response)
+     * If the authentication is successful, the callback recieves (true, userID). If it fails, the
+     * callback receives (false, errorMessage).
+     *
+     * Example:
+     * Database.authenticate(user.email, user.password, function(success, response) {
+     *     if (!success) alert(response);
+     *     else {
+     *         user.id = response;
+     *     }
+     * });
      */
-    var authenticate = function() {
-        firebase.auth().signInAnonymously().catch(function(error) {
-            var errorCode = "error.code: " + error.code;
-            var errorMessage = "error.message: " + error.message;
-
-            // Log authentication error to console
-            console.log("Authentication error:\n" + errorCode + "\n" + errorMessage);
-        });
+    var authenticate = function(email, password, callback) {
+        firebase.auth().signInWithEmailAndPassword(email, password).then(
+            // On success
+            function(user) {
+                callback(true, user.uid);
+            },
+            // On failure
+            function(error) {
+                callback(false, error.code + ": " + error.message);
+            }
+        );
     }
 
     /*
      * Sign out of the database.
      */
     var unauthenticate = function() {
-        firebase.auth().signOut();
+        // TODO: only do this when we sign out via a button
+        //firebase.auth().signOut();
     }
-
-    /*
-     * Attempt to log the specified user in.
-     *
-     * This function uses an asynchronous firebase call, thus it will provide its return value to
-     * the provided callback function.
-     *
-     * Returns true if the login succeeded, otherwise false.
-     *
-     * Note: in production, make sure password encrypted end-to-end.
-     */
-    var signin = function(username, password, callback) {
-        var ref = firebase.database();
-        authenticate();
-
-        // Fetch all users
-        var users = ref.ref("Users/");
-        users.once("value").then(function(snapshot) {
-            var admins = snapshot.child(ADMIN_GROUP);
-            var mentees = snapshot.child(MENTEE_GROUP);
-            var mentors = snapshot.child(MENTOR_GROUP);
-
-            // TODO: Could return {status: true/false, class: admin/mentor/mentee}
-            // TODO: Could distinguish between password failure and username unrecognized
-            // TODO: Support encryption
-
-            // Check admins
-            if (admins.hasChild(username)) {
-                callback(admins.child(username).child("password").val() == password);
-            }
-            // Check mentees
-            else if (mentees.hasChild(username)) {
-                callback(mentees.child(username).child("password").val() == password);
-            }
-            // Check mentors
-            else if (mentors.hasChild(username)) {
-                callback(mentors.child(username).child("password").val() == password);
-            }
-            // Username not found
-            else {
-                callback(false);
-            }
-
-            // Close connection
-            unauthenticate();
-        });
-    }
-
-    //
-    // Generic functions
-    //
 
     /*
      * Registers a new user in the database.
+     *
+     * Since the registration is done asynchronously, the result of the registration is returned via
+     * a callback function.
+     *
+     * Callback: function(success, response)
+     * If the registration is successful, the callback recieves (true, userID). If it fails, the
+     * callback receives (false, errorMessage).
+     *
+     * Example:
+     * Database.registerUser(user.email, user.password, function(success, response) {
+     *     if (!success) alert(response);
+     *     else {
+     *         userID = response;
+     *     }
+     * });
      */
-    var registerUser = function(username, group, email, password, callback) {
+    var registerUser = function(email, password, callback) {
         var ref = firebase.database();
-        authenticate();
 
-        // TODO: Adhere to schema via schema definitions (i.e., variables)
-        //       (low-priority, since eventually moving backend)
-        //
-        // TODO: Check if email already registered
-
-        var users = ref.ref("Users/");
-        var target = ref.ref("Users/" + group + "/" + username);
-
-        // Read data
-        users.once("value").then(function(snapshot) {
-            var status = "success";
-            var isUnique = !snapshot.hasChild(ADMIN_GROUP + "/" + username)
-                    && !snapshot.hasChild(MENTEE_GROUP + "/" + username)
-                    && !snapshot.hasChild(MENTOR_GROUP + "/" + username);
-            
-            // Check if username already registered
-            if (!isUnique) {
-                status = "error: " + username + " already registered.";
-            }
-            // Set up initial user information
-            else {
-                target.set({
-                    "email": email, 
-                    "password": password,
-                    "isAvailable": false
-                });
-            }
-
-            // Close connection
-            unauthenticate();
-
-            // Return status
-            callback(status);
-        });
+        // If a user is already signed-in, sign them out
+        if (firebase.auth().currentUser) {
+            firebase.auth().signOut().then(function() {
+                // Try again once user is signed-out
+                registerUser(email, password, callback);
+            });
+            // TODO: what if signOut() fails? -- it shouldn't but could add test case
+        }
+        else {
+            firebase.auth().createUserWithEmailAndPassword(email, password).then(
+                // On success
+                function(user) {
+                    callback(true, user.uid);
+                },
+                // On failure
+                function(error) {
+                    callback(false, error.code + ": " + error.message);
+                }
+            );
+        }
     }
 
     /*
-     * Updates user fields in the database.
+     * Updates fields in the database for the currently-signed-in user.
      *
-     * Note: in production, use a token to ensure that the person requesting this update has perms,
-     *       or use firebase perms.
+     * Since the update is done asynchronously, the result of the update operation is returned via a
+     * callback function.
      *
-     * Note: could use proper JS classes/etc... instead of accepting any random fields user suggests
-     *       (could overwrite pass, for instance)
+     * Callback: function(success, response)
+     * If the update operation is successful, the callback recieves (true, null). If it fails, the
+     * callback receives (false, errorMessage).
+     *
+     * Example:
+     * Database.updateUserData({"phoneNumber": "555-867-5309"}, function(success, response) {
+     *     if (!success) alert(response);
+     * });
      */
-    var updateUserData = function(username, group, fields, callback) {
+    var updateUserData = function(fields, callback) {
         var ref = firebase.database();
-        authenticate();
+        var currentUser = firebase.auth().currentUser;
 
-        var user = ref.ref("Users/" + group + "/" + username);
+        // Make sure a user is signed-in
+        if (currentUser) {
+            ref.ref("Users/" + currentUser.uid).update(fields, function(error) {
+                // Check if update was successful
+                if (error) {
+                    callback(false, error.code + ": " + error.message);
+                }
+                else {
+                    callback(true, null);
+                }
+            });
+        }
+        else {
+            callback(false, "cust-auth/no-sign-in: Not signed in");
+        }
+    }
 
-        // Update data if user exists
-        user.once("value").then(function(snapshot) {
-            var status = "success";
+    /*
+     * TODO: Documentation
+     */
+    var setFormData = function(form, fields, callback) {
+        var ref = firebase.database();
+        var currentUser = firebase.auth().currentUser;
 
-            // Check that username exists
-            if (!snapshot.exists()) {
-                status = "error: " + username + " not found.";
-            }
-            else {
-                user.update(fields);
-            }
-
-            // Close connection
-            unauthenticate();
-
-            // Return status
-            callback(status);
-        });
+        // Make sure a user is signed-in
+        if (currentUser) {
+            ref.ref(form + "/" + currentUser.uid).set(fields, function(error) {
+                // Check if operation was successful
+                if (error) {
+                    callback(false, error.code + ": " + error.message);
+                }
+                else {
+                    callback(true, null);
+                }
+            });
+        }
+        else {
+            callback(false, "cust-auth/no-sign-in: Not signed in");
+        }
     }
 
     //
@@ -202,34 +194,10 @@ var Database = (function() {
     //
 
     /*
-     * Registers a new mentee in the database.
-     */
-    var registerMentee = function(username, email, password, callback) {
-        registerUser(username, MENTEE_GROUP, email, password, callback);
-    }
-
-    /*
-     * Updates mentee fields in the database.
-     */
-    var updateMenteeData = function(username, fields, callback) {
-        updateUserData(username, MENTEE_GROUP, fields, callback);
-    }
-
-    /*
      * Set the mentee's MenteeQuestionnaire data.
      */
-    var setMenteeFormData = function(username, fields, callback) {
-        var ref = firebase.database();
-        authenticate();
-
-        // TODO: Could check to make sure mentee exists
-        // TODO: Could require authentication to make sure <username> actually signed-in
-
-        var menteeForm = ref.ref("MenteeQuestionnaires/" + username);
-        menteeForm.set(fields);
-
-        unauthenticate();
-        callback(true);
+    var setMenteeFormData = function(fields, callback) {
+        setFormData(MENTEE_FORM, fields, callback);
     }
 
     //
@@ -237,34 +205,10 @@ var Database = (function() {
     //
 
     /*
-     * Registers a new mentor in the database.
-     */
-    var registerMentor = function(username, email, password, callback) {
-        registerUser(username, MENTOR_GROUP, email, password, callback);
-    }
-
-    /*
-     * Updates mentor fields in the database.
-     */
-    var updateMentorData = function(username, fields, callback) {
-        updateUserData(username, MENTOR_GROUP, fields, callback);
-    }
-
-    /*
      * Set the mentor's MentorQuestionnaire data.
      */
-    var setMentorFormData = function(username, fields, callback) {
-        var ref = firebase.database();
-        authenticate();
-
-        // TODO: Could check to make sure mentor exists
-        // TODO: Could require authentication to make sure <username> actually signed-in
-
-        var mentorForm = ref.ref("MentorQuestionnaires/" + username);
-        mentorForm.set(fields);
-
-        unauthenticate();
-        callback(true);
+    var setMentorFormData = function(fields, callback) {
+        setFormData(MENTOR_FORM, fields, callback);
     }
 
     //
@@ -272,14 +216,10 @@ var Database = (function() {
     //
     return {
         initialize: initialize,
-        signin: signin,
-        
-        registerMentee: registerMentee,
-        updateMenteeData: updateMenteeData,
+        authenticate: authenticate,
+        registerUser: registerUser,
+        updateUserData: updateUserData,
         setMenteeFormData: setMenteeFormData,
-
-        registerMentor: registerMentor,
-        updateMentorData: updateMentorData,
         setMentorFormData: setMentorFormData
     }
 })();

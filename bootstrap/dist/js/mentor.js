@@ -22,26 +22,30 @@ function checkPasswordsMatch() {
 
 }
 
-// function to register new mentor in database
+/*
+ * Begin registering a mentor in the database.
+ *
+ * TODO: Instead of alert(), use a more user-friendly alert system.
+ */
 function onMentorContBtnClick(caller) {
   event.preventDefault(); // Stop auto-navigation to href (chrome, firefox)
   
   // So we can navigate to the target HREF on success
   var href = document.getElementById(caller.id).href;
 
-  // Get initial register variables
-  var username = document.getElementById('inputUsername').value;
   var email = document.getElementById('inputEmail').value;
   var password = document.getElementById('inputPassword').value;
 
-  // Call register function and store result
-  var result = Database.registerMentor(username, email, password, function(result) {
-    if (result == "success") {
+  // Attempt to register the specified email and password
+  Database.registerUser(email, password, function(success, response) {
+    if (success) {
       // Update rest of mentor data
       var genderObj = document.getElementById('gender');
       var stateObj = document.getElementById('state_id');
 
       var data = {
+        "userType": "mentor",
+        "email": email,
         "birthdate": document.getElementById('bday').value,
         "gender": genderObj.options[genderObj.selectedIndex].text,
         "name": {
@@ -60,14 +64,19 @@ function onMentorContBtnClick(caller) {
         }
       };
 
-      Database.updateMentorData(username, data);
-
-      // Now navigate to target href
-      window.location.href = href + "?username=" + username;
+      // Update database entry for newly-registered used and navigate to next page
+      Database.updateUserData(data, function(success, response) {
+        if(success) {
+          // Now navigate to target href
+          window.location.href = href;
+        }
+        else {
+          alert(response);
+        }
+      });
     }
     else {
-      // TODO: some other alert would be better probably
-      alert(result);
+      alert(response);
     }
   });
 
