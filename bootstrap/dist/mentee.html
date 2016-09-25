@@ -22,6 +22,7 @@
 
     <!-- Custom javascript for this template -->
     <script src="js/mentee.js"></script>
+    <script src="js/database.js"></script>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -32,6 +33,14 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+    <script>
+      /*
+       * Configure and initialize our firebase connection.
+       */
+      Database.initialize();
+    </script>
   </head>
 
   <body>
@@ -46,18 +55,8 @@
             <h2 class="form-signin-heading">Mentee Registration</h2>
 
             <div class="form-group">
-              <label for="firstName" class="sr-only">First Name</label>
-              <input type="text" id="firstName" class="form-control" placeholder="First Name" required autofocus>
-            </div>
-
-            <div class="form-group">
-              <label for="lastName" class="sr-only">Last Name</label>
-              <input type="text" id="lastName" class="form-control" placeholder="Last Name" required>
-            </div>
-
-            <div class="form-group">
-              <label for="preferredName" class="sr-only">Preferred Name</label>
-              <input type="text" id="preferredName" class="form-control" placeholder="Preferred Name">
+              <label for="inputUsername" class="sr-only">Username</label>
+              <input type="text" id="inputUsername" class="form-control" placeholder="Username" required>
             </div>
 
             <div class="">
@@ -74,6 +73,26 @@
               <label for="confirmPassword" class="sr-only">Confirm Password</label>
               <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" onkeyup="checkPasswordsMatch();" required>
               <span id="confirmMessage" class="confirmMessage"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="firstName" class="sr-only">First Name</label>
+              <input type="text" id="firstName" class="form-control" placeholder="First Name" required autofocus>
+            </div>
+
+            <div class="form-group">
+              <label for="middleInitial" class="sr-only">Middle Initial:</label>
+              <input type="text" id="middleInitial" class="form-control" placeholder="Middle Initial" required>
+            </div>
+
+            <div class="form-group">
+              <label for="lastName" class="sr-only">Last Name</label>
+              <input type="text" id="lastName" class="form-control" placeholder="Last Name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="preferredName" class="sr-only">Preferred Name</label>
+              <input type="text" id="preferredName" class="form-control" placeholder="Preferred Name">
             </div>
 
             <div class="form-group">
@@ -169,7 +188,7 @@
             </div><!-- /.employedRegForm -->
 
             <div class="form-group">
-              <a href="menteeForm.html" class="btn btn-lg btn-danger btn-block" role="button" id="menteeContBtn">Continue</a>
+              <a href="menteeForm.html" class="btn btn-lg btn-danger btn-block" role="button" id="menteeContBtn" onclick="return onMenteeContBtnClick(this);">Continue</a>
             </div>
 
           </form>
