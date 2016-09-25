@@ -77,8 +77,32 @@
             </div>
 
             <div class="form-group">
-              <label for="bday">Birthdate</label>
-              <input type="date" id="bday" class="form-control" placeholder="Birth Date" required>
+              <!-- <label for="bday">Birthdate</label> -->
+              <!-- <input type="date" id="bday" class="form-control" placeholder="Birth Date" required> -->
+              <label for="birthday_months">Month</label>
+              <select class="form-control" id="birthday-months">
+                <option>January</option>
+                <option>Febuary</option>
+                <option>March</option>
+                <option>April</option>
+                <option>May</option>
+                <option>June</option>
+                <option>July</option>
+                <option>August</option>
+                <option>September</option>
+                <option>October</option>
+                <option>November</option>
+                <option>December</option>
+              </select>
+
+              <label for="birthday_years">Year</label>
+              <select class="form-control" id="birthday-year" onclick="makeYears('birthday-year','2010','1900');">
+              </select>
+
+              <label for="birthday_day">Day</label>
+              <select class="form-control" id="birthday-day" onclick="makeDays('birthday-day');">
+              </select>
+
             </div>
 
             <div class="form-group">
@@ -127,7 +151,32 @@
 
               <div class="form-group">
                 <label for="studentGradDate" >Graduation Date</label>
-                <input type="date" id="studentGradDate" class="form-control" placeholder="Graduation Date">
+                <!-- <input type="date" id="studentGradDate" class="form-control" placeholder="Graduation Date"> -->
+                  <div>
+                    <label for="studentGradMonth">Month</label>
+                    <select class="form-control" id="studentGradMonths">
+                      <option>January</option>
+                      <option>Febuary</option>
+                      <option>March</option>
+                      <option>April</option>
+                      <option>May</option>
+                      <option>June</option>
+                      <option>July</option>
+                      <option>August</option>
+                      <option>September</option>
+                      <option>October</option>
+                      <option>November</option>
+                      <option>December</option>
+                    </select>
+
+                    <label for="stundetGrad_year">Year</label>
+                    <select class="form-control" id="studentGradYear" onclick="makeYears('studentGradYear','2025','2000');">
+                    </select>
+
+                    <label for="studenGrad_day">Day</label>
+                    <select class="form-control" id="studentGradDay" onclick="makeDays('studentGradDay');">
+                    </select>
+                </div>
               </div>
 
               <label class="checkbox" id="postGradCheck"> <input type="checkbox">Interested in Post-Grad</label>
@@ -153,7 +202,32 @@
 
               <div class="form-group">
                 <label for="employedGradDate">Graduation Date</label>
-                <input type="date" id="employedGradDate" class="form-control" placeholder="Graduation Date">
+                <!-- <input type="date" id="employedGradDate" class="form-control" placeholder="Graduation Date"> -->
+                <div>
+                  <label for="employedGradMonth">Month</label>
+                  <select class="form-control" id="employedGradMonths">
+                    <option>January</option>
+                    <option>Febuary</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                  </select>
+
+                  <label for="employedGrad_years">Year</label>
+                  <select class="form-control" id="employedGradYear" onclick="makeYears('employedGradYear','2016','1950');">
+                  </select>
+
+                  <label for="employedGrad_day">Day</label>
+                  <select class="form-control" id="employedGradDay" onclick="makeDays('employedGradDay');">
+                  </select>
+                </div>
               </div>
 
               <div class="form-group">

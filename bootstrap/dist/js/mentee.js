@@ -19,5 +19,26 @@ function checkPasswordsMatch() {
   } else {
     message.innerHTML = "Passwords do not match."
   }
+}
 
+function makeYears(tag, start, stop) {
+  if(document.getElementById(tag).length == 0){
+    for(var i= start; i >=stop; i--){
+      var x = document.createElement("option");
+      x.innerHTML = i;
+      x.value = i;
+      document.getElementById(tag).appendChild(x);
+    }
+  }
+}
+
+function makeDays(tag) {
+  if (document.getElementById(tag).length == 0){
+    for(var i = 1; i <= 31; i++){
+      var x = document.createElement("option");
+      x.innerHTML = i;
+      x.value = i;
+      document.getElementById(tag).appendChild(x);
+    }
+  }
 }

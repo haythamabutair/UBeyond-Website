@@ -85,7 +85,36 @@
 
             <div class="form-group">
               <label for="bday">Birthdate</label>
-              <input type="date" id="bday" class="form-control" placeholder="Birth Date" required>
+              <!-- <input type="date" id="bday" class="form-control" placeholder="Birth Date" required> -->
+              <div class="form-group">
+                <!-- <input type="date" id="bday" class="form-control" placeholder="Birth Date" required> -->
+                <label for="birthday_months">Month</label>
+                <select class="form-control" id="birthday-months">
+                  <option>January</option>
+                  <option>Febuary</option>
+                  <option>March</option>
+                  <option>April</option>
+                  <option>May</option>
+                  <option>June</option>
+                  <option>July</option>
+                  <option>August</option>
+                  <option>September</option>
+                  <option>October</option>
+                  <option>November</option>
+                  <option>December</option>
+                </select>
+
+                <label for="birthday_year">Year</label>
+                <select class="form-control" id="birthday-year" onclick="makeYears('birthday-year','2010','1900');">
+                </select>
+
+                <label for="birthday_day">Day</label>
+                <select class="form-control" id="birthday-day" onclick="makeDays('birthday-day');">
+                </select>
+
+              </div>
+
+
             </div>
 
             <div class="form-group">

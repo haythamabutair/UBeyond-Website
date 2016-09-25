@@ -69,7 +69,34 @@
 
             <div class="form-group">
               <label for="meetingDatePref">Initial Meeting Date Preferrence</label>
-              <input type="date" id="meetingDatePref" class="form-control">
+              <!-- <input type="date" id="meetingDatePref" class="form-control"> -->
+              <div class="form-group">
+                <!-- <input type="date" id="bday" class="form-control" placeholder="Birth Date" required> -->
+                <label for="birthday_months">Month</label>
+                <select class="form-control" id="birthday-months">
+                  <option>January</option>
+                  <option>Febuary</option>
+                  <option>March</option>
+                  <option>April</option>
+                  <option>May</option>
+                  <option>June</option>
+                  <option>July</option>
+                  <option>August</option>
+                  <option>September</option>
+                  <option>October</option>
+                  <option>November</option>
+                  <option>December</option>
+                </select>
+
+                <label for="meeting_year">Year</label>
+                <select class="form-control" id="meeting-year" onclick="makeYears('meeting-year','2017','2016');">
+                </select>
+
+                <label for="meeting_day">Day</label>
+                <select class="form-control" id="meeting-day" onclick="makeDays('meeting-day');">
+                </select>
+
+              </div>
             </div>
 
             <div class="">
