@@ -5,13 +5,21 @@
  */
 function onMentorContBtn2Click(caller) {
   event.preventDefault(); // Stop auto-navigation to href (chrome, firefox)
-  
+
   // So we can navigate to the target HREF on success
   var href = document.getElementById(caller.id).href;
 
   // Collect remainder of mentor data
   // TODO: Resume upload
+  $('#resumeBtn').filestyle({
+    buttonName : 'btn-danger',
+    buttonText : 'Upload Resume'
+  });
   // TODO: Headshot upload
+  $('#picBtn').filestyle({
+    buttonName : 'btn-danger',
+    buttonText : 'Upload Piccccc'
+  });
   var mentorData = {
     "currentEmployer": document.getElementById('currentEmployer').value,
     "fieldExpertise": document.getElementById('fieldExpertise').value,

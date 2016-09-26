@@ -13,6 +13,7 @@ body {
 .form-signin .checkbox {
   margin-bottom: 40px;
   margin-left: 50px;
+  
 }
 .form-signin .checkbox {
   font-weight: normal;
@@ -72,6 +73,7 @@ textarea {
 .regUploadBtns {
   margin-top: 20px;
   margin-bottom: 40px;
+  margin-left: -28px;
 }
 
 #MenteeFormHeader {
