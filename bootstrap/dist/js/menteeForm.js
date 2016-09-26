@@ -5,15 +5,23 @@
  */
 function onMenteeContBtn2Click(caller) {
   event.preventDefault(); // Stop auto-navigation to href (chrome, firefox)
-  
+
   // So we can navigate to the target HREF on success
   var href = document.getElementById(caller.id).href;
 
   // Collect remainder of mentee data
   var genderPrefObj = document.getElementById('gender');
-  
+
   // TODO: Resume upload
+  $('#resumeBtn').filestyle({
+    buttonName : 'btn-danger',
+    buttonText : 'Upload Resume'
+  });
   // TODO: Headshot upload
+  $('#picBtn').filestyle({
+    buttonName : 'btn-danger',
+    buttonText : 'Upload Piccccc'
+  });
   var menteeData = {
     "bio": document.getElementById('menteeBio').value,
     "languagePreference": document.getElementById('languagePref').value,
