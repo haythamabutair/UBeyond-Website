@@ -11,6 +11,9 @@
 
     <title>Register | UBeyond</title>
 
+    <!-- JQuery script -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,9 +33,6 @@
 
     <!-- filestyle JS file for uploading files feedback -->
     <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
-
-    <!-- JQuery script -->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -168,7 +168,7 @@
 
 
             <div class="form-group">
-              <input type="submit" class="btn btn-lg btn-danger btn-block" href="#" id="mentorContBtn2" value="Register" onclick="return onMentorContBtn2Click(this);">
+              <input type="submit" class="btn btn-lg btn-danger btn-block" href="#" id="mentorContBtn2" value="Register" onclick="event.preventDefault();return onMentorContBtn2Click(this);">
               <!-- <button class="btn btn-lg btn-danger btn-block" type="submit" href="#" id="menteeContBtn2">Register</button> -->
             </div>
 
