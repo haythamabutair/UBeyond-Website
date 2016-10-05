@@ -143,6 +143,10 @@ textarea {
   margin-left: 120px;
 }
 
+.form-group-mentee-required .control-label:after {
+  content:"*";
+  color:red;
+}
 
 /*MenteeForm stuff*/
 

@@ -22,6 +22,29 @@ function checkPasswordsMatch() {
 
 }
 
+// Function to make the datepicker pop up
+$(function() {
+   $( "#birthdate-datepicker" ).datepicker();
+});
+
+// Function to require main information to be filled out
+$(function(){
+  $('.form-group-mentee-required').children('input.form-control').keyup(function() {
+
+    var empty = false;
+    $('.form-group-mentee-required').children('input.form-control').each(function() {
+        if ($(this).val() == '') {
+            empty = true;
+        }
+    });
+
+    if (empty) {
+        $('#menteeContBtn').attr('disabled', 'disabled');
+    } else {
+        $('#menteeContBtn').removeAttr('disabled');
+    }
+  });
+});
 /*
  * Begin registering a mentee in the database.
  *
@@ -29,7 +52,7 @@ function checkPasswordsMatch() {
  */
 function onMenteeContBtnClick(caller) {
   event.preventDefault(); // Stop auto-navigation to href (chrome, firefox)
-  
+
   // So we can navigate to the target HREF on success
   var href = document.getElementById(caller.id).href;
 

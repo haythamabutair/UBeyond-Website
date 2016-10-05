@@ -19,6 +19,8 @@
 
     <!-- Custom styles for this template -->
     <link href="css/mentor.css" rel="stylesheet">
+    <!-- Custom Style for datepicker -->
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 
     <!-- JQuery script -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -29,7 +31,9 @@
     <!-- Custom javascript for this template -->
     <script src="js/mentor.js"></script>
     <script src="js/database.js"></script>
-
+    <!-- JQuery for the Datepicker -->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="assets/js/ie-emulation-modes-warning.js"></script>
@@ -52,42 +56,6 @@
 
   <body>
 
-
-
-
-
-    <div class="navbar-wrapper">
-      <!-- <div class="container"> -->
-
-      <nav class="navbar navbar-default navbar-static-top default-menu" style="background-image: url('img/black_paper.jpg')">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand default-logo" href="signin.html">U-Beyond</a>
-          </div>
-
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="signin.html">Home</a></li>
-              <li><a href="mentee.html">Mentee Registration</a></li>
-              <li class="active"><a href="mentor.html">Mentor Registration</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-      <!-- </div> -->
-    </div>
-
-
-
-
-
     <div class="container">
 
       <div class="row">
@@ -97,8 +65,8 @@
           <form class="form-signin">
             <h2 class="form-signin-heading">Mentor Registration</h2>
 
-            <div class="">
-              <label for="inputEmail" class="sr-only">Email</label>
+            <div class="form-group-mentor-required">
+              <label for="inputEmail" class="control-label">Email</label>
               <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
             </div>
 
@@ -233,7 +201,7 @@
 
 
             <div class="form-group">
-              <a href="mentorForm.html" class="btn btn-lg btn-danger btn-block" role="button" id="menorContBtn" onclick="return onMentorContBtnClick(this);">Continue</a>
+              <a href="mentorForm.html" disabled='disabled' class="btn btn-lg btn-danger btn-block" role="button" id="mentorContBtn" onclick="return onMentorContBtnClick(this);">Continue</a>
             </div>
 
           </form>

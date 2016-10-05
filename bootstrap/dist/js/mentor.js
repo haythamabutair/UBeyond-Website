@@ -22,6 +22,23 @@ function checkPasswordsMatch() {
 
 }
 
+$(function(){
+  $('.form-group-mentor-required').children('input.form-control').keyup(function() {
+
+    var empty = false;
+    $('.form-group-mentor-required').children('input.form-control').each(function() {
+        if ($(this).val() == '') {
+            empty = true;
+        }
+    });
+
+    if (empty) {
+        $('#mentorContBtn').attr('disabled', 'disabled');
+    } else {
+        $('#mentorContBtn').removeAttr('disabled');
+    }
+  });
+});
 /*
  * Begin registering a mentor in the database.
  *
@@ -29,7 +46,7 @@ function checkPasswordsMatch() {
  */
 function onMentorContBtnClick(caller) {
   event.preventDefault(); // Stop auto-navigation to href (chrome, firefox)
-  
+
   // So we can navigate to the target HREF on success
   var href = document.getElementById(caller.id).href;
 
