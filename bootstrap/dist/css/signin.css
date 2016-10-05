@@ -4,6 +4,67 @@ body {
   background-color: #eee;
 }
 
+
+/*navbar CSS*/
+
+.navbar.default-menu {
+  border-radius: 0;
+  border: 0;
+  margin-bottom: 0;
+  /*min-height: 70px;*/
+}
+
+.default-menu.navbar-default .navbar-toggle {
+  border-radius: 0;
+  border-width: 2px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.default-menu.navbar-default .navbar-nav > li > a {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 15px 21px;
+  text-transform: uppercase;
+}
+
+.default-menu.navbar-default .navbar-nav > li > a i {
+    position: relative;
+    line-height: 40px;
+    text-align: center;
+}
+
+.default-menu.navbar-default .navbar-nav > li > a:active,
+.default-menu.navbar-default .navbar-nav > li > a:focus,
+.default-menu.navbar-default .navbar-nav > li > a:hover{
+    color: red;
+}
+
+.default-menu.navbar-default .navbar-nav > .active > a,
+.default-menu.navbar-default .navbar-nav > .active > a:focus,
+.default-menu.navbar-default .navbar-nav > .active > a:hover{
+    background-color: transparent;
+    color: white;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:focus,
+.navbar-default .navbar-nav > .open > a:hover {
+    background-color: transparent;
+    color: black;
+}
+
+.navbar-collapse > li > a{
+  margin-top: -30px;
+  margin-bottom: -15px;
+}
+
+
+
+
+/*rest of page*/
+
 .form-signin {
   max-width: 330px;
   padding: 15px;
@@ -66,8 +127,8 @@ body {
 
 @media(min-width:768px) {
 
-  body {
-    padding-top: 120px;
+  .singinMinusHeader-container {
+    padding-top: 110px;
   }
 
 }
