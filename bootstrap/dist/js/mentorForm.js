@@ -63,3 +63,23 @@ function onMentorContBtn2Click(caller) {
   // Stop auto-navigation to href (IE)
   return false;
 }
+
+
+
+$(function(){
+  $('.form-group-mentor-required').children('input.form-control').keyup(function() {
+
+    var empty = false;
+    $('.form-group-mentor-required').children('input.form-control').each(function() {
+        if ($(this).val() == '') {
+            empty = true;
+        }
+    });
+
+    if (empty) {
+        $('#mentorContBtn2').attr('disabled', 'disabled');
+    } else {
+        $('#mentorContBtn2').removeAttr('disabled');
+    }
+  });
+});
