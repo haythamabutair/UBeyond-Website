@@ -23,9 +23,9 @@ function checkPasswordsMatch() {
 }
 
 // Function to make the datepicker pop up
-$(function() {
-   $( "#birthdate-datepicker" ).datepicker();
-});
+// $(function() {
+//    $( "#birthdate-datepicker" ).datepicker();
+// });
 
 // Function made to trigger after a date has been picked
 $(function(){

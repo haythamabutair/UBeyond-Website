@@ -22,24 +22,24 @@ function checkPasswordsMatch() {
 
 }
 // Function to make the datepicker pop up
-$(function() {
-   $( "#birthdate-mentor-datepicker" ).datepicker();
-});
+// $(function() {
+//    $( "#birthdate-mentor-datepicker" ).datepicker();
+// });
 
 // Function made to trigger after a date has been picked
 $(function(){
   $(document).mousemove(function(){
       var empty = false;
-      $('.form-group-mentee-required').children('input.form-control').each(function() {
+      $('.form-group-mentor-required').children('input.form-control').each(function() {
           if ($(this).val() == '') {
               empty = true;
           }
       });
 
       if (empty) {
-          $('#menteeContBtn').attr('disabled', 'disabled');
+          $('#mentorContBtn').attr('disabled', 'disabled');
       } else {
-          $('#menteeContBtn').removeAttr('disabled');
+          $('#mentorContBtn').removeAttr('disabled');
       }
   });
 });
