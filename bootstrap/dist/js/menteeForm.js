@@ -78,22 +78,3 @@ $(function(){
       }
   });
 });
-
-// Function to require main information to be filled out
-$(function(){
-  $('.form-group-mentee-required').children('input.form-control').keypress(function() {
-
-    var empty = false;
-    $('.form-group-mentee-required').children('input.form-control').each(function() {
-        if ($(this).val() == '') {
-            empty = true;
-        }
-    });
-
-    if (empty) {
-        $('#menteeContBtn2').attr('disabled', 'disabled');
-    } else {
-        $('#menteeContBtn2').removeAttr('disabled');
-    }
-  });
-});

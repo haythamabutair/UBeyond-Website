@@ -66,20 +66,20 @@ function onMentorContBtn2Click(caller) {
 
 
 
+// Function made to trigger after a date has been picked
 $(function(){
-  $('.form-group-mentor-required').children('input.form-control').keyup(function() {
+  $(document).mousemove(function(){
+      var empty = false;
+      $('.form-group-mentor-required').children('input.form-control').each(function() {
+          if ($(this).val() == '') {
+              empty = true;
+          }
+      });
 
-    var empty = false;
-    $('.form-group-mentor-required').children('input.form-control').each(function() {
-        if ($(this).val() == '') {
-            empty = true;
-        }
-    });
-
-    if (empty) {
-        $('#mentorContBtn2').attr('disabled', 'disabled');
-    } else {
-        $('#mentorContBtn2').removeAttr('disabled');
-    }
+      if (empty) {
+          $('#mentorContBtn2').attr('disabled', 'disabled');
+      } else {
+          $('#mentorContBtn2').removeAttr('disabled');
+      }
   });
 });
