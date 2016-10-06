@@ -1,9 +1,9 @@
 ﻿<html>
 <body style="font-family:calibri;font-size:1em;">
-<h1>Welcome to UBeyond, %s!</h1>
+<h1>Welcome to UBeyond, {0}!</h1>
 <p>We're really glad to have you on-board! We're just sending you this email to let you know that we've created your account and are working on finding you a match.</p>
 <p>Be sure to watch your inbox for updates from us.</p>
-<p>Your profile page can be found at www.ubeyond.org/profiles/%s</p>
+<p>Your profile page can be found at www.ubeyond.org/profiles/{1}</p>
 <p>Make sure to like us on <a href="https://www.facebook.com/UBeyond/">facebook</a>!</p>
 <p>Sincerely,</p>
 <p><em>The UBeyond Team</em></p>

@@ -32,22 +32,27 @@ namespace Matching {
         /// <c>true</c> if the email(s) were sent without error, else <c>false</c>.
         /// </returns>
         public static bool SendEmail(MailAddressCollection recipients, string subject, string message) {
-            MailMessage mail = new MailMessage();
-            SmtpClient client = new SmtpClient();
             bool result = true;
 
-            // Configure smtp client
-            client.Credentials = new System.Net.NetworkCredential(GMAIL_ACCT, GMAIL_PASS);
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.EnableSsl = true;
-            client.Host = SMTP_HOST;
-            client.Port = 587;
-            client.UseDefaultCredentials = false;
-
             // Configure mail message
-            mail.Body = message;
-            mail.Subject = subject;
-            mail.From = new MailAddress(GMAIL_ACCT);
+            MailMessage mail = new MailMessage {
+                IsBodyHtml = true,
+                Body = message,
+                Subject = subject,
+                From = new MailAddress(GMAIL_ACCT)
+            };
+
+            // Configure smtp client
+            SmtpClient client = new SmtpClient {
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                EnableSsl = true,
+                Host = SMTP_HOST,
+                Port = 587,
+                UseDefaultCredentials = false, // TODO: we can set this up in web.config and set this to true
+                Credentials = new System.Net.NetworkCredential(GMAIL_ACCT, GMAIL_PASS)
+            };
+
+            // Add recipients
             foreach (MailAddress recipient in recipients) {
                 mail.To.Add(recipient);
             }
@@ -78,13 +83,15 @@ namespace Matching {
         /// 
         /// <remarks>
         /// TODO: Check welcome.txt and put finishing touches on it, including fixing admin email and profile link.
+        /// 
+        /// TODO: Double-check MapPath and make sure we get the correct file set up.
         /// </remarks>
         /// 
         /// <returns>
         /// An HTML-formatted <c>string</c> to serve as the body of the email.
         /// </returns>
         public static string GenerateWelcomeEmail(string name, string userID) {
-            const string TEMPLATE_FILE = "templates/welcome.txt";
+            string TEMPLATE_FILE = System.Web.Hosting.HostingEnvironment.MapPath("App_Data/templates/welcome.txt");
             string message = null;
 
             // Read template into a file
