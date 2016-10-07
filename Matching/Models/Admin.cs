@@ -7,5 +7,9 @@ namespace Matching.Models
 {
     public class Admin : Person
     {
+        public Admin(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, List<string> languages, DateTime birthdate, string pathToHeadshot, string pathToResume, string bio, DateTime preferredStartDate, string languagePreference, string genderPreference) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, languages, birthdate)
+        {
+
+        }
     }
 }

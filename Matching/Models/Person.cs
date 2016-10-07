@@ -17,5 +17,19 @@ namespace Matching.Models
         public string Gender { get; set; } //Male or Female
         public List<string> Languages { get; set; }
         public DateTime Birthdate { get; set; }
+
+        protected Person(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, List<string> languages, DateTime birthdate)
+        {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.MiddleInitial = middleInitial;
+            this.PreferredName = preferredName;
+            this.Address = address;
+            this.PhoneNumber = phoneNumber;
+            this.Email = email;
+            this.Gender = gender;
+            this.Languages = languages;
+            this.Birthdate = birthdate;
+        }
     }
 }
