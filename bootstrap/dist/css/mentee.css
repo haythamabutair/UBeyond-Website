@@ -10,7 +10,7 @@ body {
     left: 0px;
     width: 30%;
     height: 100%;
-    background-color: red;
+    background-color: gray;
     z-index: 1;
 }
 .background-right{
@@ -19,7 +19,7 @@ body {
     right:0px;
     width: 30%;
     height: 100%;
-    background-color: red;
+    background-color: gray;
     z-index: 1;
 }
 /*navbar CSS*/
