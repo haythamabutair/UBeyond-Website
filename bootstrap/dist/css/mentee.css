@@ -142,7 +142,16 @@ textarea {
 #postGradCheck {
   margin-left: 120px;
 }
+/*Required Notation*/
+.form-group-mentee-required .control-label:after {
+  content:"*";
+  color:red;
+}
 
+.form-group-required .control-label:after {
+  content:"*";
+  color:red;
+}
 
 /*MenteeForm stuff*/
 
