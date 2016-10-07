@@ -21,7 +21,7 @@ namespace Matching.Controllers
         public IEnumerable<string> GetMatchedListOfMentors(string menteeUsername)
         {
             //TODO: Query Database and find all users that are available.
-
+            
             //TODO: Filter Mentors on whether they are matchable or not. 
             //      If matchable, find matchingIndex and add to sorted list of (Mentor, matchingIndex)
             /*
