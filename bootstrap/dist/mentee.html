@@ -19,23 +19,13 @@
 
     <!-- Custom styles for this template -->
     <link href="css/mentee.css" rel="stylesheet">
-    <!-- Custom Style for datepicker -->
-    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-
     <!-- JQuery script -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
     <!-- Bootstrap JS -->
     <script src = "js/bootstrap.min.js"></script>
-
-
     <!-- Custom javascript for this template -->
     <script src="js/mentee.js"></script>
     <script src="js/database.js"></script>
-    <!-- JQuery for the Datepicker -->
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="assets/js/ie-emulation-modes-warning.js"></script>
@@ -160,8 +150,8 @@
 
             <!-- ADD IN THE JAVASCRIPT and onclick to show/hide the different divs -->
             <div class="form-group studentRadios">
-              <label class="radio-inline"> <input type="radio" name="studentRadio" id="studentRad" onclick="showHideRegisterInfo()" checked>Student</label>
-              <label class="radio-inline"> <input type="radio" name="studentRadio" id="notStudentRad" onclick="showHideRegisterInfo()">Not a Student</label>
+              <label class="radio-inline"> <input type="radio" name="studentRadio" value="student" id="studentRad" onclick="showHideRegisterInfo()" checked>Student</label>
+              <label class="radio-inline"> <input type="radio" name="studentRadio" value="non-student" id="notStudentRad" onclick="showHideRegisterInfo()">Not a Student</label>
             </div>
 
             <div class="form-group levelRadios" id="levelRadios" style="display:block">
@@ -170,15 +160,16 @@
               <label class="radio-inline"> <input type="radio" name="levelRadio" value="">Graduate</label>
             </div>
 
+            <!-- Student Start Form -->
             <div class="form-group" id="studentRegForm" style="display:block">
 
-              <div class="form-group">
-                <label for="currentSchool" class="sr-only">Current School</label>
+              <div class="form-group-required">
+                <label for="currentSchool" class="control-label">Current School</label>
                 <input type="text" id="currentSchool" class="form-control" placeholder="Current School" required>
               </div>
 
-              <div class="form-group">
-                <label for="major" class="sr-only">Major</label>
+              <div class="form-group-required">
+                <label for="major" class="control-label">Major</label>
                 <input type="text" id="major" class="form-control" placeholder="Major" required>
               </div>
 
@@ -192,8 +183,8 @@
                 <input type="text" id="afterGrad" class="form-control" placeholder="Plans after Graduation">
               </div>
 
-              <div class="form-group">
-                <label for="studentGradDate" >Graduation Date</label>
+              <div class="form-group-required">
+                <label for="studentGradDate" class="control-label">Graduation Date</label>
                 <input type="date" id="studentGradDate" class="form-control" placeholder="Graduation Date">
               </div>
 
@@ -201,25 +192,26 @@
 
             </div><!-- /.studentRegForm -->
 
+            <!-- Non-Student Start Form -->
             <div class="form-group" id="employedRegForm" style="display:none">
 
-              <div class="form-group">
-                <label for="currentEmployer" class="sr-only">Current Employer</label>
+              <div class="form-group-required">
+                <label for="currentEmployer" class="control-label">Current Employer</label>
                 <input type="text" id="currentEmployer" class="form-control" placeholder="Current Employer">
               </div>
 
-              <div class="form-group">
-                <label for="latestDegree" class="sr-only">Latest Degree</label>
+              <div class="form-group-required">
+                <label for="latestDegree" class="control-label">Latest Degree</label>
                 <input type="text" id="latestDegree" class="form-control" placeholder="Latest Degree">
               </div>
 
-              <div class="form-group">
-                <label for="latestSchool" class="sr-only">Latest School</label>
+              <div class="form-group-required">
+                <label for="latestSchool" class="control-label">Latest School</label>
                 <input type="text" id="latestSchool" class="form-control" placeholder="School Name">
               </div>
 
-              <div class="form-group">
-                <label for="employedGradDate">Graduation Date</label>
+              <div class="form-group-required">
+                <label for="employedGradDate" class="control-label">Graduation Date</label>
                 <input type="date" id="employedGradDate" class="form-control" placeholder="Graduation Date">
               </div>
 

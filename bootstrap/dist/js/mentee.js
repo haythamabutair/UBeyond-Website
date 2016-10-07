@@ -22,22 +22,41 @@ function checkPasswordsMatch() {
 
 }
 
-// Function to make the datepicker pop up
-// $(function() {
-//    $( "#birthdate-datepicker" ).datepicker();
-// });
-
 // Function made to trigger after a date has been picked
 $(function(){
   $(document).mousemove(function(){
-      var empty = false;
+      var allFilledOut = true;
+      var mainForm = true;
+      var radioForm = true;
+      // If something is missing 
       $('.form-group-mentee-required').children('input.form-control').each(function() {
-          if ($(this).val() == '') {
-              empty = true;
+        if ($(this).val() == '') {
+              mainForm = false;
           }
       });
+      
+        // Check for student selection and the fields that matter
+      if ($('input[name=studentRadio]:checked').val() == 'student'){
 
-      if (empty) {
+        $('#studentRegForm').children('.form-group-required').children('input.form-control').each(function(){
+          if($(this).val() == ''){
+              radioForm = false;
+            }
+          });
+        
+      }else{
+        $('#employedRegForm').children('.form-group-required').children('input.form-control').each(function(){
+          if($(this).val() == ''){
+              radioForm = false;
+            }
+          });
+        }
+      
+      if (radioForm == false || mainForm == false){
+        allFilledOut = false;
+      }
+
+      if (!allFilledOut) {
           $('#menteeContBtn').attr('disabled', 'disabled');
       } else {
           $('#menteeContBtn').removeAttr('disabled');
