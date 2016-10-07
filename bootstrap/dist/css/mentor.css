@@ -144,7 +144,10 @@ textarea {
   resize: vertical;
 }
 
-
+.form-group-mentor-required .control-label:after {
+  content:"*";
+  color:red;
+}
 
 
 /*MenteeForm stuff*/

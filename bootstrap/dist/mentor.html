@@ -29,7 +29,6 @@
     <!-- Custom javascript for this template -->
     <script src="js/mentor.js"></script>
     <script src="js/database.js"></script>
-
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="assets/js/ie-emulation-modes-warning.js"></script>
@@ -55,7 +54,6 @@
 <!-- Div's for the side backgrounds -->
   <div class="background-left"></div>
   <div class="background-right"></div>
-
 
     <div class="navbar-wrapper">
       <!-- <div class="container"> -->
@@ -84,11 +82,6 @@
 
       <!-- </div> -->
     </div>
-
-
-
-
-
     <div class="container">
 
       <div class="row">
@@ -98,8 +91,8 @@
           <form class="form-signin">
             <h2 class="form-signin-heading">Mentor Registration</h2>
 
-            <div class="">
-              <label for="inputEmail" class="sr-only">Email</label>
+            <div class="form-group-mentor-required">
+              <label for="inputEmail" class="control-label">Email</label>
               <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
             </div>
 
@@ -109,19 +102,19 @@
               <input type="text" id="phoneNumber" class="form-control" placeholder="Phone Number" required>
             </div>
 
-            <div class="form-group">
-              <label for="inputPassword" class="sr-only">Password</label>
+            <div class="form-group-mentor-required">
+              <label for="inputPassword" class="control-label">Password</label>
               <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
             </div>
 
-            <div class="form-group">
-              <label for="confirmPassword" class="sr-only">Confirm Password</label>
+            <div class="form-group-mentor-required">
+              <label for="confirmPassword" class="control-label">Confirm Password</label>
               <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" onkeyup="checkPasswordsMatch();" required>
               <span id="confirmMessage" class="confirmMessage"></span>
             </div>
 
-            <div class="form-group">
-              <label for="firstName" class="sr-only">First Name</label>
+            <div class="form-group-mentor-required">
+              <label for="firstName" class="control-label">First Name</label>
               <input type="text" id="firstName" class="form-control" placeholder="First Name" required>
             </div>
 
@@ -130,8 +123,8 @@
               <input type="text" id="middleInitial" class="form-control" placeholder="Middle Initial" required>
             </div>
 
-            <div class="form-group">
-              <label for="lastName" class="sr-only">Last Name</label>
+            <div class="form-group-mentor-required">
+              <label for="lastName" class="control-label">Last Name</label>
               <input type="text" id="lastName" class="form-control" placeholder="Last Name" required>
             </div>
 
@@ -140,9 +133,11 @@
               <input type="text" id="preferredName" class="form-control" placeholder="Preferred Name">
             </div>
 
-            <div class="form-group">
-              <label for="bday">Birth Date</label>
+            <div class="form-group-mentor-required">
+              <label for="bday" class="control-label">Birth Date</label>
               <input type="date" id="bday" class="form-control" placeholder="Birth Date" required>
+              <!-- <input type="text" class='form-control' placeholder='Birth Date' id="birthdate-mentor-datepicker"> -->
+
             </div>
 
             <div class="form-group">
@@ -234,7 +229,7 @@
 
 
             <div class="form-group">
-              <a href="mentorForm.html" class="btn btn-lg btn-danger btn-block" role="button" id="menorContBtn" onclick="return onMentorContBtnClick(this);">Continue</a>
+              <a href="mentorForm.html" disabled='disabled' class="btn btn-lg btn-danger btn-block" role="button" id="mentorContBtn" onclick="return onMentorContBtnClick(this);">Continue</a>
             </div>
 
           </form>
