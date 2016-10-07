@@ -28,13 +28,13 @@ $(function(){
       var allFilledOut = true;
       var mainForm = true;
       var radioForm = true;
-      // If something is missing 
+      // If something is missing
       $('.form-group-mentee-required').children('input.form-control').each(function() {
         if ($(this).val() == '') {
               mainForm = false;
           }
       });
-      
+
         // Check for student selection and the fields that matter
       if ($('input[name=studentRadio]:checked').val() == 'student'){
 
@@ -43,7 +43,7 @@ $(function(){
               radioForm = false;
             }
           });
-        
+
       }else{
         $('#employedRegForm').children('.form-group-required').children('input.form-control').each(function(){
           if($(this).val() == ''){
@@ -51,15 +51,15 @@ $(function(){
             }
           });
         }
-      
+
       if (radioForm == false || mainForm == false){
         allFilledOut = false;
       }
 
       if (!allFilledOut) {
-          $('#menteeContBtn').attr('disabled', 'disabled');
+          $('#menteeContBtn').prop('disabled', true);
       } else {
-          $('#menteeContBtn').removeAttr('disabled');
+          $('#menteeContBtn').prop('disabled',false);
       }
   });
 });
