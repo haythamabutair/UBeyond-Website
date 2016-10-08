@@ -122,20 +122,26 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MatchingController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\Match.cs" />
+    <Compile Include="Models\MenteeQuestionnaire.cs" />
+    <Compile Include="Models\MentorQuestionnaire.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Mentee.cs" />
     <Compile Include="Models\Mentor.cs" />
     <Compile Include="App_Data\Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\MatchingUtility.cs" />
+    <Compile Include="Utilities\FirebaseUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -145,8 +151,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Matching\" />
+    <Folder Include="Views\Registration\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

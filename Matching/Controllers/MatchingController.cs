@@ -4,8 +4,6 @@ using System.Web.Http;
 using Matching.Models;
 using Matching.Utilities;
 
-using Matching.Models;
-
 namespace Matching.Controllers
 {
     /// <summary>
@@ -22,32 +20,7 @@ namespace Matching.Controllers
         [Route("match/mentor/{mentorUID}")]
         public IHttpActionResult MatchMentor(string mentorUID)
         {
-            //get user list and handle all errors
-            List<User> userList = null;
-            try
-            {
-                userList = MatchingUtility.getUserList();
-            } catch
-            {
-                return InternalServerError();
-            }
-            if(userList == null)
-            {
-                return InternalServerError();
-            }
-
-            //traverse user list and find first available mentee
-            foreach(User user in userList)
-            {
-                if(user.IsAvailable && user.UserType == "mentee")
-                {
-                    //Push results to database
-                    return Ok(1);
-                }
-            }
-
-
-            return BadRequest("Could not find available mentee");
+            
         }
 
         /// <summary>
@@ -56,36 +29,10 @@ namespace Matching.Controllers
         /// <param name="mentorUsername"></param>
         /// <param name="menteeUsername"></param>
         /// <returns></returns>
-        [Route("match/mentee/{menteeToken}")]
-        public IHttpActionResult MatchMentee(string menteeUsername, string mentorUsername)
+        [Route("match/mentee/{menteeUid}")]
+        public IHttpActionResult MatchMentee(string menteeUID)
         {
-            //get user list and handle all errors
-            List<User> userList = null;
-            try
-            {
-                userList = MatchingUtility.getUserList();
-            }
-            catch
-            {
-                return InternalServerError();
-            }
-            if (userList == null)
-            {
-                return InternalServerError();
-            }
-
-            //traverse user list and find first available mentor
-            foreach (User user in userList)
-            {
-                if (user.IsAvailable && user.UserType == "mentor")
-                {
-                    //Push results to database
-                    return Ok(1);
-                }
-            }
-
-
-            return BadRequest("Could not find available mentor");
+            
         }
 
         public double GetMatchStrength(Mentor mentor, Mentee mentee)
