@@ -11,6 +11,7 @@
 
     <title>Register | UBeyond</title>
 
+
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -19,6 +20,9 @@
 
     <!-- Custom styles for this template -->
     <link href="css/mentor.css" rel="stylesheet">
+
+    <!-- JQuery script -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <!-- Bootstrap JS -->
     <script src = "js/bootstrap.min.js"></script>
@@ -30,9 +34,6 @@
 
     <!-- filestyle JS file for uploading files feedback -->
     <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
-
-    <!-- JQuery script -->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -56,6 +57,43 @@
 
   <body>
 
+<!-- Div's for the side backgrounds -->
+  <div class="background-left"></div>
+  <div class="background-right"></div>
+  
+    <div class="navbar-wrapper">
+      <!-- <div class="container"> -->
+
+      <nav class="navbar navbar-default navbar-static-top default-menu" style="background-image: url('img/black_paper.jpg')">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand default-logo" href="signin.html">U-Beyond</a>
+          </div>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="signin.html">Home</a></li>
+              <li><a href="mentee.html">Mentee Registration</a></li>
+              <li class="active"><a href="mentor.html">Mentor Registration</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- </div> -->
+    </div>
+
+
+
+
+
+
     <div class="container">
 
       <div class="row">
@@ -70,23 +108,23 @@
 
             <h4 id="mentorExperience">Experience</h4>
 
-            <div class="form-group">
-              <label for="currentEmployer" class="sr-only">Current Employer</label>
+            <div class="form-group-mentor-required">
+              <label for="currentEmployer" class="control-label">Current Employer</label>
               <input type="text" id="currentEmployer" class="form-control" placeholder="Current Employer">
             </div>
 
-            <div class="form-group">
-              <label for="fieldExpertise" class="sr-only">Field of Expertise</label>
+            <div class="form-group-mentor-required">
+              <label for="fieldExpertise" class="control-label">Field of Expertise</label>
               <input type="text" id="fieldExpertise" class="form-control" placeholder="Field of Expertise">
             </div>
 
-            <div class="form-group">
-              <label for="yearsExp" class="sr-only">Years Experience</label>
+            <div class="form-group-mentor-required">
+              <label for="yearsExp" class="control-label">Years Experience</label>
               <input type="number" id="yearsExp" class="form-control" placeholder="Years Experience">
             </div>
 
-            <div class="form-group">
-              <label for="fluentLangs" class="sr-only">Fluent Languages</label>
+            <div class="form-group-mentor-required">
+              <label for="fluentLangs" class="control-label">Fluent Languages</label>
               <input type="text" id="fluentLangs" class="form-control" placeholder="Fluent Languages">
             </div>
 
@@ -168,7 +206,7 @@
 
 
             <div class="form-group">
-              <input type="submit" class="btn btn-lg btn-danger btn-block" href="#" id="mentorContBtn2" value="Register" onclick="return onMentorContBtn2Click(this);">
+              <input type="submit" disabled="disabled" class="btn btn-lg btn-danger btn-block" href="#" id="mentorContBtn2" value="Register" onclick="event.preventDefault();return onMentorContBtn2Click(this);">
               <!-- <button class="btn btn-lg btn-danger btn-block" type="submit" href="#" id="menteeContBtn2">Register</button> -->
             </div>
 

@@ -5,23 +5,11 @@ using System.Web;
 
 namespace Matching.Models
 {
-    public class Admin
+    public class Admin : Person
     {
-        public string Username { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string MiddleName { get; set; }
-        public string PreferredName { get; set; }
-        public string Address { get; set; }
-        public string Bio { get; set; }
-        public DateTime Birthdate { get; set; }
-        public string CurrentStatus { get; set; }
-        public string Email { get; set; }
-        public string Gender { get; set; }
-        public List<string> Languages { get; set; }
-        public string PhoneNumber { get; set; }
-        public DateTime PreferredStartDate { get; set; }
-        public string PathToHeadshot { get; set; }
-        public string PathToResume { get; set; }
+        public Admin(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, List<string> languages, DateTime birthdate, string pathToHeadshot, string pathToResume, string bio, DateTime preferredStartDate, string languagePreference, string genderPreference) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, languages, birthdate)
+        {
+
+        }
     }
 }

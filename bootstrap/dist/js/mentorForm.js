@@ -4,8 +4,6 @@
  * TODO: Instead of alert(), use a more user-friendly alert system.
  */
 function onMentorContBtn2Click(caller) {
-  event.preventDefault(); // Stop auto-navigation to href (chrome, firefox)
-
   // So we can navigate to the target HREF on success
   var href = document.getElementById(caller.id).href;
 
@@ -65,3 +63,23 @@ function onMentorContBtn2Click(caller) {
   // Stop auto-navigation to href (IE)
   return false;
 }
+
+
+
+// Function made to trigger after a date has been picked
+$(function(){
+  $(document).mousemove(function(){
+      var empty = false;
+      $('.form-group-mentor-required').children('input.form-control').each(function() {
+          if ($(this).val() == '') {
+              empty = true;
+          }
+      });
+
+      if (empty) {
+          $('#mentorContBtn2').attr('disabled', 'disabled');
+      } else {
+          $('#mentorContBtn2').removeAttr('disabled');
+      }
+  });
+});
