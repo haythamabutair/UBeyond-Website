@@ -11,7 +11,7 @@ namespace Matching {
 
         // Gmail account used for sending mail over SMTP
         private const string GMAIL_ACCT = "noreplyubeyond@gmail.com";
-        private const string GMAIL_PASS = "ubeyond1";
+        private const string GMAIL_PASS = "ubeyond2";
 
         // Host we will use for sending email via SMTP
         private const string SMTP_HOST = "smtp.gmail.com";
