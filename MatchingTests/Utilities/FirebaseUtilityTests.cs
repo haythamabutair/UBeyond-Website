@@ -22,5 +22,11 @@ namespace Matching.Utilities.Tests
         {
             Assert.AreEqual(FirebaseUtility.GetUserFirstName("LJliMHILEVX1lzO6vRyC0sEl63e2").Result, "Evan");
         }
+
+        [TestMethod()]
+        public void GetUserListTest()
+        {
+            FirebaseUtility.GetUserList();
+        }
     }
 }

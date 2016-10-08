@@ -20,7 +20,7 @@ namespace Matching.Controllers
         [Route("match/mentor/{mentorUID}")]
         public IHttpActionResult MatchMentor(string mentorUID)
         {
-            
+            return Ok(1);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Matching.Controllers
         [Route("match/mentee/{menteeUid}")]
         public IHttpActionResult MatchMentee(string menteeUID)
         {
-            
+            return Ok(1);
         }
 
         public double GetMatchStrength(Mentor mentor, Mentee mentee)
