@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 
+using Matching.Models;
+
 namespace Matching.Controllers
 {
     /// <summary>
@@ -54,6 +56,52 @@ namespace Matching.Controllers
 
             //TODO: Check if the mentor and mentee have the basic mecessary requirements to match
             return Ok(-1);
+        }
+
+        public double GetMatchStrength(Mentor mentor, Mentee mentee)
+        {
+            double strength = 1.0;
+
+            //todo: find better metric for finding field similarity
+            strength *= CalcNormalizedLevenshteinDistance(mentor.FieldOfExpertise, mentee.FieldPreference);
+
+            //gender metric
+            strength *= mentee.Gender.Equals(mentor.GenderPreference) ? 1.2 : 0.8;
+            strength *= mentee.GenderPreference.Equals(mentor.Gender) ? 1.2 : 0.8;
+
+            //language metric
+            strength *= mentee.Languages.Contains(mentor.LanguagePreference) ? 1.1 : 0.9;
+            strength *= mentor.Languages.Contains(mentee.LanguagePreference) ? 1.1 : 0.9;
+
+            return strength;
+        }
+        
+
+        //for finding similarity between two strings, normalized by their lengths. not a perfect metric
+        private static double CalcNormalizedLevenshteinDistance(string a, string b)
+        {
+            if (String.IsNullOrEmpty(a) || String.IsNullOrEmpty(b)) return 0;
+
+            int lengthA = a.Length;
+            int lengthB = b.Length;
+            var distances = new int[lengthA + 1, lengthB + 1];
+            for (int i = 0; i <= lengthA; distances[i, 0] = i++) ;
+            for (int j = 0; j <= lengthB; distances[0, j] = j++) ;
+
+            for (int i = 1; i <= lengthA; i++)
+            {
+                for (int j = 1; j <= lengthB; j++)
+                {
+                    int cost = b[j - 1] == a[i - 1] ? 0 : 1;
+                    distances[i, j] = Math.Min
+                        (
+                        Math.Min(distances[i - 1, j] + 1, distances[i, j - 1] + 1),
+                        distances[i - 1, j - 1] + cost
+                        );
+                }
+            }
+
+            return 2 * (double)distances[lengthA, lengthB] / (lengthA + lengthB);
         }
     }
 }

@@ -7,6 +7,8 @@ namespace Matching.Models
 {
     public class Mentee : User
     {
+        public List<MenteeQuestionnaire> questionnaires { get; set; }
+
         public string Skills { get; set; }
         public string FieldPreference { get; set; }
 
@@ -34,7 +36,7 @@ namespace Matching.Models
 
         
         //if in high school
-        public Mentee(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, List<string> languages, DateTime birthdate, string pathToHeadshot, string pathToResume, string bio, DateTime preferredStartDate, string languagePreference, string genderPreference, string skills, string fieldPreference, string employmentStatus, string currentSchool, DateTime expectedGradDate, string futurePlans, int grade) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, languages, birthdate, pathToHeadshot, pathToResume, bio, preferredStartDate, languagePreference, genderPreference)
+        public Mentee(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, List<string> languages, DateTime birthdate, string pathToHeadshot, string pathToResume, string bio, DateTime preferredStartDate, string languagePreference, string genderPreference, string skills, string fieldPreference, string employmentStatus, string currentSchool, DateTime expectedGradDate, string futurePlans, int grade, MenteeQuestionnaire initialQuestionnaire) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, languages, birthdate, pathToHeadshot, pathToResume, bio, preferredStartDate, languagePreference, genderPreference)
         {
             this.Skills = skills;
             this.FieldPreference = fieldPreference;
@@ -45,10 +47,13 @@ namespace Matching.Models
             this.ExpectedGradDate = expectedGradDate;
             this.FuturePlans = futurePlans;
             this.Grade = grade;
+
+            questionnaires = new List<MenteeQuestionnaire>();
+            questionnaires.Add(initialQuestionnaire);
         }
         
         //if undergraduate or graduate
-        public Mentee(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, List<string> languages, DateTime birthdate, string pathToHeadshot, string pathToResume, string bio, DateTime preferredStartDate, string languagePreference, string genderPreference, string skills, string fieldPreference, string employmentStatus, bool isUndergrad, string currentSchool, DateTime expectedGradDate, string futurePlans, string major, string minor, bool interestedInPostGrad) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, languages, birthdate, pathToHeadshot, pathToResume, bio, preferredStartDate, languagePreference, genderPreference)
+        public Mentee(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, List<string> languages, DateTime birthdate, string pathToHeadshot, string pathToResume, string bio, DateTime preferredStartDate, string languagePreference, string genderPreference, string skills, string fieldPreference, string employmentStatus, bool isUndergrad, string currentSchool, DateTime expectedGradDate, string futurePlans, string major, string minor, bool interestedInPostGrad, MenteeQuestionnaire initialQuestionnaire) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, languages, birthdate, pathToHeadshot, pathToResume, bio, preferredStartDate, languagePreference, genderPreference)
         {
             this.Skills = skills;
             this.FieldPreference = fieldPreference;
@@ -58,10 +63,13 @@ namespace Matching.Models
             this.Major = major;
             this.Minor = minor;
             this.InterestedInPostGrad = interestedInPostGrad;
+
+            questionnaires = new List<MenteeQuestionnaire>();
+            questionnaires.Add(initialQuestionnaire);
         }
 
         //if employed
-        public Mentee(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, List<string> languages, DateTime birthdate, string pathToHeadshot, string pathToResume, string bio, DateTime preferredStartDate, string languagePreference, string genderPreference, string skills, string fieldPreference, string employmentStatus, string highestDegree, string schoolName, string employer, DateTime gradDate, string careerGoals, string careerPlans) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, languages, birthdate, pathToHeadshot, pathToResume, bio, preferredStartDate, languagePreference, genderPreference)
+        public Mentee(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, List<string> languages, DateTime birthdate, string pathToHeadshot, string pathToResume, string bio, DateTime preferredStartDate, string languagePreference, string genderPreference, string skills, string fieldPreference, string employmentStatus, string highestDegree, string schoolName, string employer, DateTime gradDate, string careerGoals, string careerPlans, MenteeQuestionnaire initialQuestionnaire) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, languages, birthdate, pathToHeadshot, pathToResume, bio, preferredStartDate, languagePreference, genderPreference)
         {
             this.Skills = skills;
             this.FieldPreference = fieldPreference;
@@ -73,6 +81,9 @@ namespace Matching.Models
             this.GradDate = gradDate;
             this.CareerGoals = careerGoals;
             this.CareerPlans = careerPlans;
+
+            questionnaires = new List<MenteeQuestionnaire>();
+            questionnaires.Add(initialQuestionnaire);
         }
     }
 }
