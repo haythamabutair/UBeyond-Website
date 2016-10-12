@@ -50,7 +50,7 @@
 <!-- Div's for the side backgrounds -->
   <div class="background-left"></div>
   <div class="background-right"></div>
-  
+
     <div class="navbar-wrapper">
       <!-- <div class="container"> -->
 
@@ -97,9 +97,9 @@
               <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
             </div>
 
-            <div class="form-group">
+            <div class="form-group-mentee-required">
               <!-- get this phone number attributes working so only phone numbers allowed -->
-              <label for="phoneNumber" class="sr-only">Phone Number</label>
+              <label for="phoneNumber" class="control-label">Phone Number</label>
               <input type="text" id="phoneNumber" class="form-control" placeholder="Phone Number" required>
             </div>
 
@@ -119,8 +119,8 @@
               <input type="text" id="firstName" class="form-control" placeholder="First Name" required>
             </div>
 
-            <div class="form-group">
-              <label for="middleInitial" class="sr-only">Middle Initial</label>
+            <div class="form-group-mentee-required">
+              <label for="middleInitial" class="control-label">Middle Initial</label>
               <input type="text" id="middleInitial" class="form-control" placeholder="Middle Initial" required>
             </div>
 
@@ -129,8 +129,8 @@
               <input type="text" id="lastName" class="form-control" placeholder="Last Name" required>
             </div>
 
-            <div class="form-group">
-              <label for="preferredName" class="sr-only">Preferred Name</label>
+            <div class="form-group-mentee-required">
+              <label for="preferredName" class="control-label">Preferred Name</label>
               <input type="text" id="preferredName" class="form-control" placeholder="Preferred Name">
             </div>
 
@@ -141,8 +141,8 @@
 
             </div>
 
-            <div class="form-group">
-              <label for="gender">Gender</label>
+            <div class="form-group-mentee-required">
+              <label for="gender" class="control-label">Gender</label>
               <select class="form-control" id="gender">
                 <option>Male</option>
                 <option>Female</option>
@@ -158,9 +158,9 @@
             </div>
 
             <div class="form-group levelRadios" id="levelRadios" style="display:block">
-              <label class="radio-inline"> <input type="radio" name="levelRadio" value="">High School</label>
-              <label class="radio-inline"> <input type="radio" name="levelRadio" value="">Undergraduate</label>
-              <label class="radio-inline"> <input type="radio" name="levelRadio" value="">Graduate</label>
+              <label class="radio-inline"> <input type="radio" name="levelRadio" value="highSchool" checked>High School</label>
+              <label class="radio-inline"> <input type="radio" name="levelRadio" value="undergraduate">Undergraduate</label>
+              <label class="radio-inline"> <input type="radio" name="levelRadio" value="graduate">Graduate</label>
             </div>
 
             <!-- Student Start Form -->
@@ -176,13 +176,13 @@
                 <input type="text" id="major" class="form-control" placeholder="Major" required>
               </div>
 
-              <div class="form-group">
-                <label for="minor" class="sr-only">Minor</label>
+              <div class="form-group-required">
+                <label for="minor" class="control-label">Minor</label>
                 <input type="text" id="minor" class="form-control" placeholder="Minor">
               </div>
 
-              <div class="form-group">
-                <label for="afterGrad" class="sr-only">Plans after Graduation</label>
+              <div class="form-group-required">
+                <label for="afterGrad" class="control-label">Plans after Graduation</label>
                 <input type="text" id="afterGrad" class="form-control" placeholder="Plans after Graduation">
               </div>
 
@@ -218,13 +218,13 @@
                 <input type="date" id="employedGradDate" class="form-control" placeholder="Graduation Date">
               </div>
 
-              <div class="form-group">
-                <label for="careerPlan">Career Plan</label>
+              <div class="form-group-required">
+                <label for="careerPlan" class="control-label">Career Plan</label>
                 <textarea class="form-control" id="careerPlan" rows="2" placeholder=""></textarea>
               </div>
 
-              <div class="form-group">
-                <label for="careerGoals">Career Goals</label>
+              <div class="form-group-required">
+                <label for="careerGoals" class="control-label">Career Goals</label>
                 <textarea class="form-control" id="careerGoals" rows="2" placeholder=""></textarea>
               </div>
 
