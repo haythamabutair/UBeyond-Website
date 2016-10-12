@@ -17,5 +17,8 @@
     <Setting Name="GoogleX509ApiUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com</Value>
     </Setting>
+    <Setting Name="Epoch" Type="System.DateTime" Scope="Application">
+      <Value Profile="(Default)">1970-01-01</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

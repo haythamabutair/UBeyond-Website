@@ -116,6 +116,7 @@ namespace Matching {
         }
 
         private static bool IsTokenLifetimeValid(DateTime received, DateTime issued, DateTime expiry) {
+            Console.WriteLine("R:{0}\nI:{1}\nE:{2}", received, issued, expiry);
             return received >= issued && received < expiry;
         }
 
@@ -159,9 +160,9 @@ namespace Matching {
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             JwtSecurityToken token = handler.ReadJwtToken(idToken);
 
-            // Convert issuing and expiration dates to DateTime
-            DateTime issued = new DateTime((long)token.Payload.Iat);
-            DateTime expiry = new DateTime((long)token.Payload.Exp);
+            // Convert issuing and expiration dates to DateTime (Iat and Exp in seconds since UNIX Epoch)
+            DateTime issued = Properties.Settings.Default.Epoch.AddSeconds((double)token.Payload.Iat);
+            DateTime expiry = Properties.Settings.Default.Epoch.AddSeconds((double)token.Payload.Exp);
 
             // Return value
             ValidationResult status = ValidationResult.VALIDATED;
@@ -178,7 +179,7 @@ namespace Matching {
                 status = ValidationResult.TOKEN_INVALID_KID;
             }
             // Check that token is not expired
-            else if (!IsTokenLifetimeValid(received, issued, expiry)) {
+            else if (!IsTokenLifetimeValid(received.ToUniversalTime(), issued, expiry)) {
                 status = ValidationResult.TOKEN_EXPIRED;
             }
             // Validate issuer

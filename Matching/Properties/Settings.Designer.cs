@@ -68,5 +68,14 @@ namespace Matching.Properties {
                 return ((string)(this["GoogleX509ApiUrl"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1970-01-01")]
+        public global::System.DateTime Epoch {
+            get {
+                return ((global::System.DateTime)(this["Epoch"]));
+            }
+        }
     }
 }
