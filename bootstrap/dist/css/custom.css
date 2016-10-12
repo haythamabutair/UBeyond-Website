@@ -4,7 +4,6 @@ body {
   background-color: #eee;
 }
 
-
 /*navbar CSS*/
 
 .navbar.default-menu {
@@ -63,19 +62,19 @@ body {
 
 
 
-/*rest of page*/
+/*singin custom css*/
 
-.form-signin {
+.form-signin-home {
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
 }
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
+.form-signin-home .form-signin-heading-home,
+.form-signin-home .checkbox {
   margin-bottom: 20px;
   margin-left: 60px;
 }
-.form-signin .checkbox {
+.form-signin-home .checkbox {
   font-weight: normal;
   margin-left: 80px;
   margin-bottom: 10px;
@@ -101,7 +100,19 @@ body {
   margin-bottom: 20px;
 }
 
+/*#menteeRegBtn,
+#mentorRegBtn {
+  margin-bottom: 10px;
+}*/
 
+
+
+
+
+/*custom css for signin, mentee, menteeForm, mentor, mentorForm*/
+
+
+.form-signin-home .form-control,
 .form-signin .form-control {
   position: relative;
   height: auto;
@@ -111,22 +122,160 @@ body {
   padding: 10px;
   font-size: 16px;
 }
+.form-signin-home .form-control:focus,
 .form-signin .form-control:focus {
   z-index: 2;
 }
+.form-signin-home input[type="email"],
 .form-signin input[type="email"] {
   margin-bottom: 10px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.form-signin input[type="password"] {
+.form-signin-home input[type="password"],
+.form-signin input[type="email"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
+textarea {
+  resize: vertical;
+}
+
+.regUploadBtns {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  margin-left: -28px;
+}
+
+      /*Backgroun side items*/
+.background-left {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 30%;
+    height: 100%;
+    background-color: gray;
+    z-index: 1;
+}
+.background-right{
+     position: fixed;
+    top: 0px;
+    right:0px;
+    width: 30%;
+    height: 100%;
+    background-color: gray;
+    z-index: 1;
+}
+
+
+
+/*custom css for mentee, menteeForm, mentor, mentorForm*/
+.form-signin {
+  max-width: 400px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 40px;
+  margin-left: 50px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+  margin-left: 90px;
+  margin-bottom: 10px;
+}
+
+.form-control {
+  margin-bottom: 10px;
+}
+
+
+
+
+
+/*mentee and menteeForm custom css*/
+
+.studentRadios {
+  text-align: center;
+}
+
+.levelRadios {
+  text-align: center;
+}
+
+#postGradCheck {
+  margin-left: 120px;
+}
+
+      /*Required Notation*/
+.form-group-mentee-required .control-label:after {
+  content:"*";
+  color:red;
+}
+
+.form-group-required .control-label:after {
+  content:"*";
+  color:red;
+}
+
+      /*MenteeForm stuff*/
+
+#mentorPrefID {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#MenteeFormHeader {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+#menteeContBtn2 {
+  margin-top: 30px;
+}
+
+
+
+
+
+
+/*mentor and mentorForm custom css*/
+
+.form-group-mentor-required .control-label:after {
+  content:"*";
+  color:red;
+}
+
+#MenteeFormHeader {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+#menteeContBtn2 {
+  margin-top: 30px;
+}
+
+
+      /*MentorForm Stuff*/
+#zipID {
+  margin-bottom: 30px;
+}
+
+#mentorExperience {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+
+
 @media(min-width:768px) {
 
+
+  /*signinPage container padding*/
   .singinMinusHeader-container {
     padding-top: 110px;
   }
