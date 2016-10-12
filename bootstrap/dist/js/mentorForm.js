@@ -70,7 +70,7 @@ function onMentorContBtn2Click(caller) {
 $(function(){
   $(document).mousemove(function(){
       var empty = false;
-      $('.form-group-mentor-required').children('input.form-control').each(function() {
+      $('.form-group-mentor-required').children('.form-control').each(function() {
           if ($(this).val() == '') {
               empty = true;
           }
