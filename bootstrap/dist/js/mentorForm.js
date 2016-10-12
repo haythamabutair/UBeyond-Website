@@ -3,9 +3,11 @@
  *
  * TODO: Instead of alert(), use a more user-friendly alert system.
  */
-function onMentorContBtn2Click(caller) {
+function onMentorContBtn2Click(event) {
+  event.preventDefault();
+
   // So we can navigate to the target HREF on success
-  var href = document.getElementById(caller.id).href;
+  var href = document.getElementById("mentorContBtn2").href;
 
   // Collect remainder of mentor data
   // TODO: Resume upload

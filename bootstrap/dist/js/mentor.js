@@ -51,12 +51,12 @@ $(function(){
  *
  * TODO: Instead of alert(), use a more user-friendly alert system.
  */
-function onMentorContBtnClick(caller) {
+function onMentorContBtnClick(event) {
   event.preventDefault(); // Stop auto-navigation to href (chrome, firefox)
   //Check to see that all required information is provided.
   if(canUseBtn == true){
     // So we can navigate to the target HREF on success
-    var href = document.getElementById(caller.id).href;
+    var href = document.getElementById("mentorContBtn").href;
 
     var email = document.getElementById('inputEmail').value;
     var password = document.getElementById('inputPassword').value;
@@ -104,8 +104,8 @@ function onMentorContBtnClick(caller) {
         alert(response);
       }
     });
-
-    // Stop auto-navigation to href (IE)
-    return false;
   }
+
+  // Stop auto-navigation to href (IE)
+  return false;
 }

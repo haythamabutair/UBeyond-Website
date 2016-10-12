@@ -75,12 +75,12 @@ $(function(){
  *
  * TODO: Instead of alert(), use a more user-friendly alert system.
  */
-function onMenteeContBtnClick(caller) {
+function onMenteeContBtnClick(event) {
   event.preventDefault(); // Stop auto-navigation to href (chrome, firefox)
   //Check to see that all required information is provided.
   if(canUseBtn == true){
   // So we can navigate to the target HREF on success
-    var href = document.getElementById(caller.id).href;
+    var href = document.getElementById("menteeContBtn").href;
 
     var email = document.getElementById('inputEmail').value;
     var password = document.getElementById('inputPassword').value;
@@ -143,8 +143,8 @@ function onMenteeContBtnClick(caller) {
         alert(response);
       }
     });
-
-    // Stop auto-navigation to href (IE)
-    return false;
   }
+
+  // Stop auto-navigation to href (IE)
+  return false;
 }

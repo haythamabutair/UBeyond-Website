@@ -3,9 +3,11 @@
  *
  * TODO: Instead of alert(), use a more user-friendly alert system.
  */
-function onMenteeContBtn2Click(caller) {
+function onMenteeContBtn2Click(event) {
+  event.preventDefault();
+
   // So we can navigate to the target HREF on success
-  var href = document.getElementById(caller.id).href;
+  var href = document.getElementById("menteeContBtn2").href;
 
   // Collect remainder of mentee data
   var genderPrefObj = document.getElementById('gender');
