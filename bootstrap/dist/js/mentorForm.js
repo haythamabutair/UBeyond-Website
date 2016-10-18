@@ -3,9 +3,11 @@
  *
  * TODO: Instead of alert(), use a more user-friendly alert system.
  */
-function onMentorContBtn2Click(caller) {
+function onMentorContBtn2Click(event) {
+  event.preventDefault();
+
   // So we can navigate to the target HREF on success
-  var href = document.getElementById(caller.id).href;
+  var href = document.getElementById("mentorContBtn2").href;
 
   // Collect remainder of mentor data
   // TODO: Resume upload
@@ -70,7 +72,7 @@ function onMentorContBtn2Click(caller) {
 $(function(){
   $(document).mousemove(function(){
       var empty = false;
-      $('.form-group-mentor-required').children('input.form-control').each(function() {
+      $('.form-group-mentor-required').children('.form-control').each(function() {
           if ($(this).val() == '') {
               empty = true;
           }

@@ -59,7 +59,7 @@
 <!-- Div's for the side backgrounds -->
   <div class="background-left"></div>
   <div class="background-right"></div>
-  
+
     <div class="navbar-wrapper">
       <!-- <div class="container"> -->
 
@@ -72,12 +72,12 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand default-logo" href="signin.html">U-Beyond</a>
+            <a class="navbar-brand default-logo" href="index.html">U-Beyond</a>
           </div>
 
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="signin.html">Home</a></li>
+              <li><a href="index.html">Home</a></li>
               <li class="active"><a href="mentee.html">Mentee Registration</a></li>
               <li><a href="mentor.html">Mentor Registration</a></li>
             </ul>
@@ -151,40 +151,40 @@
 
 
             <h4 id="MenteeFormHeader">Mentee Form</h4>
-            <div class="form-group">
-              <label for="mFormQ1">Where do you want to improve?</label>
+            <div class="form-group-mentee-required">
+              <label for="mFormQ1" class="control-label">Where do you want to improve?</label>
               <textarea class="form-control menteeForm" id="mFormQ1" rows="3" placeholder=""></textarea>
             </div>
 
-            <div class="form-group">
-              <label for="mFormQ2">What will you do to achieve this?</label>
+            <div class="form-group-mentee-required">
+              <label for="mFormQ2" class="control-label">What will you do to achieve this?</label>
               <textarea class="form-control menteeForm" id="mFormQ2" rows="3" placeholder=""></textarea>
             </div>
 
-            <div class="form-group">
-              <label for="mFormQ3">How will you know you succeeded?</label>
+            <div class="form-group-mentee-required">
+              <label for="mFormQ3" class="control-label">How will you know you succeeded?</label>
               <textarea class="form-control menteeForm" id="mFormQ3" rows="3" placeholder=""></textarea>
             </div>
 
-            <div class="form-group">
-              <label for="mFormQ4">When will you be satisfied?</label>
+            <div class="form-group-mentee-required">
+              <label for="mFormQ4" class="control-label">When will you be satisfied?</label>
               <textarea class="form-control menteeForm" id="mFormQ4" rows="3" placeholder=""></textarea>
             </div>
 
-            <div class="form-group">
-              <label for="mFormQ5">How can my mentor help me?</label>
+            <div class="form-group-mentee-required">
+              <label for="mFormQ5" class="control-label">How can my mentor help me?</label>
               <textarea class="form-control menteeForm" id="mFormQ5" rows="3" placeholder=""></textarea>
             </div>
 
-            <div class="form-group">
-              <label for="mFormQ6">What is my time frame to succeed?</label>
+            <div class="form-group-mentee-required">
+              <label for="mFormQ6" class="control-label">What is my time frame to succeed?</label>
               <textarea class="form-control menteeForm" id="mFormQ6" rows="3" placeholder=""></textarea>
             </div>
 
 
 
             <div class="form-group">
-              <input type="submit" disabled='disabled' class="btn btn-lg btn-danger btn-block" href="#" id="menteeContBtn2" value="Register" onclick="event.preventDefault();return onMenteeContBtn2Click(this);">
+              <input type="submit" disabled='disabled' class="btn btn-lg btn-danger btn-block" href="#" id="menteeContBtn2" value="Register" onclick="onMenteeContBtn2Click(event);">
             </div>
             <!-- <button class="btn btn-lg btn-danger btn-block" type="submit" href="#" id="menteeContBtn2">Register</button> -->
 

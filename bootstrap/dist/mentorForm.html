@@ -60,7 +60,7 @@
 <!-- Div's for the side backgrounds -->
   <div class="background-left"></div>
   <div class="background-right"></div>
-  
+
     <div class="navbar-wrapper">
       <!-- <div class="container"> -->
 
@@ -73,12 +73,12 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand default-logo" href="signin.html">U-Beyond</a>
+            <a class="navbar-brand default-logo" href="index.html">U-Beyond</a>
           </div>
 
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="signin.html">Home</a></li>
+              <li><a href="index.html">Home</a></li>
               <li><a href="mentee.html">Mentee Registration</a></li>
               <li class="active"><a href="mentor.html">Mentor Registration</a></li>
             </ul>
@@ -142,8 +142,8 @@
 
 
 
-            <div class="form-group">
-              <label for="menteeBio">Skills and Strengths</label>
+            <div class="form-group" class="form-group-mentor-required">
+              <label for="menteeBio" class="control-label">Skills and Strengths</label>
               <textarea class="form-control" id="menteeBio" rows="3" placeholder=""></textarea>
             </div>
 
@@ -167,38 +167,38 @@
 
             <h4 id="MenteeFormHeader">Mentor Form</h4>
 
-            <div class="form-group">
-              <label for="mFormQ1">What kind of a mentor will I be?</label>
+            <div class="form-group-mentor-required">
+              <label for="mFormQ1" class="control-label">What kind of a mentor will I be?</label>
               <textarea class="form-control menteeForm" id="mFormQ1" rows="3" placeholder=""></textarea>
             </div>
 
-            <div class="form-group">
-              <label for="mFormQ2">Who are my past effective mentors?</label>
+            <div class="form-group-mentor-required">
+              <label for="mFormQ2" class="control-label">Who are my past effective mentors?</label>
               <textarea class="form-control menteeForm" id="mFormQ2" rows="3" placeholder=""></textarea>
             </div>
 
-            <div class="form-group">
-              <label for="mFormQ3">How did I stand out to my past mentors?</label>
+            <div class="form-group-mentor-required">
+              <label for="mFormQ3" class="control-label">How did I stand out to my past mentors?</label>
               <textarea class="form-control menteeForm" id="mFormQ3" rows="3" placeholder=""></textarea>
             </div>
 
-            <div class="form-group">
-              <label for="mFormQ4">What qualities made them great mentors? Any common factor?</label>
+            <div class="form-group-mentor-required">
+              <label for="mFormQ4" class="control-label">What qualities made them great mentors? Any common factor?</label>
               <textarea class="form-control menteeForm" id="mFormQ4" rows="3" placeholder=""></textarea>
             </div>
 
-            <div class="form-group">
-              <label for="mFormQ5">Mentoring is important to me because:</label>
+            <div class="form-group-mentor-required">
+              <label for="mFormQ5" class="control-label">Mentoring is important to me because:</label>
               <textarea class="form-control menteeForm" id="mFormQ5" rows="3" placeholder=""></textarea>
             </div>
 
-            <div class="form-group">
-              <label for="mFormQ6">My mentee will gain the following:</label>
+            <div class="form-group-mentor-required">
+              <label for="mFormQ6" class="control-label">My mentee will gain the following:</label>
               <textarea class="form-control menteeForm" id="mFormQ6" rows="3" placeholder=""></textarea>
             </div>
 
-            <div class="form-group">
-              <label for="mFormQ7">I plan to gain the following as a mentor:</label>
+            <div class="form-group-mentor-required">
+              <label for="mFormQ7" class="control-label">I plan to gain the following as a mentor:</label>
               <textarea class="form-control menteeForm" id="mFormQ7" rows="3" placeholder=""></textarea>
             </div>
 
@@ -206,7 +206,7 @@
 
 
             <div class="form-group">
-              <input type="submit" disabled="disabled" class="btn btn-lg btn-danger btn-block" href="#" id="mentorContBtn2" value="Register" onclick="event.preventDefault();return onMentorContBtn2Click(this);">
+              <input type="submit" disabled="disabled" class="btn btn-lg btn-danger btn-block" href="#" id="mentorContBtn2" value="Register" onclick="onMentorContBtn2Click(event)">
               <!-- <button class="btn btn-lg btn-danger btn-block" type="submit" href="#" id="menteeContBtn2">Register</button> -->
             </div>
 
