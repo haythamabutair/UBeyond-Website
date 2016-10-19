@@ -20,30 +20,31 @@ function onMentorContBtn2Click(event) {
     buttonName : 'btn-danger',
     buttonText : 'Upload Piccccc'
   });
+
   var mentorData = {
-    "currentEmployer": document.getElementById('currentEmployer').value,
-    "fieldExpertise": document.getElementById('fieldExpertise').value,
-    "yearsOfExperience": document.getElementById('yearsExp').value,
-    "languages": document.getElementById('fluentLangs').value,
-    "menteeLevelPreference": {
-      "highschool": document.getElementById('hsLevelCheck').checked,
-      "undergrad": document.getElementById('undergradLevelCheck').checked,
-      "graduate": document.getElementById('gradLevelCheck').checked
+    "Employer": document.getElementById('currentEmployer').value,
+    "FieldOfExpertise": document.getElementById('fieldExpertise').value,
+    "YearsOfExperience": document.getElementById('yearsExp').value,
+    "Languages": document.getElementById('fluentLangs').value,
+    "MenteeLevelPreference": {
+      "HighSchool": document.getElementById('hsLevelCheck').checked,
+      "Undergraduate": document.getElementById('undergradLevelCheck').checked,
+      "Graduate": document.getElementById('gradLevelCheck').checked
     },
-    "strengths": document.getElementById('menteeBio').value
+    "Strengths": document.getElementById('menteeBio').value
   }
 
-  Database.updateUserData(mentorData, function(success, response) {
+  Database.updateMentorData(mentorData, function(success, response) {
     // Collect mentee form data
     if (success) {
       var mentorFormData = {
-        "whatKindOfMentor": document.getElementById('mFormQ1').value,
-        "pastEffectiveMentors": document.getElementById('mFormQ2').value,
-        "howStoodOut": document.getElementById('mFormQ3').value,
-        "qualitiesOfGoodMentor": document.getElementById('mFormQ4').value,
-        "whyImportant": document.getElementById('mFormQ5').value,
-        "menteeWillGain": document.getElementById('mFormQ6').value,
-        "mentorWillGain": document.getElementById('mFormQ7').value
+        "WhatKindOfMentor": document.getElementById('mFormQ1').value,
+        "PastEffectiveMentors": document.getElementById('mFormQ2').value,
+        "WhatMadeMostInfluence": document.getElementById('mFormQ3').value,
+        "GreatMentors": document.getElementById('mFormQ4').value,
+        "MentoringImportance": document.getElementById('mFormQ5').value,
+        "MenteeWillGain": document.getElementById('mFormQ6').value,
+        "PlanToGain": document.getElementById('mFormQ7').value
       };
 
       // Submit mentor form and navigate to home page

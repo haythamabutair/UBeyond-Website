@@ -90,46 +90,69 @@ function onMenteeContBtnClick(event) {
       if (success) {
         // Update rest of mentee data
         var genderObj = document.getElementById('gender');
+        var stateObj = document.getElementById('state_id');
 
-        var data = {
-          "userType": "mentee",
-          "email": email,
-          "birthdate": document.getElementById('bday').value,
-          "gender": genderObj.options[genderObj.selectedIndex].text,
-          "name": {
-            "first": document.getElementById('firstName').value,
-            "middle": document.getElementById('middleInitial').value,
-            "last": document.getElementById('lastName').value,
-            "preferred": document.getElementById('preferredName').value
-          },
-          "phone": document.getElementById('phoneNumber').value
-        };
+        // Build address string
+        var addressStr = document.getElementById('street1ID').value + "\n";
+        
+        if ('' != document.getElementById('street2ID').value) {
+          addressStr.concat(document.getElementById('street2ID').value).concat("");
+        }
+
+        addressStr.concat(document.getElementById('cityID').value).concat("\n");
+        addressStr.concat(stateObj.options[stateObj.selectedIndex].value).concat(", ");
+        addressStr.concat(document.getElementById('zipID').value);
+
+        // Collect personal info
+        var menteeObj = Model.createPersonObject(
+            document.getElementById('firstName').value,
+            document.getElementById('lastName').value,
+            document.getElementById('middleInitial').value,
+            document.getElementById('preferredName').value,
+            addressStr,
+            document.getElementById('phoneNumber').value,
+            email,
+            genderObj.options[genderObj.selectedIndex].text,
+            null, //TODO: Get languages spoken
+            document.getElementById('bday').value
+        );
 
         // Student data
         if (document.getElementById('studentRad').checked) {
-          data["studentInfo"] = {
-            "currentSchool": document.getElementById('currentSchool').value,
-            "major": document.getElementById('major').value,
-            "minor": document.getElementById('minor').value,
-            "futurePlans": document.getElementById('afterGrad').value,
-            "expectedGraduationDate": document.getElementById('studentGradDate').value,
-            "interestedInPostGrad": document.getElementById('postGradCheckBx').checked
-          };
+          menteeObj["EmploymentStatus"] = "student";
+
+          // Set school status
+          if (document.getElementById('hsRadio').checked) {
+            menteeObj["SchoolStatus"] = "high school";
+          }
+          else if (document.getElementById('undergradRadio').checked) {
+            menteeObj["SchoolStatus"] = "undergraduate";
+          }
+          else {
+            menteeObj["SchoolStatus"] = "graduate";
+          }
+
+          menteeObj["CurrentSchool"] = document.getElementById('currentSchool').value;
+          menteeObj["Grade"] = document.getElementById('gradeLevel').value;
+          menteeObj["Major"] = document.getElementById('major').value;
+          menteeObj["Minor"] = document.getElementById('minor').value;
+          menteeObj["FuturePlans"] = document.getElementById('afterGrad').value;
+          menteeObj["ExpectedGradDate"] = document.getElementById('studentGradDate').value;
+          menteeObj["InterestedInPostGrad"] = document.getElementById('postGradCheckBx').checked;
         }
         // Employer data
         else {
-          data["employeeInfo"] = {
-            "employer": document.getElementById('currentEmployer').value,
-            "latestDegree": document.getElementById('latestDegree').value,
-            "latestSchool": document.getElementById('latestSchool').value,
-            "graduationDate": document.getElementById('employedGradDate').value,
-            "careerPlans": document.getElementById('careerPlan').value,
-            "careerGoals": document.getElementById('careerGoals').value
-          };
+          menteeObj["EmploymentStatus"] = "employed";
+          menteeObj["Employer"] = document.getElementById('currentEmployer').value;
+          menteeObj["HighestDegree"] = document.getElementById('latestDegree').value;
+          menteeObj["SchoolName"] = document.getElementById('latestSchool').value;
+          menteeObj["GradDate"] = document.getElementById('employedGradDate').value;
+          menteeObj["CareerPlans"] = document.getElementById('careerPlan').value;
+          menteeObj["CareerGoals"] = document.getElementById('careerGoals').value;
         }
 
         // Update database entry for newly-registered used and navigate to next page
-        Database.updateUserData(data, function(success, response) {
+        Database.updateMenteeData(menteeObj, function(success, response) {
           if(success) {
             // Now navigate to target href
             window.location.href = href;

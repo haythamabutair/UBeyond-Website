@@ -68,29 +68,33 @@ function onMentorContBtnClick(event) {
         var genderObj = document.getElementById('gender');
         var stateObj = document.getElementById('state_id');
 
-        var data = {
-          "userType": "mentor",
-          "email": email,
-          "birthdate": document.getElementById('bday').value,
-          "gender": genderObj.options[genderObj.selectedIndex].text,
-          "name": {
-            "first": document.getElementById('firstName').value,
-            "middle": document.getElementById('middleInitial').value,
-            "last": document.getElementById('lastName').value,
-            "preferred": document.getElementById('preferredName').value
-          },
-          "phone": document.getElementById('phoneNumber').value,
-          "address": {
-            "street1": document.getElementById('street1ID').value,
-            "street2": document.getElementById('street2ID').value,
-            "city": document.getElementById('cityID').value,
-            "state": stateObj.options[stateObj.selectedIndex].value,
-            "zip": document.getElementById('zipID').value
-          }
-        };
+        // Build address string
+        var addressStr = document.getElementById('street1ID').value + "\n";
+        
+        if ('' != document.getElementById('street2ID').value) {
+          addressStr.concat(document.getElementById('street2ID').value).concat("");
+        }
+
+        addressStr.concat(document.getElementById('cityID').value).concat("\n");
+        addressStr.concat(stateObj.options[stateObj.selectedIndex].value).concat(", ");
+        addressStr.concat(document.getElementById('zipID').value);
+
+        // Collect personal info
+        var mentorObj = Model.createPersonObject(
+            document.getElementById('firstName').value,
+            document.getElementById('lastName').value,
+            document.getElementById('middleInitial').value,
+            document.getElementById('preferredName').value,
+            addressStr,
+            document.getElementById('phoneNumber').value,
+            email,
+            genderObj.options[genderObj.selectedIndex].text,
+            null, // TODO: Get languages spoken
+            document.getElementById('bday').value
+        );
 
         // Update database entry for newly-registered used and navigate to next page
-        Database.updateUserData(data, function(success, response) {
+        Database.updateMentorData(mentorObj, function(success, response) {
           if(success) {
             // Now navigate to target href
             window.location.href = href;

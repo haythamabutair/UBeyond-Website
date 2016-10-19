@@ -22,24 +22,36 @@ function onMenteeContBtn2Click(event) {
     buttonName : 'btn-danger',
     buttonText : 'Upload Piccccc'
   });
-  var menteeData = {
-    "bio": document.getElementById('menteeBio').value,
-    "languagePreference": document.getElementById('languagePref').value,
-    "fieldPreference": document.getElementById('fieldPref').value,
-    "genderPreference": genderPrefObj.options[genderPrefObj.selectedIndex].text,
-    "firstMeetingDatePreference": document.getElementById('meetingDatePref').value
-  };
 
-  Database.updateUserData(menteeData, function(success, response) {
+  var menteeObj = {};
+  
+  // Collect user information
+  Model.createUserObject(
+    menteeObj,
+    null, // TODO: Get headshot file name
+    null, // TODO: Get resume file name
+    document.getElementById('menteeBio').value,
+    document.getElementById('meetingDatePref').value,
+    document.getElementById('languagePref').value,
+    genderPrefObj.options[genderPrefObj.selectedIndex].text,
+    "mentee",
+    false
+  );
+
+  // Collect skills, field preference
+  // TODO: Collect skills
+  menteeObj["FieldPreference"] = document.getElementById('fieldPref').value;
+
+  Database.updateMenteeData(menteeObj, function(success, response) {
     // Collect mentee form data
     if (success) {
       var menteeFormData = {
-        "areasToImprove": document.getElementById('mFormQ1').value,
-        "howToImprove": document.getElementById('mFormQ2').value,
-        "signalOfSuccess": document.getElementById('mFormQ3').value,
-        "whenSatisfied": document.getElementById('mFormQ4').value,
-        "howMentorCanHelp": document.getElementById('mFormQ5').value,
-        "improvementTimeframe": document.getElementById('mFormQ6').value
+        "Improvements": document.getElementById('mFormQ1').value,
+        "ToDo": document.getElementById('mFormQ2').value,
+        "HowWillIKnow": document.getElementById('mFormQ3').value,//could rename CriteriaForSuccess
+        "WhenSatisfied": document.getElementById('mFormQ4').value,
+        "HowToHelp": document.getElementById('mFormQ5').value,
+        "WhenToReachGoal": document.getElementById('mFormQ6').value
       };
 
       // Submit mentee form and navigate to home page
