@@ -64,17 +64,6 @@ var Model = (function() {
         personObject["IsAvailable"]        = isAvailable;
     }
 
-    /*
-     * TODO: Documentation
-     * Note: Modifies an existing USER object
-     */
-    var createMenteeObject = function(
-            userObject
-    )
-    {
-
-    }
-
     return {
         createPersonObject: createPersonObject,
         createUserObject: createUserObject

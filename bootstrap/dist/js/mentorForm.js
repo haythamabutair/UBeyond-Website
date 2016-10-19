@@ -21,20 +21,33 @@ function onMentorContBtn2Click(event) {
     buttonText : 'Upload Piccccc'
   });
 
-  var mentorData = {
-    "Employer": document.getElementById('currentEmployer').value,
-    "FieldOfExpertise": document.getElementById('fieldExpertise').value,
-    "YearsOfExperience": document.getElementById('yearsExp').value,
-    "Languages": document.getElementById('fluentLangs').value,
-    "MenteeLevelPreference": {
-      "HighSchool": document.getElementById('hsLevelCheck').checked,
-      "Undergraduate": document.getElementById('undergradLevelCheck').checked,
-      "Graduate": document.getElementById('gradLevelCheck').checked
-    },
-    "Strengths": document.getElementById('menteeBio').value
-  }
+  var mentorObj = {};
 
-  Database.updateMentorData(mentorData, function(success, response) {
+  // TODO: Defaulting these to null. Shannor: fill these in when you add the fields
+  Model.createUserObj(
+    mentorObj,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  );
+
+  mentorObj["Employer"] = document.getElementById('currentEmployer').value;
+  mentorObj["FieldOfExpertise"] = document.getElementById('fieldExpertise').value;
+  mentorObj["YearsOfExperience"] = document.getElementById('yearsExp').value;
+  mentorObj["Languages"] = document.getElementById('fluentLangs').value;
+  mentorObj["MenteeLevelPreference"] = {
+    "HighSchool": document.getElementById('hsLevelCheck').checked,
+    "Undergraduate": document.getElementById('undergradLevelCheck').checked,
+    "Graduate": document.getElementById('gradLevelCheck').checked
+  };
+  mentorObj["Strengths"] = document.getElementById('menteeBio').value;
+
+  Database.updateMentorData(mentorObj, function(success, response) {
     // Collect mentee form data
     if (success) {
       var mentorFormData = {
