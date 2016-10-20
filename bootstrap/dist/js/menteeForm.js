@@ -62,7 +62,6 @@ function onMenteeContBtn2Click(event) {
   return false;
 }
 
-
 // Function made to trigger after a date has been picked
 $(function(){
   $(document).mousemove(function(){
