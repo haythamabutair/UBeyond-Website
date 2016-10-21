@@ -66,8 +66,6 @@ function onMentorContBtn2Click(event) {
   return false;
 }
 
-
-
 // Function made to trigger after a date has been picked
 $(function(){
   $(document).mousemove(function(){
@@ -83,5 +81,15 @@ $(function(){
       } else {
           $('#mentorContBtn2').removeAttr('disabled');
       }
+  });
+});
+ // Code needed to initialize the multiselect function
+$(document).ready(function() {
+  //First Copies the Languages to every place that needs them
+  $("#languagePref > option").clone().appendTo('.languageSelection')
+  //then Setup the multiselect
+  $('.need-multi').multiselect({
+    // Shortens the height and makes the box small
+    maxHeight: 200
   });
 });

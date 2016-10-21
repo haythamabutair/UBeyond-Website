@@ -62,7 +62,6 @@ function onMenteeContBtn2Click(event) {
   return false;
 }
 
-
 // Function made to trigger after a date has been picked
 $(function(){
   $(document).mousemove(function(){
@@ -79,4 +78,13 @@ $(function(){
           $('#menteeContBtn2').removeAttr('disabled');
       }
   });
+});
+
+// Code needed to initialize the multiselect function
+$(document).ready(function() {
+ //then Setup the multiselect
+ $('.need-multi').multiselect({
+   // Shortens the height and makes the box small
+   maxHeight: 200
+ });
 });

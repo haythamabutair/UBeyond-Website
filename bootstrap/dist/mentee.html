@@ -158,11 +158,21 @@
             </div>
 
             <div class="form-group levelRadios" id="levelRadios" style="display:block">
-              <label class="radio-inline"> <input type="radio" name="levelRadio" value="highSchool" checked>High School</label>
-              <label class="radio-inline"> <input type="radio" name="levelRadio" value="undergraduate">Undergraduate</label>
-              <label class="radio-inline"> <input type="radio" name="levelRadio" value="graduate">Graduate</label>
+              <label class="radio-inline"> <input id="radio-highschool" type="radio" name="levelRadio" value="highSchool" onclick='showStudentLevels()'>High School</label>
+              <label class="radio-inline"> <input id="radio-Undergrad" type="radio" name="levelRadio" onclick='showStudentLevels()' value="undergraduate">Undergraduate</label>
+              <label class="radio-inline"> <input id="radio-grad" type="radio" name="levelRadio" onclick='showStudentLevels()' value="graduate">Graduate</label>
             </div>
 
+            <!-- For highschool Students  -->
+            <div class="form-group" id="highSchoolStudentRegForm" style="display:none">
+
+              <div class="form-group-required">
+                <label for="gradeLevel" class="control-label">Grade Level</label>
+                <input type="text" id="gradeLevel" class="form-control" placeholder="11th Grade" required>
+              </div>
+
+            </div>
+            <!-- For College students and above -->
             <!-- Student Start Form -->
             <div class="form-group" id="studentRegForm" style="display:block">
 
@@ -183,7 +193,8 @@
 
               <div class="form-group-required">
                 <label for="afterGrad" class="control-label">Plans after Graduation</label>
-                <input type="text" id="afterGrad" class="form-control" placeholder="Plans after Graduation">
+                <textarea class="form-control" id="afterGrad" rows="2" placeholder=""></textarea>
+
               </div>
 
               <div class="form-group-required">
