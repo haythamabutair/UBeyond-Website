@@ -6,9 +6,35 @@ var canUseBtn = false;
 function showHideRegisterInfo() {
   var ifStudent = document.getElementById('studentRad');
   var ifNotStudent = document.getElementById('notStudentRad');
+  var ifHighSchoolStudent = document.getElementById('radio-highschool')
+
   studentRegForm.style.display = ifStudent.checked ? "block" : "none";
   levelRadios.style.display = ifStudent.checked ? "block" : "none";
   employedRegForm.style.display = ifNotStudent.checked ? "block" : "none";
+  //Check to handle when changing from Student to Non-student
+  //And adjusting all possible swaps
+  if(ifStudent.checked){
+    showStudentLevels()
+  }
+}
+//Method for what to show based on the radio buttons pressed.
+function showStudentLevels(){
+  //gets radio buttons for if your a student and if in highschool
+  var ifStudent = document.getElementById('studentRad');
+  var ifHighSchoolStudent = document.getElementById('radio-highschool')
+  //If both are checked show highschool informaton
+  if(ifStudent.checked && ifHighSchoolStudent.checked){
+    highSchoolStudentRegForm.style.display = 'block'
+    studentRegForm.style.display = 'none'
+    //Show Grad or UnderGrad information
+  }else if(ifStudent.checked && !ifHighSchoolStudent.checked){
+    highSchoolStudentRegForm.style.display = 'none'
+    studentRegForm.style.display = 'block'
+    //Show nothing relating to students since its non-student selected
+  }else{
+    highSchoolStudentRegForm.style.display = 'none'
+    studentRegForm.style.display ='none'
+  }
 
 }
 
