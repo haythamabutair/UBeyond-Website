@@ -14,6 +14,7 @@
 
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
+
   <!-- CSS file for multiselect box -->
   <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
 
@@ -36,6 +37,7 @@
 
   <!-- filestyle JS file for uploading files feedback -->
   <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+
   <!-- javascript file link for multiselect -->
   <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
 
@@ -49,19 +51,6 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
-  <!-- Code needed to initialize the multiselect function -->
-  <script type="text/javascript">
-  $(document).ready(function() {
-    //First Copies the Languages to every place that needs them
-    $("#languagePref > option").clone().appendTo('.languageSelection')
-    //then Setup the multiselect
-    $('.need-multi').multiselect({
-      // Shortens the height and makes the box small
-      maxHeight: 200
-    });
-  });
-  </script>
 
   <!-- Firebase setup -->
   <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
@@ -316,7 +305,7 @@
               <option value="Veterinary Science & Technology">Veterinary Science & Technology</option>
               <option value="Web & Digital Design">Web & Digital Design</option>
               <option value="Zoology">Zoology</option>
-
+            </select>
             </div>
 
             <div class="form-group-mentor-required">

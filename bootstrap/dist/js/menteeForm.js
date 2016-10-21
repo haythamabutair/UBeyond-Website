@@ -79,3 +79,12 @@ $(function(){
       }
   });
 });
+
+// Code needed to initialize the multiselect function
+$(document).ready(function() {
+ //then Setup the multiselect
+ $('.need-multi').multiselect({
+   // Shortens the height and makes the box small
+   maxHeight: 200
+ });
+});
