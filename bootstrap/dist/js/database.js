@@ -41,6 +41,10 @@ var Database = (function() {
     var MENTEE_FORM = "MenteeQuestionnaires";
     var MENTOR_FORM = "MentorQuestionnaires";
 
+    // URI headers for info structures
+    var STUDENT_INFO   = "StudentInfo";
+    var EMPLOYYEE_INFO = "EmployeeInfo";
+
     //
     // Meta functions.
     //
@@ -224,6 +228,16 @@ var Database = (function() {
         setFormData(MENTOR_FORM, fields, callback);
     }
 
+
+    var setStudentInfoData = function(fields, callback) {
+        setFormData(STUDENT_INFO, fields, callback);
+    }
+
+
+    var setEmployeeInfoData = function(fields, callback) {
+        setFormData(EMPLOYYEE_INFO, fields, callback);
+    }
+
     //
     // Explicitly reveal pointers to functions we want to make public
     //
@@ -234,6 +248,8 @@ var Database = (function() {
         updateMenteeData: updateMenteeData,
         updateMentorData: updateMentorData,
         setMenteeFormData: setMenteeFormData,
-        setMentorFormData: setMentorFormData
+        setMentorFormData: setMentorFormData,
+        setStudentInfoData: setStudentInfoData,
+        setEmployeeInfoData: setEmployeeInfoData
     }
 })();

@@ -7,10 +7,7 @@ function onMenteeContBtn2Click(event) {
   event.preventDefault();
 
   // So we can navigate to the target HREF on success
-  var href = document.getElementById("menteeContBtn2").href;
-
-  // Collect remainder of mentee data
-  var genderPrefObj = document.getElementById('gender');
+  var href = $("#menteeContBtn2").attr('href');
 
   // TODO: Resume upload
   $('#resumeBtn').filestyle({
@@ -22,24 +19,33 @@ function onMenteeContBtn2Click(event) {
     buttonName : 'btn-danger',
     buttonText : 'Upload Piccccc'
   });
-  var menteeData = {
-    "bio": document.getElementById('menteeBio').value,
-    "languagePreference": document.getElementById('languagePref').value,
-    "fieldPreference": document.getElementById('fieldPref').value,
-    "genderPreference": genderPrefObj.options[genderPrefObj.selectedIndex].text,
-    "firstMeetingDatePreference": document.getElementById('meetingDatePref').value
-  };
 
-  Database.updateUserData(menteeData, function(success, response) {
+  // Gather user registration information
+  var userObj = Model.createUserObject(
+    {},
+    null, // TODO: this should be userID_headshot.ext (known by server)
+    null, // TODO: this should be userID_resume.ext (known by server)
+    $('#menteeBio').val(),
+    $('#meetingDatePref').val(),
+    $('#languagePref-mentee').val(),
+    $('#languagePref-mentee').val(),
+    $('#gender').val(),
+    false // Initially not available
+  );
+
+  userObj['MenteeSkills']    = $('#menteeSkills').val();
+  userObj['FieldPreference'] = $('#field-mentee').val();
+
+  Database.updateMenteeData(userObj, function(success, response) {
     // Collect mentee form data
     if (success) {
       var menteeFormData = {
-        "areasToImprove": document.getElementById('mFormQ1').value,
-        "howToImprove": document.getElementById('mFormQ2').value,
-        "signalOfSuccess": document.getElementById('mFormQ3').value,
-        "whenSatisfied": document.getElementById('mFormQ4').value,
-        "howMentorCanHelp": document.getElementById('mFormQ5').value,
-        "improvementTimeframe": document.getElementById('mFormQ6').value
+        'Improvements':    $('#mFormQ1').val(),
+        'ToDo':            $('#mFormQ2').val(),
+        'HowWillIKnow':    $('#mFormQ3').val(),
+        'WhenSatisfied':   $('#mFormQ4').val(),
+        'HowToHelp':       $('#mFormQ5').val(),
+        'WhenToReachGoal': $('#mFormQ6').val()
       };
 
       // Submit mentee form and navigate to home page
