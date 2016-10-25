@@ -27,7 +27,6 @@ function onMentorContBtn2Click(event) {
     null, // TODO: this should be userID_headshot.ext (known by server)
     null, // TODO: this should be userID_resume.ext (known by server)
     $('#mentorBio').val(),
-    $('#mentorSkills').val(),
     $('#preferedStartDate').val(),
     $('#fluentLang').val(),
     $('#languagePref').val(),
