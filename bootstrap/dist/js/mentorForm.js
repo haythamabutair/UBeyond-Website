@@ -7,7 +7,7 @@ function onMentorContBtn2Click(event) {
   event.preventDefault();
 
   // So we can navigate to the target HREF on success
-  var href = document.getElementById("mentorContBtn2").href;
+  var href = $('#mentorContBtn2').attr('href');
 
   // Collect remainder of mentor data
   // TODO: Resume upload
@@ -20,30 +20,53 @@ function onMentorContBtn2Click(event) {
     buttonName : 'btn-danger',
     buttonText : 'Upload Piccccc'
   });
-  var mentorData = {
-    "currentEmployer": document.getElementById('currentEmployer').value,
-    "fieldExpertise": document.getElementById('fieldExpertise').value,
-    "yearsOfExperience": document.getElementById('yearsExp').value,
-    "languages": document.getElementById('fluentLangs').value,
-    "menteeLevelPreference": {
-      "highschool": document.getElementById('hsLevelCheck').checked,
-      "undergrad": document.getElementById('undergradLevelCheck').checked,
-      "graduate": document.getElementById('gradLevelCheck').checked
-    },
-    "strengths": document.getElementById('menteeBio').value
+
+  // Gather user registration information
+  var userObj = Model.createUserObject(
+    {},
+    null, // TODO: this should be userID_headshot.ext (known by server)
+    null, // TODO: this should be userID_resume.ext (known by server)
+    $('#mentorBio').val(),
+    $('#mentorSkills').val(),
+    $('#preferedStartDate').val(),
+    $('#fluentLang').val(),
+    $('#languagePref').val(),
+    $('#prefGender').val(),
+    false // Initially not available
+  );
+
+  // Gether rest of mentor registration information
+  var levelPrefArr = [];
+
+  if ($('#hsLevelCheck').is(':checked')) {
+    levelPrefArr.push('high school');
   }
 
-  Database.updateUserData(mentorData, function(success, response) {
+  if ($('#undergradLevelCheck').is(':checked')) {
+    levelPrefArr.push('undergraduate');
+  }
+
+  if ($('#gradLevelCheck').is(':checked')) {
+    levelPrefArr.push('graduate');
+  }
+
+  userObj['Employer'] = $('#currentEmployer').val();
+  userObj['YearsOfExperience'] = $('#yearsExp').val();
+  userObj['FieldOfExpertise'] = $('#field').val();
+  userObj['MenteeLevelPreference'] = levelPrefArr;
+  userObj['Strengths'] = $('#mentorSkills').val();
+
+  Database.updateMentorData(userObj, function(success, response) {
     // Collect mentee form data
     if (success) {
       var mentorFormData = {
-        "whatKindOfMentor": document.getElementById('mFormQ1').value,
-        "pastEffectiveMentors": document.getElementById('mFormQ2').value,
-        "howStoodOut": document.getElementById('mFormQ3').value,
-        "qualitiesOfGoodMentor": document.getElementById('mFormQ4').value,
-        "whyImportant": document.getElementById('mFormQ5').value,
-        "menteeWillGain": document.getElementById('mFormQ6').value,
-        "mentorWillGain": document.getElementById('mFormQ7').value
+        "WhatKindOfMentor": document.getElementById('mFormQ1').value,
+        "PastEffectiveMentors": document.getElementById('mFormQ2').value,
+        "WhatMadeMostInfluence": document.getElementById('mFormQ3').value,
+        "GreatMentors": document.getElementById('mFormQ4').value,
+        "MentoringImportance": document.getElementById('mFormQ5').value,
+        "MenteeWillGain": document.getElementById('mFormQ6').value,
+        "PlanToGain": document.getElementById('mFormQ7').value
       };
 
       // Submit mentor form and navigate to home page
