@@ -13,6 +13,10 @@ function showHideRegisterInfo() {
   employedRegForm.style.display = ifNotStudent.checked ? "block" : "none";
   //Check to handle when changing from Student to Non-student
   //And adjusting all possible swaps
+  if(ifNotStudent.checked){
+    highSchoolStudentRegForm.style.display = 'none'
+    studentRegForm.style.display ='none'
+  }
   if(ifStudent.checked){
     showStudentLevels()
   }
