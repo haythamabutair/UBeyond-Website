@@ -67,13 +67,20 @@ $(function(){
 
         // Check for student selection and the fields that matter
       if ($('input[name=studentRadio]:checked').val() == 'student'){
-
-        $('#studentRegForm').children('.form-group-required').children('.form-control').each(function(){
-          if($(this).val() == ''){
-              radioForm = false;
-            }
-          });
-
+        //Check if its a highschool student or not
+        if($('input[name=levelRadio]:checked').val()== 'highSchool'){
+          $('#highSchoolStudentRegForm').children('.form-group-required').children('.form-control').each(function(){
+            if($(this).val() == ''){
+                radioForm = false;
+              }
+            });
+        }else{
+          $('#studentRegForm').children('.form-group-required').children('.form-control').each(function(){
+            if($(this).val() == ''){
+                radioForm = false;
+              }
+            });
+        }
       }else{
         $('#employedRegForm').children('.form-group-required').children('.form-control').each(function(){
           if($(this).val() == ''){
