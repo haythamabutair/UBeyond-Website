@@ -14,6 +14,9 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- CSS file for multiselect box -->
+    <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
@@ -23,6 +26,9 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Bootstrap JS -->
     <script src = "js/bootstrap.min.js"></script>
+    <!-- javascript file link for multiselect -->
+    <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+
     <!-- Custom javascript for this template -->
     <script src="js/mentee.js"></script>
     <script src="js/database.js"></script>
@@ -155,7 +161,7 @@
             <div class="form-group-mentee-required">
               <label for="languageSpoken" class="control-label">Language Spoken</label>
               <!-- <input type="text" id="languagePref" class="form-control" placeholder="Language Preference"> -->
-              <select id="languageSpoken-mentee" class="form-control" >
+              <select id="languageSpoken-mentee" class="form-control need-multi" multiple='multiple' >
                 <option value="English">English</option>
                 <option value="Afrikaans">Afrikaans</option>
                 <option value="Albanian">Albanian</option>
