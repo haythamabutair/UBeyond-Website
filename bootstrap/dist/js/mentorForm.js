@@ -1,37 +1,54 @@
 /*
  * Complete registering a mentor in the database and fill out a MentorQuestionnaire.
- *
- * TODO: Instead of alert(), use a more user-friendly alert system.
  */
 function onMentorContBtn2Click(event) {
   event.preventDefault();
 
+  // Make sure a user is signed-in
+  if (null == firebase.auth().currentUser) {
+    Global.showNotification('You must complete step 1 of registration!', true);
+    return false;
+  }
+
   // So we can navigate to the target HREF on success
   var href = $('#mentorContBtn2').attr('href');
 
-  // Collect remainder of mentor data
   // TODO: Resume upload
   $('#resumeBtn').filestyle({
     buttonName : 'btn-danger',
     buttonText : 'Upload Resume'
   });
+
   // TODO: Headshot upload
   $('#picBtn').filestyle({
     buttonName : 'btn-danger',
     buttonText : 'Upload Piccccc'
   });
 
+  var resumeFile   = null;
+  var headshotFile = null;
+
+  // Get uploaded resume file name
+  if ($('#resumeBtn')[0].files[0]) {
+    resumeFile = firebase.auth().currentUser.uid + '_' + $('#resumeBtn')[0].files[0].name;
+  }
+
+  // Get uploaded headshot file name
+  if ($('#picBtn')[0].files[0]) {
+    headshotFile = firebase.auth().currentUser.uid + '_' + $('#picBtn')[0].files[0].name;
+  }
+
   // Gather user registration information
   var userObj = Model.createUserObject(
     {},
-    null, // TODO: this should be userID_headshot.ext (known by server)
-    null, // TODO: this should be userID_resume.ext (known by server)
+    headshotFile,
+    resumeFile,
     $('#mentorBio').val(),
     $('#preferedStartDate').val(),
     $('#fluentLang').val(),
     $('#languagePref').val(),
     $('#prefGender').val(),
-    false // Initially not available
+    true // Initially available
   );
 
   // Gether rest of mentor registration information
@@ -49,38 +66,40 @@ function onMentorContBtn2Click(event) {
     levelPrefArr.push('graduate');
   }
 
-  userObj['Employer'] = $('#currentEmployer').val();
-  userObj['YearsOfExperience'] = $('#yearsExp').val();
-  userObj['FieldOfExpertise'] = $('#field').val();
+  userObj['Employer']              = $('#currentEmployer').val();
+  userObj['YearsOfExperience']     = $('#yearsExp').val();
+  userObj['FieldOfExpertise']      = $('#field').val();
   userObj['MenteeLevelPreference'] = levelPrefArr;
-  userObj['Strengths'] = $('#mentorSkills').val();
+  userObj['Strengths']             = $('#mentorSkills').val();
 
   Database.updateMentorData(userObj, function(success, response) {
     // Collect mentee form data
     if (success) {
       var mentorFormData = {
-        "WhatKindOfMentor": document.getElementById('mFormQ1').value,
-        "PastEffectiveMentors": document.getElementById('mFormQ2').value,
-        "WhatMadeMostInfluence": document.getElementById('mFormQ3').value,
-        "GreatMentors": document.getElementById('mFormQ4').value,
-        "MentoringImportance": document.getElementById('mFormQ5').value,
-        "MenteeWillGain": document.getElementById('mFormQ6').value,
-        "PlanToGain": document.getElementById('mFormQ7').value
+        'WhatKindOfMentor':      $('#mFormQ1').val(),
+        'PastEffectiveMentors':  $('#mFormQ2').val(),
+        'WhatMadeMostInfluence': $('#mFormQ3').val(),
+        'GreatMentors':          $('#mFormQ4').val(),
+        'MentoringImportance':   $('#mFormQ5').val(),
+        'MenteeWillGain':        $('#mFormQ6').val(),
+        'PlanToGain':            $('#mFormQ7').val()
       };
 
       // Submit mentor form and navigate to home page
       Database.setMentorFormData(mentorFormData, function(success, response) {
         if (success) {
-          alert("Registration successful!");
-
-          // TODO: Navigate to home page
+          // Navigate to home page via href in button of notification div
+          // (see Global.showNotification)
+          // TODO: Add notification 
+          Global.showNotification('Registration successful!', false);
         }
       });
 
     }
-    // Alert if something went wrong
+    // Display notification on failure
+    // TODO: Handle specific errors
     else {
-      alert("Something went wrong! Error:\n" + response);
+      Global.showNotification('Something went wrong! Error:\n' + response, true);
     }
   });
 

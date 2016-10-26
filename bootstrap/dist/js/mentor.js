@@ -93,13 +93,17 @@ function onMentorContBtnClick(event) {
             // Now navigate to target href
             window.location.href = href;
           }
+          // Display notification on failure
+          // TODO: Handle specific errors
           else {
-            alert(response);
+            Global.showNotification('Something went wrong! Error:\n' + response, true);
           }
         });
       }
+      // Display notification on failure
+      // TODO: Handle specific errors
       else {
-        alert(response);
+        Global.showNotification('Something went wrong! Error:\n' + response, true);
       }
     });
   }

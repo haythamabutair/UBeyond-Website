@@ -98,8 +98,6 @@ $(function(){
 
 /*
  * Begin registering a mentee in the database.
- *
- * TODO: Instead of alert(), use a more user-friendly alert system.
  */
 function onMenteeContBtnClick(event) {
   // Stop auto-navigation to href (chrome, firefox)
@@ -178,12 +176,12 @@ function onMenteeContBtnClick(event) {
           personObj['EmploymentStatus'] = 'employed';
 
           var employeeInfoObj = {
-            "Employer":      $('#currentEmployer').val(),
-            "HighestDegree": $('#latestDegree').val(),
-            "SchoolName":    $('#latestSchool').val(),
-            "GradDate":      $('#employedGradDate').val(),
-            "CareerPlans":   $('#careerPlan').val(),
-            "CareerGoals":   $('#careerGoals').val()
+            'Employer':      $('#currentEmployer').val(),
+            'HighestDegree': $('#latestDegree').val(),
+            'SchoolName':    $('#latestSchool').val(),
+            'GradDate':      $('#employedGradDate').val(),
+            'CareerPlans':   $('#careerPlan').val(),
+            'CareerGoals':   $('#careerGoals').val()
           };
 
           updateFunc = Database.setEmployeeInfoData;
@@ -198,18 +196,24 @@ function onMenteeContBtnClick(event) {
                 // Now navigate to target href
                 window.location.href = href;
               }
+              // Display notification on failure
+              // TODO: Handle specific errors
               else {
-                alert(response);
+                Global.showNotification('Something went wrong! Error:\n' + response, true);
               }
             });
           }
+          // Display notification on failure
+          // TODO: Handle specific errors
           else {
-            alert(response);
+            Global.showNotification('Something went wrong! Error:\n' + response, true);
           }
         });
       }
+      // Display notification on failure
+      // TODO: Handle specific errors
       else {
-        alert(response);
+        Global.showNotification('Something went wrong! Error:\n' + response, true);
       }
     });
   }
