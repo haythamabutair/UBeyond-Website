@@ -105,75 +105,122 @@ $(function(){
 
 /*
  * Begin registering a mentee in the database.
- *
- * TODO: Instead of alert(), use a more user-friendly alert system.
  */
 function onMenteeContBtnClick(event) {
-  event.preventDefault(); // Stop auto-navigation to href (chrome, firefox)
+  // Stop auto-navigation to href (chrome, firefox)
+  event.preventDefault();
+  
   //Check to see that all required information is provided.
   if(canUseBtn == true){
-  // So we can navigate to the target HREF on success
-    var href = document.getElementById("menteeContBtn").href;
+    // So we can navigate to the target HREF on success
+    var href = $('#menteeContBtn').attr('href');
 
-    var email = document.getElementById('inputEmail').value;
-    var password = document.getElementById('inputPassword').value;
+    var email    = $('#inputEmail').val();
+    var password = $('#inputPassword').val();
 
     // Attempt to register the specified email and password
     Database.registerUser(email, password, function(success, response) {
       if (success) {
-        // Update rest of mentee data
-        var genderObj = document.getElementById('gender');
+        // Holds target updating function
+        var updateFunc, updateObj;
 
-        var data = {
-          "userType": "mentee",
-          "email": email,
-          "birthdate": document.getElementById('bday').value,
-          "gender": genderObj.options[genderObj.selectedIndex].text,
-          "name": {
-            "first": document.getElementById('firstName').value,
-            "middle": document.getElementById('middleInitial').value,
-            "last": document.getElementById('lastName').value,
-            "preferred": document.getElementById('preferredName').value
-          },
-          "phone": document.getElementById('phoneNumber').value
-        };
+        // Build address string
+        var addressStr = $('#street1ID').val()
+          + ' ' + $('#street2ID').val()
+          + ', ' + $('#cityID').val()
+          + ', ' + $('#state_id').val()
+          + ', ' + $('#zipID').val();
+
+        // Update rest of mentee data
+        // Gather personal registration info
+        var personObj = Model.createPersonObject(
+          {},
+          $('#firstName').val(),
+          $('#lastName').val(),
+          $('#middleInitial').val(),
+          $('#preferredName').val(),
+          addressStr,
+          $('#phoneNumber').val(),
+          email,
+          $('#gender').val(),
+          $('#bday').val()
+        );
 
         // Student data
-        if (document.getElementById('studentRad').checked) {
-          data["studentInfo"] = {
-            "currentSchool": document.getElementById('currentSchool').value,
-            "major": document.getElementById('major').value,
-            "minor": document.getElementById('minor').value,
-            "futurePlans": document.getElementById('afterGrad').value,
-            "expectedGraduationDate": document.getElementById('studentGradDate').value,
-            "interestedInPostGrad": document.getElementById('postGradCheckBx').checked
+        if ($('#studentRad').is(':checked')) {
+          personObj['EmploymentStatus'] = 'student';
+
+          var studentInfoObj = {
+            'Grade': $('#gradeLevel').val()
           };
+
+          // School info
+          if (!$('#radio-highschool').is(':checked')) {
+            studentInfoObj['CurrentSchool'] = $('#currentSchool').val();
+            studentInfoObj['Major'] = $('#major').val();
+            studentInfoObj['Minor'] = $('#minor').val();
+            studentInfoObj['FuturePlans'] = $('#afterGrad').val();
+            studentInfoObj['ExpectedGradDate'] = $('#studentGradDate').val();
+            studentInfoObj['InterestedInPostGrad'] = $('#postGradCheckBx').is(':checked');
+            
+            // Set school status
+            if ($('#radio-Undergrad').is(':checked')) {
+              studentInfoObj['SchoolStatus'] = 'undergraduate';
+            }
+            else {
+              studentInfoObj['SchoolStatus'] = 'graduate';
+            }
+          }
+          else {
+            studentInfoObj['SchoolStatus'] = 'high school';
+          }
+
+          updateFunc = Database.setStudentInfoData;
+          updateObj  = studentInfoObj;
         }
-        // Employer data
+        // Employee info
         else {
-          data["employeeInfo"] = {
-            "employer": document.getElementById('currentEmployer').value,
-            "latestDegree": document.getElementById('latestDegree').value,
-            "latestSchool": document.getElementById('latestSchool').value,
-            "graduationDate": document.getElementById('employedGradDate').value,
-            "careerPlans": document.getElementById('careerPlan').value,
-            "careerGoals": document.getElementById('careerGoals').value
+          personObj['EmploymentStatus'] = 'employed';
+
+          var employeeInfoObj = {
+            'Employer':      $('#currentEmployer').val(),
+            'HighestDegree': $('#latestDegree').val(),
+            'SchoolName':    $('#latestSchool').val(),
+            'GradDate':      $('#employedGradDate').val(),
+            'CareerPlans':   $('#careerPlan').val(),
+            'CareerGoals':   $('#careerGoals').val()
           };
+
+          updateFunc = Database.setEmployeeInfoData;
+          updateObj  = employeeInfoObj;
         }
 
         // Update database entry for newly-registered used and navigate to next page
-        Database.updateUserData(data, function(success, response) {
+        Database.updateMenteeData(personObj, function(success, response) {
           if(success) {
-            // Now navigate to target href
-            window.location.href = href;
+            updateFunc(updateObj, function(success, response) {
+              if(success) {
+                // Now navigate to target href
+                window.location.href = href;
+              }
+              // Display notification on failure
+              // TODO: Handle specific errors
+              else {
+                Global.showNotification('Something went wrong! Error:\n' + response, true);
+              }
+            });
           }
+          // Display notification on failure
+          // TODO: Handle specific errors
           else {
-            alert(response);
+            Global.showNotification('Something went wrong! Error:\n' + response, true);
           }
         });
       }
+      // Display notification on failure
+      // TODO: Handle specific errors
       else {
-        alert(response);
+        Global.showNotification('Something went wrong! Error:\n' + response, true);
       }
     });
   }
