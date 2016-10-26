@@ -52,56 +52,58 @@ $(function(){
  * TODO: Instead of alert(), use a more user-friendly alert system.
  */
 function onMentorContBtnClick(event) {
-  event.preventDefault(); // Stop auto-navigation to href (chrome, firefox)
+  // Stop auto-navigation to href (chrome, firefox)
+  event.preventDefault();
+  
   //Check to see that all required information is provided.
   if(canUseBtn == true){
     // So we can navigate to the target HREF on success
-    var href = document.getElementById("mentorContBtn").href;
-
-    var email = document.getElementById('inputEmail').value;
-    var password = document.getElementById('inputPassword').value;
+    var href = $('#mentorContBtn').attr('href');
+    
+    var email    = $('#inputEmail').val();
+    var password = $('#inputPassword').val();
 
     // Attempt to register the specified email and password
     Database.registerUser(email, password, function(success, response) {
       if (success) {
-        // Update rest of mentor data
-        var genderObj = document.getElementById('gender');
-        var stateObj = document.getElementById('state_id');
+        // Build address string
+        var addressStr = $('#street1ID').val()
+          + ' ' + $('#street2ID').val()
+          + ', ' + $('#cityID').val()
+          + ', ' + $('#state_id').val()
+          + ', ' + $('#zipID').val();
 
-        var data = {
-          "userType": "mentor",
-          "email": email,
-          "birthdate": document.getElementById('bday').value,
-          "gender": genderObj.options[genderObj.selectedIndex].text,
-          "name": {
-            "first": document.getElementById('firstName').value,
-            "middle": document.getElementById('middleInitial').value,
-            "last": document.getElementById('lastName').value,
-            "preferred": document.getElementById('preferredName').value
-          },
-          "phone": document.getElementById('phoneNumber').value,
-          "address": {
-            "street1": document.getElementById('street1ID').value,
-            "street2": document.getElementById('street2ID').value,
-            "city": document.getElementById('cityID').value,
-            "state": stateObj.options[stateObj.selectedIndex].value,
-            "zip": document.getElementById('zipID').value
-          }
-        };
+        // Gather personal registration info
+        var personObj = Model.createPersonObject(
+          {},
+          $('#firstName').val(),
+          $('#lastName').val(),
+          $('#middleInitial').val(),
+          $('#preferredName').val(),
+          addressStr,
+          $('#phoneNumber').val(),
+          email,
+          $('#gender').val(),
+          $('#bday').val()
+        );
 
         // Update database entry for newly-registered used and navigate to next page
-        Database.updateUserData(data, function(success, response) {
+        Database.updateMentorData(personObj, function(success, response) {
           if(success) {
             // Now navigate to target href
             window.location.href = href;
           }
+          // Display notification on failure
+          // TODO: Handle specific errors
           else {
-            alert(response);
+            Global.showNotification('Something went wrong! Error:\n' + response, true);
           }
         });
       }
+      // Display notification on failure
+      // TODO: Handle specific errors
       else {
-        alert(response);
+        Global.showNotification('Something went wrong! Error:\n' + response, true);
       }
     });
   }
