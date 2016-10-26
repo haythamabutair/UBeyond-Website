@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Matching.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="FirebaseProjectID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ubeyond-website</Value>
+    </Setting>
+    <Setting Name="FirebaseIssuerURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://securetoken.google.com/ubeyond-website</Value>
+    </Setting>
+    <Setting Name="FirebaseSecret" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">JAXxcmnYJIlUeKoFevkFnaT3I738qBSBncF2vxQ1</Value>
+    </Setting>
+    <Setting Name="FirebaseTokenAlgorithm" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">RS256</Value>
+    </Setting>
+    <Setting Name="GoogleX509ApiUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com</Value>
+    </Setting>
+    <Setting Name="Epoch" Type="System.DateTime" Scope="Application">
+      <Value Profile="(Default)">1970-01-01</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

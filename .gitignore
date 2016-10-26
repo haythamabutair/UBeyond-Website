@@ -1,9 +1,6 @@
-.vs/config/applicationhost.config
-Matching\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache
-v14\.suo
-Matching\bin\Matching.pdb
-Matching\bin\Matching.dll
-Matching\obj\Debug\Matching.csproj.FileListAbsolute.txt
-Matching\obj\Debug\Matching.csprojResolveAssemblyReference.cache
-Matching\obj\Debug\Matching.dll
-Matching\obj\Debug\Matching.pdb
+*.suo
+
+.vs/*
+Matching/bin/*
+Matching/obj/*
+MatchingTests/*

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Web.Http;
-
 using Matching.Models;
+using Matching.Utilities;
 
 namespace Matching.Controllers
 {
@@ -19,28 +17,10 @@ namespace Matching.Controllers
         /// to be reviewed by an admin.
         /// </summary>
         /// <param name="menteeUsername"></param>
-        [Route("matching/{menteeUsername}/list")]
-        public IEnumerable<string> GetMatchedListOfMentors(string menteeUsername)
+        [Route("match/mentor/{mentorUID}")]
+        public IHttpActionResult MatchMentor(string mentorUID)
         {
-            //TODO: Query Database and find all users that are available.
-            
-            //TODO: Filter Mentors on whether they are matchable or not. 
-            //      If matchable, find matchingIndex and add to sorted list of (Mentor, matchingIndex)
-            /*
-             * for(Mentor mentor: AvailableMentorTable)
-             * {
-             *      if(!this.IsMatchable(mentor.username, menteeUsername)) 
-             *      {
-             *          AvailableMentorTable.Delete(mentor);
-             *      } else
-             *      {
-             *          MatchedList.add(mentor, this.GetMatchingIndex(mentor.username, menteeUsername));
-             *      }
-             * }
-             */
-
-            //TODO: return list of mentors sorted by matchability
-            return null;
+            return Ok(1);
         }
 
         /// <summary>
@@ -49,13 +29,10 @@ namespace Matching.Controllers
         /// <param name="mentorUsername"></param>
         /// <param name="menteeUsername"></param>
         /// <returns></returns>
-        [Route("matching/{menteeUsername}/{mentorUsername}/index")]
-        public IHttpActionResult GetMatchingIndex(string menteeUsername, string mentorUsername)
+        [Route("match/mentee/{menteeUid}")]
+        public IHttpActionResult MatchMentee(string menteeUID)
         {
-            //TODO: Retrieve mentor and mentee data from database
-
-            //TODO: Check if the mentor and mentee have the basic mecessary requirements to match
-            return Ok(-1);
+            return Ok(1);
         }
 
         public double GetMatchStrength(Mentor mentor, Mentee mentee)

@@ -32,9 +32,18 @@ var Database = (function() {
         messagingSenderId: "1065235196568"
     };
 
+    // URI headers for user types
+    var ADMIN  = "Admin";
+    var MENTEE = "Mentee";
+    var MENTOR = "Mentor";
+
     // URI headers for questionnaires
     var MENTEE_FORM = "MenteeQuestionnaires";
     var MENTOR_FORM = "MentorQuestionnaires";
+
+    // URI headers for info structures
+    var STUDENT_INFO   = "StudentInfo";
+    var EMPLOYYEE_INFO = "EmployeeInfo";
 
     //
     // Meta functions.
@@ -144,13 +153,13 @@ var Database = (function() {
      *     if (!success) alert(response);
      * });
      */
-    var updateUserData = function(fields, callback) {
+    var updateUserData = function(userType, fields, callback) {
         var ref = firebase.database();
         var currentUser = firebase.auth().currentUser;
 
         // Make sure a user is signed-in
         if (currentUser) {
-            ref.ref("Users/" + currentUser.uid).update(fields, function(error) {
+            ref.ref(userType + "/" + currentUser.uid).update(fields, function(error) {
                 // Check if update was successful
                 if (error) {
                     callback(false, error.code + ": " + error.message);
@@ -163,6 +172,14 @@ var Database = (function() {
         else {
             callback(false, "cust-auth/no-sign-in: Not signed in");
         }
+    }
+
+    var updateMenteeData = function(fields, callback) {
+        updateUserData(MENTEE, fields, callback);
+    }
+
+    var updateMentorData = function(fields, callback) {
+        updateUserData(MENTOR, fields, callback);
     }
 
     /*
@@ -211,6 +228,16 @@ var Database = (function() {
         setFormData(MENTOR_FORM, fields, callback);
     }
 
+
+    var setStudentInfoData = function(fields, callback) {
+        setFormData(STUDENT_INFO, fields, callback);
+    }
+
+
+    var setEmployeeInfoData = function(fields, callback) {
+        setFormData(EMPLOYYEE_INFO, fields, callback);
+    }
+
     //
     // Explicitly reveal pointers to functions we want to make public
     //
@@ -218,8 +245,11 @@ var Database = (function() {
         initialize: initialize,
         authenticate: authenticate,
         registerUser: registerUser,
-        updateUserData: updateUserData,
+        updateMenteeData: updateMenteeData,
+        updateMentorData: updateMentorData,
         setMenteeFormData: setMenteeFormData,
-        setMentorFormData: setMentorFormData
+        setMentorFormData: setMentorFormData,
+        setStudentInfoData: setStudentInfoData,
+        setEmployeeInfoData: setEmployeeInfoData
     }
 })();
