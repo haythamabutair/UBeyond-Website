@@ -113,7 +113,7 @@ $(function(){
 function onMenteeContBtnClick(event) {
   // Stop auto-navigation to href (chrome, firefox)
   event.preventDefault();
-  
+
   //Check to see that all required information is provided.
   if(canUseBtn == true){
     // So we can navigate to the target HREF on success
@@ -166,7 +166,7 @@ function onMenteeContBtnClick(event) {
             studentInfoObj['FuturePlans'] = $('#afterGrad').val();
             studentInfoObj['ExpectedGradDate'] = $('#studentGradDate').val();
             studentInfoObj['InterestedInPostGrad'] = $('#postGradCheckBx').is(':checked');
-            
+
             // Set school status
             if ($('#radio-Undergrad').is(':checked')) {
               studentInfoObj['SchoolStatus'] = 'undergraduate';
@@ -232,3 +232,13 @@ function onMenteeContBtnClick(event) {
   // Stop auto-navigation to href (IE)
   return false;
 }
+
+
+// Code needed to initialize the multiselect function
+$(document).ready(function() {
+ //then Setup the multiselect
+ $('.need-multi').multiselect({
+   // Shortens the height and makes the box small
+   maxHeight: 200
+ });
+});
