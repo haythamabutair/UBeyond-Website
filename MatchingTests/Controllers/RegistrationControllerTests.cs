@@ -19,10 +19,24 @@ namespace Matching.Controllers.Tests
         }
 
         [TestMethod()]
+        public void RegisterFakeMenteeTest()
+        {
+            RegistrationController controller = new RegistrationController();
+            controller.RegisterMentee("FakeMentee");
+        }
+
+        [TestMethod()]
         public void RegisterMentorTest()
         {
             RegistrationController controller = new RegistrationController();
             controller.RegisterMentor("YyhDeQ2Qn2dp0VAAhHIB040dqVF3");
+        }
+
+        [TestMethod()]
+        public void RegisterFakeMentorTest()
+        {
+            RegistrationController controller = new RegistrationController();
+            controller.RegisterMentor("FakeMentor");
         }
     }
 }
