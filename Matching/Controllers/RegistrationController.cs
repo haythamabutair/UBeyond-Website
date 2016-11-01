@@ -11,16 +11,42 @@ namespace Matching.Controllers
     public class RegistrationController : ApiController
     {
 
-        // GET: Registration
-        /*[Route("register/{userUID}")]
-        public IHttpActionResult Register(string userUID)
+        // GET: Registration email for Mentees
+        [Route("register/mentee/{userUID}")]
+        public IHttpActionResult RegisterMentee(string userUID)
         {
-            string email = FirebaseUtility.GetUserEmail(userUID).Result;
+            Mentee mentee = FirebaseUtility.GetMentee(userUID);
+
+            if(mentee == null)
+            {
+                return BadRequest();
+            }
+
+            string email = mentee.Email;
             string message = Notification.GenerateWelcomeEmail(email, userUID);
             MailAddressCollection addresses = new MailAddressCollection();
-            addresses.Add(FirebaseUtility.GetUserEmail(userUID).Result);
-            Notification.SendEmail(addresses, "welcome to U-Beyond! " + FirebaseUtility.GetUserFirstName(userUID).Result, message);
+            addresses.Add(mentee.Email);
+            Notification.SendEmail(addresses, "welcome to U-Beyond! " + mentee.FirstName, message);
             return Ok(1);
-        }*/
+        }
+
+        // GET: Registration email for Mentors
+        [Route("register/mentor/{userUID}")]
+        public IHttpActionResult RegisterMentor(string userUID)
+        {
+            Mentor mentor = FirebaseUtility.GetMentor(userUID);
+
+            if(mentor == null)
+            {
+                return BadRequest();
+            }
+
+            string email = mentor.Email;
+            string message = Notification.GenerateWelcomeEmail(email, userUID);
+            MailAddressCollection addresses = new MailAddressCollection();
+            addresses.Add(mentor.Email);
+            Notification.SendEmail(addresses, "welcome to U-Beyond! " + mentor.FirstName, message);
+            return Ok(1);
+        }
     }
 }
