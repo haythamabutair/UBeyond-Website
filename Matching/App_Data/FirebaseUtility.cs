@@ -106,11 +106,11 @@ namespace Matching
             {
                 if (currentMatch.Value.User == menteeUid)
                 {
-                    return null;
+                    return null; //match already exists. return null
                 }
             }
             
-                return client.Push("MenteeMatch/" + menteeUid, match); //if match doesn't exist push new match
+            return client.Push("MenteeMatch/" + menteeUid, match); //if match doesn't exist push new match
         }
 
     }
