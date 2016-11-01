@@ -73,23 +73,16 @@ namespace Matching
             }
 
             Dictionary<string, Match> currentMatches = getResponse.ResultAs<Dictionary<string, Match>>();
-
-            bool alreadyExists = false;
+            
             foreach(KeyValuePair<string, Match> currentMatch in currentMatches)
             {
                 if(currentMatch.Value.User == menteeUid)
                 {
-                    alreadyExists = true;
-                    break;
+                    return null; //match already exists. return null
                 }
             }
-
-            if(!alreadyExists)
-            {
-                return client.Push("MentorMatch/" + mentorUid, match); //if match doesn't exist push new match
-            }
-
-            return null; //match already exists. return null
+            
+            return client.Push("MentorMatch/" + mentorUid, match); //if match doesn't exist push new match
         }
 
         public static FirebaseResponse PushMenteeMatch(string menteeUid, string mentorUid)
@@ -108,23 +101,16 @@ namespace Matching
             }
 
             Dictionary<string, Match> currentMatches = getResponse.ResultAs<Dictionary<string, Match>>();
-
-            bool alreadyExists = false;
+            
             foreach (KeyValuePair<string, Match> currentMatch in currentMatches)
             {
                 if (currentMatch.Value.User == menteeUid)
                 {
-                    alreadyExists = true;
-                    break;
+                    return null;
                 }
             }
-
-            if (!alreadyExists)
-            {
+            
                 return client.Push("MenteeMatch/" + menteeUid, match); //if match doesn't exist push new match
-            }
-
-            return null; //match already exists. return null
         }
 
     }

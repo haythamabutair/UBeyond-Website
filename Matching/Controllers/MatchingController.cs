@@ -32,8 +32,7 @@ namespace Matching.Controllers
             {
                 return InternalServerError(); //error retrieving mentees from Server
             }
-
-            bool newMatchAdded = false;
+            
             foreach(KeyValuePair<string, Mentee> mentee in mentees)
             {
                 if(mentee.Value.IsAvailable)
@@ -41,18 +40,13 @@ namespace Matching.Controllers
                     //save the mentee as a match for this mentor
                     if (FirebaseUtility.PushMentorMatch(mentorUID, mentee.Key) != null)
                     {
-                        newMatchAdded = true;
-                        break;
+                        return Ok(1);
                     }
                 }
             }
-            if (newMatchAdded)
-            {
-                return Ok(1);
-            } else
-            {
-                return Ok(2); //return different error code if no match added (not a failure)
-            }
+
+            return Ok(2); //return different error code if no match added (not a failure)
+            
         }
 
         /// <summary>
@@ -77,7 +71,6 @@ namespace Matching.Controllers
                 return InternalServerError(); //error retrieving mentees from Server
             }
 
-            bool newMatchAdded = false;
             foreach (KeyValuePair<string, Mentor> mentor in mentors)
             {
                 if (mentor.Value.IsAvailable)
@@ -85,19 +78,13 @@ namespace Matching.Controllers
                     //save the mentee as a match for this mentor
                     if (FirebaseUtility.PushMenteeMatch(menteeUID, mentor.Key) != null)
                     {
-                        newMatchAdded = true;
-                        break;
+                        return Ok(1);
                     }
                 }
             }
-
-            if (newMatchAdded)
-            {
-                return Ok(1);
-            } else
-            {
-                return Ok(2); //return different code if no new match added (doesn't mean failure)
-            }
+            
+            return Ok(2); //return different code if no new match added (doesn't mean failure)
+            
         }
 
         public double GetMatchStrength(Mentor mentor, Mentee mentee)
