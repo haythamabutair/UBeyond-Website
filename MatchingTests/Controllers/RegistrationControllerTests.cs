@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Matching.Controllers.Tests
 {
-    [TestClass()]
+    /*[TestClass()]
     public class RegistrationControllerTests
     {
         [TestMethod()]
@@ -17,5 +17,5 @@ namespace Matching.Controllers.Tests
             RegistrationController controller = new RegistrationController();
             Assert.IsNotNull(controller.Register("LJliMHILEVX1lzO6vRyC0sEl63e2"));
         }
-    }
+    }*/
 }
