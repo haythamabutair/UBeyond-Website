@@ -1,5 +1,4 @@
 ﻿using Matching.Models;
-using Matching.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +12,7 @@ namespace Matching.Controllers
     {
 
         // GET: Registration
-        [Route("register/{userUID}")]
+        /*[Route("register/{userUID}")]
         public IHttpActionResult Register(string userUID)
         {
             string email = FirebaseUtility.GetUserEmail(userUID).Result;
@@ -22,6 +21,6 @@ namespace Matching.Controllers
             addresses.Add(FirebaseUtility.GetUserEmail(userUID).Result);
             Notification.SendEmail(addresses, "welcome to U-Beyond! " + FirebaseUtility.GetUserFirstName(userUID).Result, message);
             return Ok(1);
-        }
+        }*/
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using Matching.Models;
-using Matching.Utilities;
+using Matching;
 
 namespace Matching.Controllers
 {
@@ -20,7 +20,33 @@ namespace Matching.Controllers
         [Route("match/mentor/{mentorUID}")]
         public IHttpActionResult MatchMentor(string mentorUID)
         {
-            return Ok(1);
+            Mentor mentor = FirebaseUtility.GetMentor(mentorUID);
+            Dictionary<string, Mentee> mentees = FirebaseUtility.GetMenteeDictionary();
+
+            if (mentor == null)
+            {
+                return BadRequest(); //mentor does not exist in database
+            }
+
+            if (mentees == null)
+            {
+                return InternalServerError(); //error retrieving mentees from Server
+            }
+            
+            foreach(KeyValuePair<string, Mentee> mentee in mentees)
+            {
+                if(mentee.Value.IsAvailable)
+                {
+                    //save the mentee as a match for this mentor
+                    if (FirebaseUtility.PushMentorMatch(mentorUID, mentee.Key) != null)
+                    {
+                        return Ok(1);
+                    }
+                }
+            }
+
+            return Ok(2); //return different error code if no match added (not a failure)
+            
         }
 
         /// <summary>
@@ -32,7 +58,33 @@ namespace Matching.Controllers
         [Route("match/mentee/{menteeUid}")]
         public IHttpActionResult MatchMentee(string menteeUID)
         {
-            return Ok(1);
+            Mentee mentee = FirebaseUtility.GetMentee(menteeUID);
+            Dictionary<string, Mentor> mentors = FirebaseUtility.GetMentorDictionary();
+
+            if (mentee == null)
+            {
+                return BadRequest(); //mentor does not exist in database
+            }
+
+            if (mentors == null)
+            {
+                return InternalServerError(); //error retrieving mentees from Server
+            }
+
+            foreach (KeyValuePair<string, Mentor> mentor in mentors)
+            {
+                if (mentor.Value.IsAvailable)
+                {
+                    //save the mentee as a match for this mentor
+                    if (FirebaseUtility.PushMenteeMatch(menteeUID, mentor.Key) != null)
+                    {
+                        return Ok(1);
+                    }
+                }
+            }
+            
+            return Ok(2); //return different code if no new match added (doesn't mean failure)
+            
         }
 
         public double GetMatchStrength(Mentor mentor, Mentee mentee)
@@ -40,7 +92,7 @@ namespace Matching.Controllers
             double strength = 1.0;
 
             //todo: find better metric for finding field similarity
-            strength *= CalcNormalizedLevenshteinDistance(mentor.FieldOfExpertise, mentee.FieldPreference);
+            //strength *= CalcNormalizedLevenshteinDistance(mentor.FieldOfExpertise, mentee.FieldPreference);
 
             //gender metric
             strength *= mentee.Gender.Equals(mentor.GenderPreference) ? 1.2 : 0.8;
@@ -48,7 +100,7 @@ namespace Matching.Controllers
 
             //language metric
             strength *= mentee.Languages.Contains(mentor.LanguagePreference) ? 1.1 : 0.9;
-            strength *= mentor.Languages.Contains(mentee.LanguagePreference) ? 1.1 : 0.9;
+            //strength *= mentor.Languages.Contains(mentee.LanguagePreference) ? 1.1 : 0.9;
 
             return strength;
         }

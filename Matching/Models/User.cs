@@ -12,21 +12,27 @@ namespace Matching.Models
         public string Bio { get; set; }
         public DateTime PreferredStartDate { get; set; }
         public string LanguagePreference { get; set; }
+        public List<string> Languages { get; set; }
         public string GenderPreference { get; set; } //Male or Female
+
 
         //internal
         public bool IsAvailable { get; set; }
 
-        protected User(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, List<string> languages, DateTime birthdate, string pathToHeadshot, string pathToResume, string bio, DateTime preferredStartDate, string languagePreference, string genderPreference) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, languages, birthdate)
+        protected User(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, string birthdate,  string bio, string preferredStartDate, string languagePreference, string genderPreference, List<string> languages, string isAvailable) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, birthdate)
         {
-            this.PathToHeadshot = pathToHeadshot;
-            this.PathToResume = pathToResume;
             this.Bio = bio;
-            this.PreferredStartDate = preferredStartDate;
+            this.PreferredStartDate = Convert.ToDateTime(preferredStartDate);
             this.LanguagePreference = languagePreference;
             this.GenderPreference = genderPreference;
-
-            this.IsAvailable = true;
+            this.Languages = languages;
+            if (isAvailable == "true")
+            {
+                this.IsAvailable = true;
+            } else
+            {
+                this.IsAvailable = false;
+            }
         }
     }
 }

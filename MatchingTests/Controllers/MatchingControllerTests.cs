@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Matching.Controllers.Tests
 {
-    /*[TestClass()]
-    public class RegistrationControllerTests
+    [TestClass()]
+    public class MatchingControllerTests
     {
         [TestMethod()]
-        public void RegisterTest()
+        public void MatchMentorTest()
         {
-            RegistrationController controller = new RegistrationController();
-            Assert.IsNotNull(controller.Register("LJliMHILEVX1lzO6vRyC0sEl63e2"));
+            MatchingController controller = new MatchingController();
+            controller.MatchMentor("LBSd2c8BuqVQq4osY2H9oKv5Gnv2");
         }
-    }*/
+    }
 }

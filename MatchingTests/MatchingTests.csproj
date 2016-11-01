@@ -52,15 +52,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="App_Data\FirebaseUtilityTests.cs" />
+    <Compile Include="Controllers\MatchingControllerTests.cs" />
     <Compile Include="Controllers\RegistrationControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\FirebaseUtilityTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Matching\Matching.csproj">
       <Project>{A97A4385-84A3-409D-BE23-D2B89532CDDD}</Project>
       <Name>Matching</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
