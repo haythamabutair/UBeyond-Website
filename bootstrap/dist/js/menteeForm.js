@@ -45,7 +45,7 @@ function onMenteeContBtn2Click(event) {
     resumeFile,
     $('#menteeBio').val(),
     $('#meetingDatePref').val(),
-    $('#languagePref-mentee').val(),
+    $('#languageSpoken').val(),
     $('#languagePref-mentee').val(),
     $('#gender').val(),
     true // Initially available
