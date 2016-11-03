@@ -63,9 +63,6 @@
 
 <body>
 
-  <!-- Div's for the side backgrounds -->
-  <div class="background-left"></div>
-  <div class="background-right"></div>
 
   <div class="navbar-wrapper">
     <!-- <div class="container"> -->
@@ -102,6 +99,10 @@
 
     <div class="row">
 
+      <!-- Div for left background -->
+      <div class="hidden-xs background-left"></div>
+
+      <!-- registercol div -->
       <div class="col-xs-12 registercol">
 
         <form class="form-signin">
@@ -487,7 +488,7 @@
             <label for="menteeSkills" class="control-label">Skills</label>
             <textarea class="form-control" id="menteeSkills" rows="2" placeholder=""></textarea>
           </div>
-          
+
 
           <div class="col-xs-12 regUploadBtns">
             <div class="col-xs-5">
@@ -546,8 +547,10 @@
 
 
         </form>
-      </div> <!-- /.signincol -->
+      </div> <!-- /.registercol -->
 
+      <!-- Div for right background -->
+      <div class="hidden-xs background-right"></div>
 
     </div> <!-- /row -->
   </div> <!-- /container -->
