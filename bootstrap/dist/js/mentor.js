@@ -54,12 +54,12 @@ $(function(){
 function onMentorContBtnClick(event) {
   // Stop auto-navigation to href (chrome, firefox)
   event.preventDefault();
-  
+
   //Check to see that all required information is provided.
   if(canUseBtn == true){
     // So we can navigate to the target HREF on success
     var href = $('#mentorContBtn').attr('href');
-    
+
     var email    = $('#inputEmail').val();
     var password = $('#inputPassword').val();
 

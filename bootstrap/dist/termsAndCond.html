@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Register | UBeyond</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS file for multiselect box -->
+    <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/mentee.css" rel="stylesheet">
+    <!-- JQuery script -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src = "js/bootstrap.min.js"></script>
+    <!-- javascript file link for multiselect -->
+    <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+
+    <!-- Custom javascript for this template -->
+    <script src="js/termsCond.js"></script>
+    <script src="js/database.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/model.js"></script>
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Firebase setup -->
+    <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+    <script>
+    /*
+    * Configure and initialize our firebase connection.
+    */
+    Database.initialize();
+    </script>
+</head>
+
+<body>
+
+    <!-- Div's for the side backgrounds -->
+    <div class="background-left"></div>
+    <div class="background-right"></div>
+
+    <div class="navbar-wrapper">
+        <!-- <div class="container"> -->
+
+        <nav class="navbar navbar-default navbar-static-top default-menu" style="background-image: url('img/black_paper.jpg')">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand default-logo" href="index.html">U-Beyond</a>
+                </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html">Home</a></li>
+                        <!-- <li class="active"><a href="mentee.html">Mentee Registration</a></li> -->
+                        <!-- <li><a href="mentor.html">Mentor Registration</a></li> -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- </div> -->
+    </div>
+
+
+
+
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-xs-12 registercol">
+
+                <form class="form-signin">
+                    <h2 class="form-signin-heading">Terms & Conditions</h2>
+
+
+                    <div class="form-group" id="radioGroup">
+                        <label class="radio-inline"> <input type="radio" name="typeRad" value="mentee" id="menteeRad" checked>Mentee</label>
+                        <label class="radio-inline"> <input type="radio" name="typeRad" value="mentor" id="mentorRad">Mentor</label>
+                    </div>
+
+                    <!-- Div For Mentee's, default display-->
+                    <div class="form-group desc" id="menteeTerms">
+                        <label class="terms-label">
+                            “I, the undersigned, agree to participate in U-Beyond Mentorship, Inc.’s mentoring,
+                            college visits and any and all other activities provided by U-Beyond Mentorship, Inc. (the
+                            “Program”). I agree to the following Release, Waiver of Liability and Indemnity Agreement.”
+                        </label>
+                        <div class="form-group mentee-question">
+                            <label class="radio-inline"> <input type="radio" name="ParticRad" value="Yes" id="">Yes</label>
+                            <label class="radio-inline"> <input type="radio" name="ParticRad" value="No" id="">No</label>
+                        </div>
+                        <label class="terms-label">
+                            “In consideration of my participation in the Program, I voluntarily release, hold harmless,
+                            and forever discharge U-Beyond Mentorship, Inc. and its trustees, administrators,
+                            directors, representatives, executors, agents, officers, volunteers, and employees, other
+                            participants, any sponsors, advertisers, and, if applicable, owners and lessors of
+                            premises on which U-Beyond Mentorship, Inc.’s activities take place, representatives,
+                            executors, and successors of all of the above (together, the “Releasees”), on behalf of
+                            myself and my successors and assigns from any and all claims, lawsuits and liability for
+                            bodily injury, property damage, death or other loss or damage which may incur in
+                            connection with or arising out of my participation in the Program.”
+                        </label>
+
+                        <div class="form-group mentee-question">
+                            <label class="radio-inline"> <input type="radio" name="releaseRad" value="Yes" id="">Yes</label>
+                            <label class="radio-inline"> <input type="radio" name="releaseRad" value="No" id="">No</label>
+                        </div>
+
+                        <label class="terms-label">
+                            “I have read and understand this RELEASE, WAIVER OF LIABILITY AND INDEMNITY AGREEMENT.”
+                        </label>
+
+                        <div class="form-group mentee-question">
+                            <label class="radio-inline"> <input type="radio" name="agreeRad" value="Yes" id="">Yes</label>
+                            <label class="radio-inline"> <input type="radio" name="agreeRad" value="No" id="">No</label>
+                        </div>
+                        <!-- End Mentee Terms -->
+                    </div>
+
+                    <!-- Start of Mentor Terms -->
+                    <div class="form-group desc" id="mentorTerms" style="display:none">
+                        <button type="button" id="clone">CLONE IT</button>
+
+                        <!-- Start of references  -->
+                        <h4 class="control-label"> References</h4>
+
+                        <div class="form-group row" id="references">
+                            <!-- reference’s name, address, phone number, email, relationship, and years known -->
+                            <div class="element">
+                                <h5 id="reference-1">Reference 1</h5>
+                                <div class="form-group">
+                                    <label for="firstName" class="control-label">First Name</label>
+                                    <input type="text" class="form-control" placeholder="First Name" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lastName" class="control-label">Last Name</label>
+                                    <input type="text" class="form-control" placeholder="Last Name" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="street1ID" class="control-label">Street Address 1</label>
+                                    <input type="text" class="form-control" name="street1" placeholder="Street Address">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="street2ID" class="control-label">Street Address 2</label>
+                                    <input type="text" class="form-control" name="street2" placeholder="Apartment, suite, etc.">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cityID" class="control-label">City</label>
+                                    <input type="text" class="form-control"  name="city" placeholder="City" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="state_id" class="control-label">State</label>
+                                    <select class="form-control">
+                                        <option value="AL">Alabama</option>
+                                        <option value="AK">Alaska</option>
+                                        <option value="AZ">Arizona</option>
+                                        <option value="AR">Arkansas</option>
+                                        <option value="CA">California</option>
+                                        <option value="CO">Colorado</option>
+                                        <option value="CT">Connecticut</option>
+                                        <option value="DE">Delaware</option>
+                                        <option value="DC">District Of Columbia</option>
+                                        <option value="FL">Florida</option>
+                                        <option value="GA">Georgia</option>
+                                        <option value="HI">Hawaii</option>
+                                        <option value="ID">Idaho</option>
+                                        <option value="IL">Illinois</option>
+                                        <option value="IN">Indiana</option>
+                                        <option value="IA">Iowa</option>
+                                        <option value="KS">Kansas</option>
+                                        <option value="KY">Kentucky</option>
+                                        <option value="LA">Louisiana</option>
+                                        <option value="ME">Maine</option>
+                                        <option value="MD">Maryland</option>
+                                        <option value="MA">Massachusetts</option>
+                                        <option value="MI">Michigan</option>
+                                        <option value="MN">Minnesota</option>
+                                        <option value="MS">Mississippi</option>
+                                        <option value="MO">Missouri</option>
+                                        <option value="MT">Montana</option>
+                                        <option value="NE">Nebraska</option>
+                                        <option value="NV">Nevada</option>
+                                        <option value="NH">New Hampshire</option>
+                                        <option value="NJ">New Jersey</option>
+                                        <option value="NM">New Mexico</option>
+                                        <option value="NY">New York</option>
+                                        <option value="NC">North Carolina</option>
+                                        <option value="ND">North Dakota</option>
+                                        <option value="OH">Ohio</option>
+                                        <option value="OK">Oklahoma</option>
+                                        <option value="OR">Oregon</option>
+                                        <option value="PA">Pennsylvania</option>
+                                        <option value="RI">Rhode Island</option>
+                                        <option value="SC">South Carolina</option>
+                                        <option value="SD">South Dakota</option>
+                                        <option value="TN">Tennessee</option>
+                                        <option value="TX">Texas</option>
+                                        <option value="UT">Utah</option>
+                                        <option value="VT">Vermont</option>
+                                        <option value="VA">Virginia</option>
+                                        <option value="WA">Washington</option>
+                                        <option value="WV">West Virginia</option>
+                                        <option value="WI">Wisconsin</option>
+                                        <option value="WY">Wyoming</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <!-- get this phone number attributes working so only phone numbers allowed -->
+                                    <label for="phoneNumber" class="control-label">Phone Number</label>
+                                    <input type="text" class="form-control" placeholder="Phone Number">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputEmail" class="control-label">Email</label>
+                                    <input type="email" class="form-control" placeholder="Email">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="relationship" class="control-label">Relationship</label>
+                                    <input type="text" class="form-control" placeholder="Relationship">
+                                </div>
+                                <!-- end element -->
+                            </div>
+                            <!-- end references  -->
+                        </div>
+
+                        <label class="terms-label">
+                            “I understand that U-Beyond Mentorship, Inc. reserves the right to (1)
+                            refuse any mentor applicant and (2) suspend or terminate any mentor at any time if it is
+                            discovered that the mentor made false statements during the application process or (3)
+                            at any time during their commitment they violate U-Beyond Mentorship, Inc.’s Policies
+                            and Procedures.”
+                        </label>
+                        <div class="form-group">
+                            <label class="radio-inline"> <input type="radio" name="refuseRad" value="Yes" id="">Yes</label>
+                            <label class="radio-inline"> <input type="radio" name="refuseRad" value="No" id="">No</label>
+                        </div>
+
+                        <label class="terms-label">
+                            Have you been convicted of a felony?
+                        </label>
+                        <div class="form-group">
+                            <label class="radio-inline"> <input type="radio" name="felonyRad" value="Yes" id="">Yes</label>
+                            <label class="radio-inline"> <input type="radio" name="felonyRad" value="No" id="">No</label>
+                        </div>
+
+                        <label class="terms-label">
+                            Have you ever been terminated due to criminal misconduct?
+                        </label>
+                        <div class="form-group">
+                            <label class="radio-inline"> <input type="radio" name="misconductRad" value="Yes" id="">Yes</label>
+                            <label class="radio-inline"> <input type="radio" name="misconductRad" value="No" id="">No</label>
+                        </div>
+
+                        <label class="terms-label">
+                            Do you consent to U-Beyond Mentoring conducting a selective background check as a
+                            routine part of its hiring/volunteer process?
+                        </label>
+                        <div class="form-group">
+                            <label class="radio-inline"> <input type="radio" name="backgroundRad" value="Yes" id="">Yes</label>
+                            <label class="radio-inline"> <input type="radio" name="backgroundRad" value="No" id="">No</label>
+                        </div>
+                    </div>
+
+
+                <div class="form-group">
+                    <a disabled='disabled' class="btn btn-lg btn-danger btn-block" role="button" id="termsAndCondBtn">Continue</a>
+                </div>
+            </form>
+        </div> <!-- /.signincol -->
+
+
+    </div> <!-- /row -->
+</div> <!-- /container -->
+
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
