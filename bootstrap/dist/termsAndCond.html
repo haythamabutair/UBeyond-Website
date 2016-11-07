@@ -147,18 +147,19 @@
 
                     <!-- Start of Mentor Terms -->
                     <div class="form-group desc" id="mentorTerms" style="display:none">
-                        <button type="button" id="clone">CLONE IT</button>
+                        <button type="button" id="clone">Add New Reference</button>
+                        <button type="button" id="removeBtn">Remove Last Reference</button>
 
                         <!-- Start of references  -->
                         <h4 class="control-label"> References</h4>
 
-                        <div class="form-group row" id="references">
+                        <div class="form-group" id="references">
                             <!-- reference’s name, address, phone number, email, relationship, and years known -->
                             <div class="element">
                                 <h5 id="reference-1">Reference 1</h5>
                                 <div class="form-group">
                                     <label for="firstName" class="control-label">First Name</label>
-                                    <input type="text" class="form-control" placeholder="First Name" >
+                                    <input type="text" class="form-control" placeholder="First Name">
                                 </div>
 
                                 <div class="form-group">
@@ -263,7 +264,7 @@
                             at any time during their commitment they violate U-Beyond Mentorship, Inc.’s Policies
                             and Procedures.”
                         </label>
-                        <div class="form-group">
+                        <div class="form-group mentor-radio">
                             <label class="radio-inline"> <input type="radio" name="refuseRad" value="Yes" id="">Yes</label>
                             <label class="radio-inline"> <input type="radio" name="refuseRad" value="No" id="">No</label>
                         </div>
@@ -271,7 +272,7 @@
                         <label class="terms-label">
                             Have you been convicted of a felony?
                         </label>
-                        <div class="form-group">
+                        <div class="form-group mentor-radio">
                             <label class="radio-inline"> <input type="radio" name="felonyRad" value="Yes" id="">Yes</label>
                             <label class="radio-inline"> <input type="radio" name="felonyRad" value="No" id="">No</label>
                         </div>
@@ -279,7 +280,7 @@
                         <label class="terms-label">
                             Have you ever been terminated due to criminal misconduct?
                         </label>
-                        <div class="form-group">
+                        <div class="form-group mentor-radio">
                             <label class="radio-inline"> <input type="radio" name="misconductRad" value="Yes" id="">Yes</label>
                             <label class="radio-inline"> <input type="radio" name="misconductRad" value="No" id="">No</label>
                         </div>
@@ -288,7 +289,7 @@
                             Do you consent to U-Beyond Mentoring conducting a selective background check as a
                             routine part of its hiring/volunteer process?
                         </label>
-                        <div class="form-group">
+                        <div class="form-group mentor-radio">
                             <label class="radio-inline"> <input type="radio" name="backgroundRad" value="Yes" id="">Yes</label>
                             <label class="radio-inline"> <input type="radio" name="backgroundRad" value="No" id="">No</label>
                         </div>
