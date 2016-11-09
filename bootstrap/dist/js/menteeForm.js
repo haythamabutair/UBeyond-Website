@@ -18,7 +18,7 @@ function onMenteeContBtn2Click(event) {
     buttonName : 'btn-danger',
     buttonText : 'Upload Resume'
   });
-  
+
   // TODO: Headshot upload
   $('#picBtn').filestyle({
     buttonName : 'btn-danger',
@@ -71,7 +71,7 @@ function onMenteeContBtn2Click(event) {
         if (success) {
           // Navigate to home page via href in button of notification div
           // (see Global.showNotification)
-          // TODO: Add notification 
+          // TODO: Add notification
           Global.showNotification('Registration successful!', false);
         }
       });
@@ -105,6 +105,7 @@ $(function(){
       }
   });
 });
+
 
 // Code needed to initialize the multiselect function
 $(document).ready(function() {

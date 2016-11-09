@@ -25,13 +25,6 @@ $(function(){
         });
       }else{
         //If Mentor is picked
-
-        //References
-        $('#mentorTerms').find('.element').find(':input').each(function() {
-            if ($(this).val() == '') {
-                allYes = false;
-            }
-        });
         //Checks all radio buttons
         $('#mentorTerms').children('.mentor-radio').each(function() {
 
@@ -48,34 +41,4 @@ $(function(){
         $('#termsAndCondBtn').attr('disabled', 'disabled');
       }
     })
-});
-
-
-
-var counter = 1; //start index
-//clone is a button I created to clone the references
-$(function(){
-  $('#clone').click(function(e) {
-    e.preventDefault();
-    //clone the first row
-    if(counter < 5){
-      var newRow =  $('#references > .element').clone();
-      counter++;
-      newRow.find('#reference-1').attr('id','reference-' + counter)
-      newRow.find('#reference-'+counter).text('Reference '+counter)
-      //insert the new row after the last one
-      $('#references > .element').after(newRow);
-    }
-  });
-});
-
-//Function to remove a reference
-$(function(){
-  $('#removeBtn').on('click', function(e){ //Once remove button is clicked
-    if(counter > 1){
-        e.preventDefault();
-        $('#reference-' + counter).parent('div').remove(); //Remove field html
-        counter--; //Decrement field counter
-      }
-  });
 });

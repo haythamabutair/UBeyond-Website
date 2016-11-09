@@ -90,7 +90,7 @@ function onMentorContBtn2Click(event) {
         if (success) {
           // Navigate to home page via href in button of notification div
           // (see Global.showNotification)
-          // TODO: Add notification 
+          // TODO: Add notification
           Global.showNotification('Registration successful!', false);
         }
       });
@@ -117,6 +117,12 @@ $(function(){
           }
       });
 
+      //References
+      $('#references').find('.element').find(':input').each(function() {
+          if ($(this).val() == '') {
+              empty = true;
+          }
+      });
       if (empty) {
           $('#mentorContBtn2').attr('disabled', 'disabled');
       } else {
@@ -124,6 +130,37 @@ $(function(){
       }
   });
 });
+
+
+var counter = 1; //start index
+//clone is a button I created to clone the references
+$(function(){
+  $('#clone').click(function(e) {
+    e.preventDefault();
+    //clone the first row
+    if(counter < 5){
+      var newRow =  $('#references > .element').clone();
+      counter++;
+      newRow.find('#reference-1').attr('id','reference-' + counter)
+      newRow.find('#reference-'+counter).text('Reference '+counter)
+      //insert the new row after the last one
+      $('#references > .element').after(newRow);
+    }
+  });
+});
+
+//Function to remove a reference
+$(function(){
+  $('#removeBtn').on('click', function(e){ //Once remove button is clicked
+    if(counter > 1){
+        e.preventDefault();
+        $('#reference-' + counter).parent('div').remove(); //Remove field html
+        counter--; //Decrement field counter
+      }
+  });
+});
+
+
  // Code needed to initialize the multiselect function
 $(document).ready(function() {
   //First Copies the Languages to every place that needs them
