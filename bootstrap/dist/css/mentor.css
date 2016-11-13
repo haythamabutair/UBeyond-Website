@@ -192,3 +192,7 @@ textarea {
     width: 29%;
   }
 }
+
+.hidden {
+  display: none;
+}

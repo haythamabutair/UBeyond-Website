@@ -1,45 +1,53 @@
-//Global Var to allow onClick options to happen once info in inputed.
-var canUseBtn = false;
 
+/*
+ * Global Variables
+ */
+
+// Whether to log debug information to the console
+const logDebugInfo = true;
+
+// Whether part 1 / part 2 of registration is complete
+var isPart1Complete = false;
+var isPart2Complete = false;
+
+// Whether we are on part 1 or part 2
+var isPart1Active = true;
+
+
+/*
+ * Functions
+ */
 
 // function to hide/show registration input fields depending on selection of student/notStudent radio buttons
 function showHideRegisterInfo() {
-  var ifStudent = document.getElementById('studentRad');
-  var ifNotStudent = document.getElementById('notStudentRad');
-  var ifHighSchoolStudent = document.getElementById('radio-highschool')
+  if ($('#studentRad').is(':checked')) {
+    $('#levelRadios').show();
+    $('#studentRegForm').show();
+    $('#employedRegForm').hide();
 
-  studentRegForm.style.display = ifStudent.checked ? "block" : "none";
-  levelRadios.style.display = ifStudent.checked ? "block" : "none";
-  employedRegForm.style.display = ifNotStudent.checked ? "block" : "none";
-  //Check to handle when changing from Student to Non-student
-  //And adjusting all possible swaps
-  if(ifNotStudent.checked){
-    highSchoolStudentRegForm.style.display = 'none'
-    studentRegForm.style.display ='none'
+    checkStudentLevel();
   }
-  if(ifStudent.checked){
-    showStudentLevels()
+  else {
+    $('#levelRadios').hide();
+    $('#studentRegForm').hide();
+    $('#employedRegForm').show();
   }
 }
-//Method for what to show based on the radio buttons pressed.
-function showStudentLevels(){
-  //gets radio buttons for if your a student and if in highschool
-  var ifStudent = document.getElementById('studentRad');
-  var ifHighSchoolStudent = document.getElementById('radio-highschool')
-  //If both are checked show highschool informaton
-  if(ifStudent.checked && ifHighSchoolStudent.checked){
-    highSchoolStudentRegForm.style.display = 'block'
-    studentRegForm.style.display = 'none'
-    //Show Grad or UnderGrad information
-  }else if(ifStudent.checked && !ifHighSchoolStudent.checked){
-    highSchoolStudentRegForm.style.display = 'none'
-    studentRegForm.style.display = 'block'
-    //Show nothing relating to students since its non-student selected
-  }else{
-    highSchoolStudentRegForm.style.display = 'none'
-    studentRegForm.style.display ='none'
-  }
 
+function checkStudentLevel() {
+    // Check if HS or Undergrad / Graduate
+    if ($('#radio-highschool').is(':checked')) {
+      $('#gradeLevel').parent().show();
+
+      $('#major').parent().hide();
+      $('#minor').parent().hide();
+    }
+    else {
+      $('#gradeLevel').parent().hide();
+
+      $('#major').parent().show();
+      $('#minor').parent().show();
+    }
 }
 
 // function to check if password and confirmation password match. gives alert if they do not.
@@ -53,71 +61,124 @@ function checkPasswordsMatch() {
   } else {
     message.innerHTML = "Passwords do not match."
   }
-
 }
 
 // Function made to trigger after a date has been picked
 $(function(){
   $(document).mousemove(function(){
-      var allFilledOut = true;
-      var mainForm = true;
-      var radioForm = true;
-      // If something is missing
-      $('.form-group-mentee-required').children('input.form-control').each(function() {
-        if ($(this).val() == '') {
-              mainForm = false;
-          }
-      });
+      // Part 1 checks
+      if (isPart1Active) {
+        var allFilledOut = true;
+        var mainForm = true;
+        var radioForm = true;
 
-        // Check for student selection and the fields that matter
-      if ($('input[name=studentRadio]:checked').val() == 'student'){
-        //Check if its a highschool student or not
-        if($('input[name=levelRadio]:checked').val()== 'highSchool'){
-          $('#highSchoolStudentRegForm').children('.form-group-required').children('.form-control').each(function(){
-            if($(this).val() == ''){
-                radioForm = false;
-              }
-            });
-        }else{
-          $('#studentRegForm').children('.form-group-required').children('.form-control').each(function(){
-            if($(this).val() == ''){
-                radioForm = false;
-              }
-            });
-        }
-      }else{
-        $('#employedRegForm').children('.form-group-required').children('.form-control').each(function(){
-          if($(this).val() == ''){
-              radioForm = false;
+        // If something is missing
+        $('#part1').find('.form-group-mentee-required').children('input.form-control').each(function() {
+          if ($(this).val() == '') {
+                mainForm = false;
             }
-          });
+        });
+
+          // Check for student selection and the fields that matter
+        if ($('input[name=studentRadio]:checked').val() == 'student'){
+          //Check if its a highschool student or not
+          if($('input[name=levelRadio]:checked').val()== 'highSchool'){
+            $('#highSchoolStudentRegForm').children('.form-group-required').children('.form-control').each(function(){
+              if($(this).val() == ''){
+                  radioForm = false;
+                }
+              });
+          }else{
+            $('#studentRegForm').children('.form-group-required').children('.form-control').each(function(){
+              if($(this).val() == ''){
+                  radioForm = false;
+                }
+              });
+          }
+        }else{
+          $('#employedRegForm').children('.form-group-required').children('.form-control').each(function(){
+            if($(this).val() == ''){
+                radioForm = false;
+              }
+            });
+          }
+
+        if (radioForm == false || mainForm == false){
+          allFilledOut = false;
         }
 
-      if (radioForm == false || mainForm == false){
-        allFilledOut = false;
+        if (!allFilledOut) {
+          $('#advanceBtn').attr('disabled', 'disabled');
+          isPart1Complete = false;
+        } else {
+          $('#advanceBtn').removeAttr('disabled');
+          isPart1Complete = true;
+        }
       }
 
-      if (!allFilledOut) {
-        $('#menteeContBtn').attr('disabled', 'disabled');
-        canUseBtn = false;
-      } else {
-        $('#menteeContBtn').removeAttr('disabled');
-        canUseBtn = true;
+      // Part 2 checks
+      else {
+        var empty = false;
+
+        $('#part2').find('.form-group-mentee-required').children('.form-control').each(function() {
+            if ($(this).val() == '') {
+                empty = empty true;
+            }
+        });
+
+        if (empty) {
+            $('#registerBtn').attr('disabled', 'disabled');
+        } else {
+            $('#registerBtn').removeAttr('disabled');
+        }
+
+        isPart2Complete = !empty;
       }
   });
 });
 
 /*
- * Begin registering a mentee in the database.
+ * Display fields for part 2 of mentee registration.
  */
-function onMenteeContBtnClick(event) {
+function advance(event) {
+  // Classes for hiding/showing registration sections
+  const classesOnShow = 'col-xs-12 registercol';
+  const classesOnHide = 'hidden';
+
+  // Hide part 1, display part 2  
+  if (isPart1Complete) {
+    $('#part1').removeClass(classesOnShow).addClass(classesOnHide);
+    $('#part2').removeClass(classesOnHide).addClass(classesOnShow);
+
+    isPart1Active = false;
+  }
+}
+
+/*
+ * Display fields for part 1 of mentee registration.
+ */
+function regress(event) {
+  // Classes for hiding/showing registration sections
+  const classesOnShow = 'col-xs-12 registercol';
+  const classesOnHide = 'hidden';
+
+  // Hide part 1, display part 2  
+  $('#part1').removeClass(classesOnHide).addClass(classesOnShow);
+  $('#part2').removeClass(classesOnShow).addClass(classesOnHide);
+
+  isPart1Active = true;
+}
+
+/*
+ * Perform registration functions.
+ */
+function register(event) {
   // Stop auto-navigation to href (chrome, firefox)
   event.preventDefault();
 
-  //Check to see that all required information is provided.
-  if(canUseBtn == true){
-    // So we can navigate to the target HREF on success
-    var href = $('#menteeContBtn').attr('href');
+  if (isPart2Complete) {
+    // so we can navigate to the target HREF on success
+    var href = $('#registerBtn').attr('href');
 
     var email    = $('#inputEmail').val();
     var password = $('#inputPassword').val();
@@ -199,13 +260,73 @@ function onMenteeContBtnClick(event) {
           updateObj  = employeeInfoObj;
         }
 
+        // TODO: Resume upload
+        $('#resumeBtn').filestyle({
+          buttonName : 'btn-danger',
+          buttonText : 'Upload Resume'
+        });
+
+        // TODO: Headshot upload
+        $('#picBtn').filestyle({
+          buttonName : 'btn-danger',
+          buttonText : 'Upload Piccccc'
+        });
+
+        var resumeFile   = null;
+        var headshotFile = null;
+
+        // Get uploaded resume file name (response == userID)
+        if ($('#resumeBtn')[0].files[0]) {
+          resumeFile = response + '_' + $('#resumeBtn')[0].files[0].name;
+        }
+
+        // Get uploaded headshot file name (response == userID)
+        if ($('#picBtn')[0].files[0]) {
+          headshotFile = response + '_' + $('#picBtn')[0].files[0].name;
+        }
+
+        // Gather user registration information
+        personObj = Model.createUserObject(
+          personObj,
+          headshotFile,
+          resumeFile,
+          $('#menteeBio').val(),
+          $('#meetingDatePref').val(),
+          $('#languagesSpoken').val(),
+          $('#languagePref-mentee').val(),
+          $('#genderPref').val(),
+          true // Initially available
+        );
+
+        personObj['MenteeSkills']    = $('#menteeSkills').val();
+        personObj['FieldPreference'] = $('#field-mentee').val();
+
         // Update database entry for newly-registered used and navigate to next page
         Database.updateMenteeData(personObj, function(success, response) {
           if(success) {
             updateFunc(updateObj, function(success, response) {
-              if(success) {
-                // Now navigate to target href
-                window.location.href = href;
+              // Collect mentee form data
+              if (success) {
+                var menteeFormData = {
+                  'Improvements':    $('#mFormQ1').val(),
+                  'ToDo':            $('#mFormQ2').val(),
+                  'HowWillIKnow':    $('#mFormQ3').val(),
+                  'WhenSatisfied':   $('#mFormQ4').val(),
+                  'HowToHelp':       $('#mFormQ5').val(),
+                  'WhenToReachGoal': $('#mFormQ6').val()
+                };
+
+                // Submit mentee form and navigate to home page
+                Database.setMenteeFormData(menteeFormData, function(success, response) {
+                  if (success) {
+                    // Navigate to home page via href in button of notification div
+                    // (see Global.showNotification)
+                    // TODO: Add notification
+                    Global.showNotification('Registration successful!', false);
+                    
+                    //window.location.href = href;
+                  }
+                });
               }
               // Display notification on failure
               // TODO: Handle specific errors
@@ -236,9 +357,12 @@ function onMenteeContBtnClick(event) {
 
 // Code needed to initialize the multiselect function
 $(document).ready(function() {
- //then Setup the multiselect
- $('.need-multi').multiselect({
-   // Shortens the height and makes the box small
-   maxHeight: 200
- });
+  // Setup the multiselect
+  $('.need-multi').multiselect({
+    // Shortens the height and makes the box small
+    maxHeight: 200
+  });
+
+  // Update student info section
+  checkStudentLevel();
 });
