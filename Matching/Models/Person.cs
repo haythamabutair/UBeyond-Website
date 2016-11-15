@@ -15,7 +15,7 @@ namespace Matching.Models
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Gender { get; set; } //Male or Female
-        public DateTime Birthdate { get; set; }
+        public string Birthdate { get; set; }
 
         protected Person(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, string birthdate)
         {
@@ -27,7 +27,7 @@ namespace Matching.Models
             this.PhoneNumber = phoneNumber;
             this.Email = email;
             this.Gender = gender;
-            this.Birthdate = Convert.ToDateTime(birthdate);
+            this.Birthdate = birthdate;
         }
     }
 }
