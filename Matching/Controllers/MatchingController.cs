@@ -7,16 +7,14 @@ using Matching;
 namespace Matching.Controllers
 {
     /// <summary>
-    /// A WebAPI controller class for the REST endpoints to get a list of matched mentors and get matching index.
+    /// A WebAPI controller class for the REST endpoints to match users.
     /// </summary>
     public class MatchingController : ApiController
     {
         /// <summary>
-        /// A method that will be called whenever a Mentee clicks the "Find a Mentor" button.
-        /// This will initiate the process for matching a mentee with a mentor. and finds a list of mentors
-        /// to be reviewed by an admin.
+        /// A method that will be called whenever a Mentor registers, and will match that user with the best available Mentee
         /// </summary>
-        /// <param name="menteeUsername"></param>
+        /// <param name="mentorUID"></param>
         [Route("match/mentor/{mentorUID}")]
         public IHttpActionResult MatchMentor(string mentorUID)
         {
@@ -32,17 +30,26 @@ namespace Matching.Controllers
             {
                 return InternalServerError(); //error retrieving mentees from Server
             }
-            
+
+            string bestMenteeUID = null;
+            double bestMatchStrength = 0;
             foreach(KeyValuePair<string, Mentee> mentee in mentees)
             {
                 if(mentee.Value.IsAvailable)
                 {
-                    //save the mentee as a match for this mentor
-                    if (FirebaseUtility.PushMentorMatch(mentorUID, mentee.Key) != null)
+                    double matchStrength = GetMatchStrength(mentor, mentee.Value);
+                    if (matchStrength > bestMatchStrength)
                     {
-                        return Ok(1);
+                        bestMenteeUID = mentee.Key;
+                        bestMatchStrength = matchStrength;
                     }
                 }
+            }
+
+            //save the mentee as a match for this mentor
+            if (bestMenteeUID != null && FirebaseUtility.PushMentorMatch(mentorUID, bestMenteeUID) != null)
+            {
+                return Ok(1);
             }
 
             return Ok(2); //return different error code if no match added (not a failure)
@@ -50,11 +57,9 @@ namespace Matching.Controllers
         }
 
         /// <summary>
-        /// Returns a value that determines how close of a match the mentor and mentee are.
+        /// A method that will be called whenever a Mentee registers, and will match that user with the best available Mentor
         /// </summary>
-        /// <param name="mentorUsername"></param>
-        /// <param name="menteeUsername"></param>
-        /// <returns></returns>
+        /// <param name="menteeUID"></param>
         [Route("match/mentee/{menteeUid}")]
         public IHttpActionResult MatchMentee(string menteeUID)
         {
@@ -71,20 +76,29 @@ namespace Matching.Controllers
                 return InternalServerError(); //error retrieving mentees from Server
             }
 
+            string bestMentorUID = null;
+            double bestMatchStrength = 0;
             foreach (KeyValuePair<string, Mentor> mentor in mentors)
             {
                 if (mentor.Value.IsAvailable)
                 {
-                    //save the mentee as a match for this mentor
-                    if (FirebaseUtility.PushMenteeMatch(menteeUID, mentor.Key) != null)
+                    double matchStrength = GetMatchStrength(mentor.Value, mentee);
+                    if (matchStrength > bestMatchStrength)
                     {
-                        return Ok(1);
+                        bestMentorUID = mentor.Key;
+                        bestMatchStrength = matchStrength;
                     }
                 }
             }
-            
-            return Ok(2); //return different code if no new match added (doesn't mean failure)
-            
+
+            //save the mentee as a match for this mentor
+            if (bestMentorUID != null && FirebaseUtility.PushMenteeMatch(menteeUID, bestMentorUID) != null)
+            {
+                return Ok(1);
+            }
+
+            return Ok(2); //return different error code if no match added (not a failure)
+
         }
 
         public double GetMatchStrength(Mentor mentor, Mentee mentee)
