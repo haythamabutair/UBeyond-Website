@@ -13,6 +13,17 @@ var isPart2Complete = false;
 // Whether we are on part 1 or part 2
 var isPart1Active = true;
 
+// Maximum number of references allowed
+const MAX_REFERENCES = 5;
+
+// Number of references currently active
+var referenceCount = 0;
+
+
+/*
+ * Functions
+ */
+
 // function to hide/show registration input fields depending on selection of student/notStudent radio buttons
 function showHideRegisterInfo() {
   var ifStudent = document.getElementById('studentRad');
@@ -67,10 +78,10 @@ $(function(){
         });
 
         // References
-        $('#references').find('.element').find(':input').each(function() {
-            if ($(this).val() == '') {
-                empty = true;
-            }
+        $('.reference:not(#reference-template)').find(':input').each(function() {
+          if ($(this).val() == '') {
+            empty = true;
+          }
         });
 
         if (empty) {
@@ -83,6 +94,38 @@ $(function(){
       }
   });
 });
+
+// TODO: make sure completeness check on references is updated to new schema
+
+function addReference() {
+  if (referenceCount < MAX_REFERENCES) {
+    var clone = $('#reference-template').clone(true);
+    referenceCount++;
+
+    // Fill in template
+    clone.attr('id', 'reference' + referenceCount);
+    clone.removeClass('hidden');
+    clone.find('[name="refHeader"]').text('Reference ' + referenceCount);
+    
+    clone.appendTo('#references');
+  }
+
+  updateReferenceButtonStates();
+}
+
+function removeReference() {
+  if (referenceCount > 0) {
+    $('#reference' + referenceCount).remove();
+    referenceCount--;
+  }
+
+  updateReferenceButtonStates();
+}
+
+function updateReferenceButtonStates() {
+  $('#addRefBtn').prop('disabled', (referenceCount >= MAX_REFERENCES));
+  $('#remRefBtn').prop('disabled', (referenceCount <= 0));
+}
 
 /*
  * Display fields for part 2 of mentee registration.
@@ -217,6 +260,28 @@ function register(event) {
           userObj['FieldOfExpertise']      = $('#field').val();
           userObj['MenteeLevelPreference'] = levelPrefArr;
           userObj['Strengths']             = $('#mentorSkills').val();
+
+          // Add references
+          var references = [];
+
+          $('.reference:not(#reference-template)').each(function() {
+            var refAddress = $(this).find('input[name="refStreet1"]').val()
+              + ' ' + $(this).find('input[name="refStreet2"]').val()
+              + ', ' + $(this).find('input[name="refCity"]').val()
+              + ', ' + $(this).find('[name="refState"]').val();
+
+            references.push(Model.createReferenceObject(
+              {},
+              $(this).find('input[name="refFirstName"]').val(),
+              $(this).find('input[name="refLastName"]').val(),
+              refAddress,
+              $(this).find('input[name="refPhone"]').val(),
+              $(this).find('input[name="refEmail"]').val(),
+              $(this).find('input[name="refRelationship"]').val()
+            ));
+          });
+
+          userObj['References'] = references;
 
           Database.updateMentorData(userObj, function(success, response) {
             // Collect mentee form data

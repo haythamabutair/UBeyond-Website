@@ -81,21 +81,25 @@ $(function(){
 
           // Check for student selection and the fields that matter
         if ($('input[name=studentRadio]:checked').val() == 'student'){
-          //Check if its a highschool student or not
-          if($('input[name=levelRadio]:checked').val()== 'highSchool'){
-            $('#highSchoolStudentRegForm').children('.form-group-required').children('.form-control').each(function(){
-              if($(this).val() == ''){
+          $('#studentRegForm').children('.form-group-required').children('.form-control').each(function() {
+            // Check if highschool student or not
+            if($('input[name=levelRadio]:checked').val() == 'highSchool') {
+              // Ignore major and minor if in high school
+              if ($(this).attr('id') != 'major' && $(this).attr('id') != 'minor') {
+                if ($(this).val() == '') {
                   radioForm = false;
                 }
-              });
-          }else{
-            $('#studentRegForm').children('.form-group-required').children('.form-control').each(function(){
-              if($(this).val() == ''){
+              }
+            } else {
+              // Ignore grade level if not in high school
+              if ($(this).attr('id') != 'gradeLevel') {
+                if($(this).val() == ''){
                   radioForm = false;
                 }
-              });
-          }
-        }else{
+              }
+            }
+          });
+        } else {
           $('#employedRegForm').children('.form-group-required').children('.form-control').each(function(){
             if($(this).val() == ''){
                 radioForm = false;
@@ -122,7 +126,7 @@ $(function(){
 
         $('#part2').find('.form-group-mentee-required').children('.form-control').each(function() {
             if ($(this).val() == '') {
-                empty = empty true;
+                empty = true;
             }
         });
 

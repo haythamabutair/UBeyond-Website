@@ -181,8 +181,6 @@ textarea {
 }
 
 
-
-
 /*medium screen and larger functionality*/
 @media(min-width: 992px) {
   .background-left {
@@ -195,4 +193,8 @@ textarea {
 
 .hidden {
   display: none;
+}
+
+button:disabled {
+  color: #999999;
 }
