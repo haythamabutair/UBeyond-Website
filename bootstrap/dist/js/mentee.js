@@ -6,13 +6,13 @@
 // Whether to log debug information to the console
 const logDebugInfo = true;
 
-// Whether part 1 / part 2 of registration is complete
+// Whether part 1 / 2 / 3 of registration is complete
 var isPart1Complete = false;
 var isPart2Complete = false;
+var isPart3Complete = false;
 
-// Whether we are on part 1 or part 2
-var isPart1Active = true;
-
+// Whether we are on part 1, part 2, or part 3
+var currentPart = 1;
 
 /*
  * Functions
@@ -67,7 +67,7 @@ function checkPasswordsMatch() {
 $(function(){
   $(document).mousemove(function(){
       // Part 1 checks
-      if (isPart1Active) {
+      if (currentPart == 1) {
         var allFilledOut = true;
         var mainForm = true;
         var radioForm = true;
@@ -121,22 +121,48 @@ $(function(){
       }
 
       // Part 2 checks
-      else {
+      else if (currentPart == 2) {
         var empty = false;
 
         $('#part2').find('.form-group-mentee-required').children('.form-control').each(function() {
-            if ($(this).val() == '') {
-                empty = true;
-            }
+          if ($(this).val() == '') {
+              empty = true;
+          }
         });
 
         if (empty) {
-            $('#registerBtn').attr('disabled', 'disabled');
+          $('#advanceBtn2').attr('disabled', 'disabled');
         } else {
-            $('#registerBtn').removeAttr('disabled');
+          $('#advanceBtn2').removeAttr('disabled');
         }
 
         isPart2Complete = !empty;
+      }
+
+      // Part 3 checks (ToC)
+      else if (currentPart == 3) {
+        var isTosAccepted = true;
+
+        if ($('#menteeTerms input[name="particRad"]:checked').val() == 'No') {
+          isPart3Complete = false;
+        }
+
+        if ($('#menteeTerms input[name="releaseRad"]:checked').val() == 'No') {
+          isTosAccepted = false;
+        }
+
+        if ($('#menteeTerms input[name="agreeRad"]:checked').val() == 'No') {
+          isTosAccepted = false;
+        }
+
+        if (isTosAccepted) {
+          $('#registerBtn').removeAttr('disabled');
+        }
+        else {
+          $('#registerBtn').attr('disabled', 'disabled');
+        }
+
+        isPart3Complete = isTosAccepted;
       }
   });
 });
@@ -150,11 +176,20 @@ function advance(event) {
   const classesOnHide = 'hidden';
 
   // Hide part 1, display part 2  
-  if (isPart1Complete) {
+  if (currentPart == 1 && isPart1Complete) {
     $('#part1').removeClass(classesOnShow).addClass(classesOnHide);
-    $('#part2').removeClass(classesOnHide).addClass(classesOnShow);
+    $('#part2').removeClass(classesOnHide).addClass(classesOnShow); // Will be shown
+    $('#part3').removeClass(classesOnShow).addClass(classesOnHide);
 
-    isPart1Active = false;
+    currentPart = 2;
+  }
+  // Hide part 2, display part 3
+  else if (currentPart == 2 && isPart2Complete) {
+    $('#part1').removeClass(classesOnShow).addClass(classesOnHide);
+    $('#part2').removeClass(classesOnShow).addClass(classesOnHide);
+    $('#part3').removeClass(classesOnHide).addClass(classesOnShow); // Will be shown
+
+    currentPart = 3;
   }
 }
 
@@ -166,11 +201,22 @@ function regress(event) {
   const classesOnShow = 'col-xs-12 registercol';
   const classesOnHide = 'hidden';
 
-  // Hide part 1, display part 2  
-  $('#part1').removeClass(classesOnHide).addClass(classesOnShow);
-  $('#part2').removeClass(classesOnShow).addClass(classesOnHide);
+  // Hide part 2, display part 1
+  if (currentPart == 2) {
+    $('#part1').removeClass(classesOnHide).addClass(classesOnShow); // Will be shown
+    $('#part2').removeClass(classesOnShow).addClass(classesOnHide);
+    $('#part3').removeClass(classesOnShow).addClass(classesOnHide);
 
-  isPart1Active = true;
+    currentPart = 1;
+  }
+  // Hide part 3, display part 2
+  else if (currentPart == 3) {
+    $('#part1').removeClass(classesOnHide).addClass(classesOnShow);
+    $('#part2').removeClass(classesOnShow).addClass(classesOnHide); // Will be shown
+    $('#part3').removeClass(classesOnHide).addClass(classesOnShow);
+
+    currentPart = 2;
+  }
 }
 
 /*
@@ -180,7 +226,7 @@ function register(event) {
   // Stop auto-navigation to href (chrome, firefox)
   event.preventDefault();
 
-  if (isPart2Complete) {
+  if (isPart1Complete && isPart2Complete && isPart3Complete) {
     // so we can navigate to the target HREF on success
     var href = $('#registerBtn').attr('href');
 

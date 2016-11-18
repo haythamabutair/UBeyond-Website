@@ -89,7 +89,7 @@
         <!-- Div for left background -->
         <div class="hidden-xs background-left"></div>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-        <!-- Registration Part 1-->
+        <!-- Registration Part 1 -->
         <div id="part1" class="col-xs-12 registercol">
           <form class="form-signin">
             <h2 class="form-signin-heading">Mentee Registration</h2>
@@ -393,7 +393,7 @@
             </div><!-- /.employedRegForm -->
 
             <div class="form-group">
-              <a  class="btn btn-lg btn-danger btn-block" role="button" id="advanceBtn" onclick="advance()">Continue</a>
+              <a class="btn btn-lg btn-danger btn-block" role="button" id="advanceBtn" onclick="advance()">Continue</a>
             </div>
           </form>
         </div> <!-- /.registercol -->
@@ -742,6 +742,56 @@
             <div class="form-group-mentee-required">
               <label for="mFormQ6" class="control-label">What is my time frame to succeed?</label>
               <textarea class="form-control menteeForm" id="mFormQ6" rows="3" placeholder=""></textarea>
+            </div>
+
+            <div class="form-group">
+              <a class="btn btn-lg btn-danger btn-block" role="button" id="advanceBtn2" onclick="advance()" disabled='disabled'>Continue</a>
+            </div>
+          </form>
+        </div> <!-- /.registercol -->
+
+        <!-- Registration Part 3 -->
+        <div id="part3" class="hidden">
+          <form class="form-signin">
+            <h2>Terms and Conditions</h2>
+
+            <div class="form-group desc" id="menteeTerms">
+              <label class="terms-label">
+                “I, the undersigned, agree to participate in U-Beyond Mentorship, Inc.’s mentoring,
+                college visits and any and all other activities provided by U-Beyond Mentorship, Inc. (the
+                “Program”). I agree to the following Release, Waiver of Liability and Indemnity Agreement.”
+              </label>
+
+              <div class="form-group mentee-question">
+                <label class="radio-inline"><input type="radio" name="particRad" value="Yes" id="">Yes</label>
+                <label class="radio-inline"><input type="radio" name="particRad" value="No" id="" checked>No</label>
+              </div>
+
+              <label class="terms-label">
+                “In consideration of my participation in the Program, I voluntarily release, hold harmless,
+                and forever discharge U-Beyond Mentorship, Inc. and its trustees, administrators,
+                directors, representatives, executors, agents, officers, volunteers, and employees, other
+                participants, any sponsors, advertisers, and, if applicable, owners and lessors of
+                premises on which U-Beyond Mentorship, Inc.’s activities take place, representatives,
+                executors, and successors of all of the above (together, the “Releasees”), on behalf of
+                myself and my successors and assigns from any and all claims, lawsuits and liability for
+                bodily injury, property damage, death or other loss or damage which may incur in
+                connection with or arising out of my participation in the Program.”
+              </label>
+
+              <div class="form-group mentee-question">
+                <label class="radio-inline"><input type="radio" name="releaseRad" value="Yes" id="">Yes</label>
+                <label class="radio-inline"><input type="radio" name="releaseRad" value="No" id="" checked>No</label>
+              </div>
+
+              <label class="terms-label">
+                “I have read and understand this RELEASE, WAIVER OF LIABILITY AND INDEMNITY AGREEMENT.”
+              </label>
+
+              <div class="form-group mentee-question">
+                <label class="radio-inline"><input type="radio" name="agreeRad" value="Yes" id="">Yes</label>
+                <label class="radio-inline"><input type="radio" name="agreeRad" value="No" id="" checked>No</label>
+              </div>
             </div>
 
             <div class="form-group">
