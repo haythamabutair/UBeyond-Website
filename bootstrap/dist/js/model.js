@@ -26,7 +26,9 @@ var Model = (function() {
     ) {
         baseObject["FirstName"]     = firstName;
         baseObject["LastName"]      = lastName;
-        baseObject["MiddleInitial"] = middleInitial;
+        if (middleInitial != "") {
+            baseObject["MiddleInitial"] = middleInitial;
+        }
         baseObject["PreferredName"] = preferredName;
         baseObject["Address"]       = address;
         baseObject["PhoneNumber"]   = phoneNumber;
