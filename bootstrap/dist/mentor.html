@@ -813,8 +813,60 @@
             </div>
 
             <div class="form-group">
-              <input type="submit" disabled="disabled" class="btn btn-lg btn-danger btn-block" href="#" id="registerBtn" value="Register" onclick="register(event)">
+              <a disabled='disabled' class="btn btn-lg btn-danger btn-block" role="button" id="advanceBtn2" onclick="advance(event)">Continue</a>
               <!-- <button class="btn btn-lg btn-danger btn-block" type="submit" href="#" id="menteeContBtn2">Register</button> -->
+            </div>
+          </form>
+        </div> <!-- /.registercol -->
+
+        <div id="part3" class="hidden">
+          <form class="form-signin">
+            <h2>Terms and Conditions</h2>
+
+            <div class="form-group desc" id="mentorTerms">
+              <label class="terms-label">
+                  “I understand that U-Beyond Mentorship, Inc. reserves the right to (1)
+                  refuse any mentor applicant and (2) suspend or terminate any mentor at any time if it is
+                  discovered that the mentor made false statements during the application process or (3)
+                  at any time during their commitment they violate U-Beyond Mentorship, Inc.’s Policies
+                  and Procedures.”
+              </label>
+
+              <div class="form-group mentor-radio">
+                  <label class="radio-inline"> <input type="radio" name="refuseRad" value="Yes" id="">Yes</label>
+                  <label class="radio-inline"> <input type="radio" name="refuseRad" value="No" id="" checked>No</label>
+              </div>
+
+              <label class="terms-label">
+                  Have you been convicted of a felony?
+              </label>
+
+              <div class="form-group mentor-radio">
+                  <label class="radio-inline"> <input type="radio" name="felonyRad" value="Yes" id="">Yes</label>
+                  <label class="radio-inline"> <input type="radio" name="felonyRad" value="No" id="" checked>No</label>
+              </div>
+
+              <label class="terms-label">
+                  Have you ever been terminated due to criminal misconduct?
+              </label>
+              <div class="form-group mentor-radio">
+                  <label class="radio-inline"> <input type="radio" name="misconductRad" value="Yes" id="">Yes</label>
+                  <label class="radio-inline"> <input type="radio" name="misconductRad" value="No" id="" checked>No</label>
+              </div>
+
+              <label class="terms-label">
+                  Do you consent to U-Beyond Mentoring conducting a selective background check as a
+                  routine part of its hiring/volunteer process?
+              </label>
+              <div class="form-group mentor-radio">
+                  <label class="radio-inline"> <input type="radio" name="backgroundRad" value="Yes" id="">Yes</label>
+                  <label class="radio-inline"> <input type="radio" name="backgroundRad" value="No" id="" checked>No</label>
+              </div>
+          </div>
+
+            <div class="form-group">
+              <!-- TODO: Update href -->
+              <input type="submit" disabled='disabled' class="btn btn-lg btn-danger btn-block" href="#" id="registerBtn" value="Register" onclick="register(event);">
             </div>
           </form>
         </div> <!-- /.registercol -->

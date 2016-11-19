@@ -3,15 +3,15 @@
  * Global Variables
  */
 
-// Whether to log debug information to the console
-const logDebugInfo = true;
-
-// Whether part 1 / part 2 of registration is complete
+// Whether part 1 / 2 / 3 of registration is complete
 var isPart1Complete = false;
 var isPart2Complete = false;
+var isPart3Complete = false;
 
-// Whether we are on part 1 or part 2
-var isPart1Active = true;
+// update advance() and regress() and add toc to html and add toc checks
+
+// Whether we are on part 1, part 2, or part 3
+var currentPart = 1;
 
 // Maximum number of references allowed
 const MAX_REFERENCES = 5;
@@ -51,7 +51,7 @@ function checkPasswordsMatch() {
 // Function made to trigger after a date has been picked
 $(function(){
   $(document).mousemove(function(){
-      if (!isPart1Complete) {
+      if (currentPart == 1) {
         var empty = false;
 
         $('#part1').find('.form-group-mentor-required').children('input.form-control').each(function() {
@@ -68,7 +68,7 @@ $(function(){
             isPart1Complete = true;
         }
       }
-      else {
+      else if (currentPart == 2) {
         var empty = false;
 
         $('#part2').find('.form-group-mentor-required').children('.form-control').each(function() {
@@ -91,6 +91,36 @@ $(function(){
         }
 
         isPart2Complete = !empty;
+      }
+      else if (currentPart == 3) {
+        var isTosAccepted = true;
+
+        // Check ToS
+        if ($('#mentorTerms input[name="refuseRad"]:checked').val() == 'No') {
+          isTosAccepted = false;
+        }
+
+        if ($('#mentorTerms input[name="felonyRad"]:checked').val() == 'Yes') {
+          isTosAccepted = false;
+        }
+
+        if ($('#mentorTerms input[name="misconductRad"]:checked').val() == 'Yes') {
+          isTosAccepted = false;
+        }
+
+        if ($('#mentorTerms input[name="backgroundRad"]:checked').val() == 'No') {
+          isTosAccepted = false;
+        }
+
+        // Enable / disable register button
+        if (isTosAccepted) {
+          $('#registerBtn').removeAttr('disabled');
+        }
+        else {
+          $('#registerBtn').attr('disabled', 'disabled');
+        }
+
+        isPart3Complete = isTosAccepted;
       }
   });
 });
@@ -136,11 +166,20 @@ function advance(event) {
   const classesOnHide = 'hidden';
 
   // Hide part 1, display part 2  
-  if (isPart1Complete) {
+  if (currentPart == 1 && isPart1Complete) {
     $('#part1').removeClass(classesOnShow).addClass(classesOnHide);
-    $('#part2').removeClass(classesOnHide).addClass(classesOnShow);
+    $('#part2').removeClass(classesOnHide).addClass(classesOnShow); // Will be shown
+    $('#part3').removeClass(classesOnShow).addClass(classesOnHide);
 
-    isPart1Active = false;
+    currentPart = 2;
+  }
+  // Hide part 2, display part 3
+  else if (currentPart == 2 && isPart2Complete) {
+    $('#part1').removeClass(classesOnShow).addClass(classesOnHide);
+    $('#part2').removeClass(classesOnShow).addClass(classesOnHide);
+    $('#part3').removeClass(classesOnHide).addClass(classesOnShow); // Will be shown
+
+    currentPart = 3;
   }
 }
 
@@ -152,11 +191,22 @@ function regress(event) {
   const classesOnShow = 'col-xs-12 registercol';
   const classesOnHide = 'hidden';
 
-  // Hide part 1, display part 2  
-  $('#part1').removeClass(classesOnHide).addClass(classesOnShow);
-  $('#part2').removeClass(classesOnShow).addClass(classesOnHide);
+  // Hide part 2, display part 1
+  if (currentPart == 2) {
+    $('#part1').removeClass(classesOnHide).addClass(classesOnShow); // Will be shown
+    $('#part2').removeClass(classesOnShow).addClass(classesOnHide);
+    $('#part3').removeClass(classesOnShow).addClass(classesOnHide);
 
-  isPart1Active = true;
+    currentPart = 1;
+  }
+  // Hide part 3, display part 2
+  else if (currentPart == 3) {
+    $('#part1').removeClass(classesOnHide).addClass(classesOnShow);
+    $('#part2').removeClass(classesOnShow).addClass(classesOnHide); // Will be shown
+    $('#part3').removeClass(classesOnHide).addClass(classesOnShow);
+
+    currentPart = 2;
+  }
 }
 
 /*
@@ -169,7 +219,7 @@ function register(event) {
   event.preventDefault();
 
   //Check to see that all required information is provided.
-  if(isPart1Complete == true){
+  if(isPart1Complete && isPart2Complete && isPart3Complete){
     var email    = $('#inputEmail').val();
     var password = $('#inputPassword').val();
 

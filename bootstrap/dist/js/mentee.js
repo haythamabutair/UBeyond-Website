@@ -3,9 +3,6 @@
  * Global Variables
  */
 
-// Whether to log debug information to the console
-const logDebugInfo = true;
-
 // Whether part 1 / 2 / 3 of registration is complete
 var isPart1Complete = false;
 var isPart2Complete = false;
@@ -143,8 +140,9 @@ $(function(){
       else if (currentPart == 3) {
         var isTosAccepted = true;
 
+        // Check ToS
         if ($('#menteeTerms input[name="particRad"]:checked').val() == 'No') {
-          isPart3Complete = false;
+          isTosAccepted = false;
         }
 
         if ($('#menteeTerms input[name="releaseRad"]:checked').val() == 'No') {
@@ -155,6 +153,7 @@ $(function(){
           isTosAccepted = false;
         }
 
+        // Enable / disable register button
         if (isTosAccepted) {
           $('#registerBtn').removeAttr('disabled');
         }
