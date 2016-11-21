@@ -68,7 +68,7 @@ function onMentorContBtnClick(event) {
       if (success) {
         // Build address string
         var addressStr = $('#street1ID').val()
-          + ' ' + $('#street2ID').val()
+          + ($('#street2ID').val() == '' ? '' : ' ' + $('#street2ID').val())
           + ', ' + $('#cityID').val()
           + ', ' + $('#state_id').val()
           + ', ' + $('#zipID').val();

@@ -127,7 +127,7 @@
               <input type="text" id="firstName" class="form-control" placeholder="First Name" required>
             </div>
 
-            <div class="form-group-mentee-required">
+            <div class="form-group-mentee">
               <label for="middleInitial" class="control-label">Middle Initial</label>
               <input type="text" id="middleInitial" class="form-control" placeholder="Middle Initial" required>
             </div>
@@ -163,7 +163,7 @@
             <input type="text" class="form-control" id="street1ID" name="street1" placeholder="Street Address" required>
           </div>
 
-          <div class="form-group-mentee-required">
+          <div class="form-group-mentee">
             <label for="street2ID" class="control-label">Street Address 2</label>
             <input type="text" class="form-control" id="street2ID" name="street2" placeholder="Apartment, suite, etc.">
           </div>
@@ -249,32 +249,32 @@
             </div>
 
             <!-- For highschool Students  -->
-            <div class="form-group" id="highSchoolStudentRegForm" style="display:none">
+            <div class="form-group" id="highSchoolStudentRegForm" style="display:block">
 
               <div class="form-group-required">
                 <label for="gradeLevel" class="control-label">Grade Level</label>
                 <input type="number" id="gradeLevel" class="form-control" placeholder="11" required>
               </div>
 
-              <div class="form-group-required">
-                <label for="currentSchool" class="control-label">Current School</label>
-                <input type="text" id="currentSchool" class="form-control" placeholder="Current School" required>
+              <div class="form-group">
+                <label for="currentHSSchool" class="control-label">Current School</label>
+                <input type="text" id="currentHSSchool" class="form-control" placeholder="Current School" required>
               </div>
 
               <div class="form-group-required">
-                <label for="studentGradDate" class="control-label">Graduation Date</label>
-                <input type="date" id="studentGradDate" class="form-control" placeholder="Graduation Date">
+                <label for="studentHSGradDate" class="control-label">Graduation Date</label>
+                <input type="date" id="studentHSGradDate" class="form-control" placeholder="Graduation Date">
               </div>
 
               <div class="form-group-required">
-                <label for="afterGrad" class="control-label">Plans after Graduation</label>
-                <textarea class="form-control" id="afterGrad" rows="2" placeholder=""></textarea>
+                <label for="afterHSGrad" class="control-label">Plans after Graduation</label>
+                <textarea class="form-control" id="afterHSGrad" rows="2" placeholder=""></textarea>
               </div>
 
             </div>
             <!-- For College students and above -->
             <!-- Student Start Form -->
-            <div class="form-group" id="studentRegForm" style="display:block">
+            <div class="form-group" id="studentRegForm" style="display:none">
 
               <div class="form-group-required">
                 <label for="currentSchool" class="control-label">Current School</label>
@@ -286,7 +286,7 @@
                 <input type="text" id="major" class="form-control" placeholder="Major" required>
               </div>
 
-              <div class="form-group-required">
+              <div class="form-group">
                 <label for="minor" class="control-label">Minor</label>
                 <input type="text" id="minor" class="form-control" placeholder="Minor">
               </div>
