@@ -25,6 +25,9 @@
 
     <!-- Bootstrap JS -->
     <script src = "js/bootstrap.min.js"></script>
+    <script src = "js/database.js"></script>
+    <script src = "js/home.js"></script>
+
 
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -92,20 +95,38 @@
 
               <!-- change this src image to the user image from registration -->
               <img src="img/blank_profile.jpg" alt="img/blank_profile.jpg" class="img-circle" id="home-user-pic" />
-              <h3 class="home-user-name"> John Smith <small id="home-user-country"> USA </small></h3>
-              <span id="home-user-skills"> <b>Skills: </b> </span>
+
+              <h3 id="home-user-name"> </h3>
+              <h6 id="home-user-status"> </h6>
+              <h4><span class="label label-danger " id="home-user-majorOrEmployer"></span></h4>
+
+
+
+              <!-- <div id = "home-user-skills">
+                <span > Skills:  </span>
                 <span class="label label-info " id="home-user-skill-one">Java</span>
-                <span class="label label-warning" id="home-user-skill-one">HTML/CSS</span>
-                <span class="label label-danger" id="home-user-skill-one">Python</span>
+                <span class="label label-warning" id="home-user-skill-two">HTML/CSS</span>
+                <span class="label label-danger" id="home-user-skill-three">Python</span>
+              </div> -->
+
+
+              <div id="home-user-fieldExpertise-header">
+                <h5 >Field Expertise: <span class="label label-info " id="home-user-fieldExpertise"></span></h5>
+              </div>
+
+              <div id="home-user-fieldPreference-header">
+                <h5>Field preference: <span class="label label-info " id="home-user-fieldPreference"></span></h5>
+              </div>
+
+              <h5>Language preference: <span class="label label-warning " id="home-user-languagePreference"></span></h5>
+
 
 
               <hr>
 
               <div class="home-user-bio">
                 <h4 id="home-user-bio-heading">Bio</h4>
-                <p id="home-user-bio-para">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sem dui, tempor sit amet commodo a, vulputate vel tellus.
-                </p>
+                <p id="home-user-bio-para"> </p>
               </div>
             <center>
           </div> <!-- /.home-user-well -->
@@ -126,25 +147,39 @@
 
                 <!-- change this src image to the user image from registration -->
                 <img src="img/blank_profile.jpg" alt="img/blank_profile.jpg" class="img-circle" id="home-match-pic" />
-                <h3 class="home-match-name"> John Smith <small id="home-match-country"> USA </small></h3>
-                <span id="home-match-skills"> <b>Skills: </b> </span>
-                  <span class="label label-info " id="home-match-skill-one">Java</span>
-                  <span class="label label-warning" id="home-match-skill-one">HTML/CSS</span>
-                  <span class="label label-danger" id="home-match-skill-one">Python</span>
 
+                <h3 id="home-match-name"> </h3>
+
+                <h4><span class="label label-danger " id="home-match-majorOrEmployer"></span></h4>
+
+
+                <div id="home-match-fieldExpertise-header">
+                  <h5 >Field Expertise: <span class="label label-info " id="home-match-fieldExpertise"></span></h5>
+                </div>
+
+                <div id="home-match-fieldPreference-header">
+                  <h5>Field preference: <span class="label label-info " id="home-match-fieldPreference"></span></h5>
+                </div>
+
+                <h5>LanguagePreference: <span class="label label-primary " id="home-match-languagePreference"></span></h5>
+                <h5>Gender: <span class="label label-warning " id="home-match-gender"></span></h5>
 
                 <hr>
 
                 <div class="home-match-bio">
                   <h4 id="home-match-bio-heading">Bio</h4>
-                  <p id="home-match-bio-para">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sem dui, tempor sit amet commodo a, vulputate vel tellus.
-                  </p>
+                  <p id="home-match-bio-para"></p>
                 </div>
 
                 <hr>
 
-                <button type="button" class="btn btn-info" name="button">Email</button>
+                <div class="home-match-contact">
+                  <!-- <h4 id="home-match-contact-heading"> Contact Info </h4> -->
+                  <h4>Phone: <span class="label label-default" id="home-match-contact-phoneNumber"></span> </h4>
+                  <h4>Email: <span class="label label-default" id="home-match-contact-email"></span> </h4>
+
+
+                </div>
               </center>
             </div> <!-- /.home-match-well -->
           </div> <!-- /.match-div -->
