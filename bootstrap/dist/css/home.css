@@ -91,3 +91,8 @@ body {
   padding-top: 0px;
   background-color: #F0F8FF;
 }
+
+.home-match-col,
+.home-user-col {
+  display: none;
+}
