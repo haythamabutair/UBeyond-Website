@@ -10,7 +10,7 @@ namespace Matching.Models
         public string PathToHeadshot { get; set; }
         public string PathToResume { get; set; }
         public string Bio { get; set; }
-        public DateTime PreferredStartDate { get; set; }
+        public string PreferredStartDate { get; set; }
         public string LanguagePreference { get; set; }
         public List<string> Languages { get; set; }
         public string GenderPreference { get; set; } //Male or Female
@@ -22,7 +22,7 @@ namespace Matching.Models
         protected User(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, string birthdate,  string bio, string preferredStartDate, string languagePreference, string genderPreference, List<string> languages, string isAvailable) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, birthdate)
         {
             this.Bio = bio;
-            this.PreferredStartDate = Convert.ToDateTime(preferredStartDate);
+            this.PreferredStartDate = preferredStartDate;
             this.LanguagePreference = languagePreference;
             this.GenderPreference = genderPreference;
             this.Languages = languages;

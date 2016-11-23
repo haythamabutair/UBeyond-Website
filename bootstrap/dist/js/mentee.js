@@ -240,7 +240,7 @@ function register(event) {
 
         // Build address string
         var addressStr = $('#street1ID').val()
-          + ' ' + $('#street2ID').val()
+          + ($('#street2ID').val() == '' ? '' : ' ' + $('#street2ID').val())
           + ', ' + $('#cityID').val()
           + ', ' + $('#state_id').val()
           + ', ' + $('#zipID').val();
@@ -264,15 +264,15 @@ function register(event) {
         if ($('#studentRad').is(':checked')) {
           personObj['EmploymentStatus'] = 'student';
 
-          var studentInfoObj = {
-            'Grade': $('#gradeLevel').val()
-          };
+          var studentInfoObj = {};
 
           // School info
           if (!$('#radio-highschool').is(':checked')) {
             studentInfoObj['CurrentSchool'] = $('#currentSchool').val();
             studentInfoObj['Major'] = $('#major').val();
-            studentInfoObj['Minor'] = $('#minor').val();
+            if ($('#minor').val() != "") {
+              studentInfoObj['Minor'] = $('#minor').val();
+            }
             studentInfoObj['FuturePlans'] = $('#afterGrad').val();
             studentInfoObj['ExpectedGradDate'] = $('#studentGradDate').val();
             studentInfoObj['InterestedInPostGrad'] = $('#postGradCheckBx').is(':checked');
@@ -286,6 +286,13 @@ function register(event) {
             }
           }
           else {
+            studentInfoObj['Grade'] = $('#gradeLevel').val();
+            if ($('#currentHSSchool').val() != "") {
+              studentInfoObj['CurrentSchool'] = $('#currentHSSchool').val();
+            }
+            studentInfoObj['FuturePlans'] = $('#afterHSGrad').val();
+            studentInfoObj['ExpectedGradDate'] = $('#studentHSGradDate').val();
+
             studentInfoObj['SchoolStatus'] = 'high school';
           }
 

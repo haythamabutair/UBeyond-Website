@@ -153,6 +153,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\Reference.cs" />
     <Compile Include="Models\MentorMatch.cs" />
     <Compile Include="Models\MenteeQuestionnaire.cs" />
     <Compile Include="Models\MentorQuestionnaire.cs" />
