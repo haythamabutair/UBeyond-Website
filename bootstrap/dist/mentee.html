@@ -34,6 +34,10 @@
     <script src="js/database.js"></script>
     <script src="js/global.js"></script>
     <script src="js/model.js"></script>
+
+    <!-- filestyle JS file for uploading files feedback -->
+    <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="assets/js/ie-emulation-modes-warning.js"></script>
@@ -54,10 +58,8 @@
   </head>
 
   <body>
-
     <div class="navbar-wrapper">
       <!-- <div class="container"> -->
-
       <nav class="navbar navbar-default navbar-static-top default-menu" style="background-image: url('img/black_paper.jpg')">
         <div class="container">
           <div class="navbar-header">
@@ -79,24 +81,16 @@
           </div>
         </div>
       </nav>
-
       <!-- </div> -->
     </div>
 
-
-
-
-
     <div class="container">
-
       <div class="row">
-
         <!-- Div for left background -->
         <div class="hidden-xs background-left"></div>
-
-        <!-- Div for the form -->
-        <div class="col-xs-12 registercol">
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+        <!-- Registration Part 1 -->
+        <div id="part1" class="col-xs-12 registercol">
           <form class="form-signin">
             <h2 class="form-signin-heading">Mentee Registration</h2>
 
@@ -127,6 +121,7 @@
               <input type="text" id="firstName" class="form-control" placeholder="First Name" required>
             </div>
 
+            <div class="form-group-mentee-required">
             <div class="form-group-mentee">
               <label for="middleInitial" class="control-label">Middle Initial</label>
               <input type="text" id="middleInitial" class="form-control" placeholder="Middle Initial" required>
@@ -146,7 +141,6 @@
               <label for="bday" class="control-label">Birth Date</label>
               <input type="date" id="bday" class="form-control" placeholder="Birth Date" required>
               <!-- <input type="text" class='form-control' placeholder='Birth Date' id="birthdate-datepicker"> -->
-
             </div>
 
             <div class="form-group-mentee-required">
@@ -158,94 +152,175 @@
               </select>
             </div>
 
-          <div class="form-group-mentee-required">
-            <label for="street1ID" class="control-label">Street Address 1</label>
-            <input type="text" class="form-control" id="street1ID" name="street1" placeholder="Street Address" required>
-          </div>
+            <div class="form-group-mentee-required">
+              <label for="languagesSpoken" class="control-label">Languages Spoken</label>
+              <!-- <input type="text" id="languagePref" class="form-control" placeholder="Language Preference"> -->
+              <select id="languagesSpoken" class="form-control need-multi" multiple='multiple'>
+                <option value="English">English</option>
+                <option value="Afrikaans">Afrikaans</option>
+                <option value="Albanian">Albanian</option>
+                <option value="Amharic">Amharic</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Armenian">Armenian</option>
+                <option value="Basque">Basque</option>
+                <option value="Bengali">Bengali</option>
+                <option value="Byelorussian">Byelorussian</option>
+                <option value="Burmese">Burmese</option>
+                <option value="Bulgarian">Bulgarian</option>
+                <option value="Catalan">Catalan</option>
+                <option value="Czech">Czech</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Croatian">Croatian</option>
+                <option value="Danish">Danish</option>
+                <option value="Dari">Dari</option>
+                <option value="Dzongkha">Dzongkha</option>
+                <option value="Dutch">Dutch</option>
+                <option value="Esperanto">Esperanto</option>
+                <option value="Estonian">Estonian</option>
+                <option value="Faroese">Faroese</option>
+                <option value="Farsi">Farsi</option>
+                <option value="Finnish">Finnish</option>
+                <option value="French">French</option>
+                <option value="Gaelic">Gaelic</option>
+                <option value="Galician">Galician</option>
+                <option value="German">German</option>
+                <option value="Greek">Greek</option>
+                <option value="Hebrew">Hebrew</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Hungarian">Hungarian</option>
+                <option value="Icelandic">Icelandic</option>
+                <option value="Indonesian">Indonesian</option>
+                <option value="Inuktitut">Inuktitut</option>
+                <option value="Italian">Italian</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Khmer">Khmer</option>
+                <option value="Korean">Korean</option>
+                <option value="Kurdish">Kurdish</option>
+                <option value="Laotian">Laotian</option>
+                <option value="Latvian">Latvian</option>
+                <option value="Lappish">Lappish</option>
+                <option value="Lithuanian">Lithuanian</option>
+                <option value="Macedonian">Macedonian</option>
+                <option value="Malay">Malay</option>
+                <option value="Maltese">Maltese</option>
+                <option value="Nepali">Nepali</option>
+                <option value="Norwegian">Norwegian</option>
+                <option value="Pashto">Pashto</option>
+                <option value="Polish">Polish</option>
+                <option value="Portuguese">Portuguese</option>
+                <option value="Romanian">Romanian</option>
+                <option value="Russian">Russian</option>
+                <option value="Scots">Scots</option>
+                <option value="Serbian">Serbian</option>
+                <option value="Slovak">Slovak</option>
+                <option value="Slovenian">Slovenian</option>
+                <option value="Somali">Somali</option>
+                <option value="Spanish">Spanish</option>
+                <option value="Swedish">Swedish</option>
+                <option value="Swahili">Swahili</option>
+                <option value="Tagalog-Filipino">Tagalog-Filipino</option>
+                <option value="Tajik">Tajik</option>
+                <option value="Tamil">Tamil</option>
+                <option value="Thai">Thai</option>
+                <option value="Tibetan">Tibetan</option>
+                <option value="Tigrinya">Tigrinya</option>
+                <option value="Tongan">Tongan</option>
+                <option value="Turkish">Turkish</option>
+                <option value="Turkmen">Turkmen</option>
+                <option value="Ukrainian">Ukrainian</option>
+                <option value="Urdu">Urdu</option>
+                <option value="Uzbek">Uzbek</option>
+                <option value="Vietnamese">Vietnamese</option>
+                <option value="Welsh">Welsh</option>
+              </select>
+            </div>
 
-          <div class="form-group-mentee">
-            <label for="street2ID" class="control-label">Street Address 2</label>
-            <input type="text" class="form-control" id="street2ID" name="street2" placeholder="Apartment, suite, etc.">
-          </div>
+            <div class="form-group-mentee-required">
+              <label for="street1ID" class="control-label">Street Address 1</label>
+              <input type="text" class="form-control" id="street1ID" name="street1" placeholder="Street Address" required>
+            </div>
 
-          <div class="form-group-mentee-required">
-            <label for="cityID" class="control-label">City</label>
-            <input type="text" class="form-control" id="cityID" name="city" placeholder="City" required>
-          </div>
+            <div class="form-group-mentee-required">
+              <label for="street2ID" class="control-label">Street Address 2</label>
+              <input type="text" class="form-control" id="street2ID" name="street2" placeholder="Apartment, suite, etc.">
+            </div>
 
-          <div class="form-group-mentee-required">
-            <label for="state_id" class="control-label">State</label>
-            <select class="form-control" id="state_id" required>
-              <option value="AL">Alabama</option>
-              <option value="AK">Alaska</option>
-              <option value="AZ">Arizona</option>
-              <option value="AR">Arkansas</option>
-              <option value="CA">California</option>
-              <option value="CO">Colorado</option>
-              <option value="CT">Connecticut</option>
-              <option value="DE">Delaware</option>
-              <option value="DC">District Of Columbia</option>
-              <option value="FL">Florida</option>
-              <option value="GA">Georgia</option>
-              <option value="HI">Hawaii</option>
-              <option value="ID">Idaho</option>
-              <option value="IL">Illinois</option>
-              <option value="IN">Indiana</option>
-              <option value="IA">Iowa</option>
-              <option value="KS">Kansas</option>
-              <option value="KY">Kentucky</option>
-              <option value="LA">Louisiana</option>
-              <option value="ME">Maine</option>
-              <option value="MD">Maryland</option>
-              <option value="MA">Massachusetts</option>
-              <option value="MI">Michigan</option>
-              <option value="MN">Minnesota</option>
-              <option value="MS">Mississippi</option>
-              <option value="MO">Missouri</option>
-              <option value="MT">Montana</option>
-              <option value="NE">Nebraska</option>
-              <option value="NV">Nevada</option>
-              <option value="NH">New Hampshire</option>
-              <option value="NJ">New Jersey</option>
-              <option value="NM">New Mexico</option>
-              <option value="NY">New York</option>
-              <option value="NC">North Carolina</option>
-              <option value="ND">North Dakota</option>
-              <option value="OH">Ohio</option>
-              <option value="OK">Oklahoma</option>
-              <option value="OR">Oregon</option>
-              <option value="PA">Pennsylvania</option>
-              <option value="RI">Rhode Island</option>
-              <option value="SC">South Carolina</option>
-              <option value="SD">South Dakota</option>
-              <option value="TN">Tennessee</option>
-              <option value="TX">Texas</option>
-              <option value="UT">Utah</option>
-              <option value="VT">Vermont</option>
-              <option value="VA">Virginia</option>
-              <option value="WA">Washington</option>
-              <option value="WV">West Virginia</option>
-              <option value="WI">Wisconsin</option>
-              <option value="WY">Wyoming</option>
-            </select>
-          </div>
+            <div class="form-group-mentee-required">
+              <label for="cityID" class="control-label">City</label>
+              <input type="text" class="form-control" id="cityID" name="city" placeholder="City" required>
+            </div>
 
+            <div class="form-group-mentee-required">
+              <label for="state_id" class="control-label">State</label>
+              <select class="form-control" id="state_id" required>
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option>
+                <option value="DE">Delaware</option>
+                <option value="DC">District Of Columbia</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="HI">Hawaii</option>
+                <option value="ID">Idaho</option>
+                <option value="IL">Illinois</option>
+                <option value="IN">Indiana</option>
+                <option value="IA">Iowa</option>
+                <option value="KS">Kansas</option>
+                <option value="KY">Kentucky</option>
+                <option value="LA">Louisiana</option>
+                <option value="ME">Maine</option>
+                <option value="MD">Maryland</option>
+                <option value="MA">Massachusetts</option>
+                <option value="MI">Michigan</option>
+                <option value="MN">Minnesota</option>
+                <option value="MS">Mississippi</option>
+                <option value="MO">Missouri</option>
+                <option value="MT">Montana</option>
+                <option value="NE">Nebraska</option>
+                <option value="NV">Nevada</option>
+                <option value="NH">New Hampshire</option>
+                <option value="NJ">New Jersey</option>
+                <option value="NM">New Mexico</option>
+                <option value="NY">New York</option>
+                <option value="NC">North Carolina</option>
+                <option value="ND">North Dakota</option>
+                <option value="OH">Ohio</option>
+                <option value="OK">Oklahoma</option>
+                <option value="OR">Oregon</option>
+                <option value="PA">Pennsylvania</option>
+                <option value="RI">Rhode Island</option>
+                <option value="SC">South Carolina</option>
+                <option value="SD">South Dakota</option>
+                <option value="TN">Tennessee</option>
+                <option value="TX">Texas</option>
+                <option value="UT">Utah</option>
+                <option value="VT">Vermont</option>
+                <option value="VA">Virginia</option>
+                <option value="WA">Washington</option>
+                <option value="WV">West Virginia</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WY">Wyoming</option>
+              </select>
+            </div>
 
-          <div class="form-group-mentee-required">
-            <label for="zipID" class="control-label">Zip Code</label>
-            <input type="text" class="form-control" id="zipID" name="zip" placeholder="Zip Code">
-          </div>
+            <div class="form-group-mentee-required">
+              <label for="zipID" class="control-label">Zip Code</label>
+              <input type="text" class="form-control" id="zipID" name="zip" placeholder="Zip Code">
+            </div>
 
-            <!-- ADD IN THE JAVASCRIPT and onclick to show/hide the different divs -->
             <div class="form-group studentRadios">
               <label class="radio-inline"> <input type="radio" name="studentRadio" value="student" id="studentRad" onclick="showHideRegisterInfo()" checked>Student</label>
               <label class="radio-inline"> <input type="radio" name="studentRadio" value="non-student" id="notStudentRad" onclick="showHideRegisterInfo()">Not a Student</label>
             </div>
 
             <div class="form-group levelRadios" id="levelRadios" style="display:block">
-              <label class="radio-inline"> <input id="radio-highschool" type="radio" name="levelRadio" value="highSchool" onclick='showStudentLevels()'>High School</label>
-              <label class="radio-inline"> <input id="radio-Undergrad" type="radio" name="levelRadio" onclick='showStudentLevels()' value="undergraduate">Undergraduate</label>
-              <label class="radio-inline"> <input id="radio-grad" type="radio" name="levelRadio" onclick='showStudentLevels()' value="graduate">Graduate</label>
+              <label class="radio-inline"><input id="radio-highschool" type="radio" name="levelRadio" value="highSchool" onclick='checkStudentLevel()' checked>High School</label>
+              <label class="radio-inline"> <input id="radio-Undergrad" type="radio" name="levelRadio" onclick='checkStudentLevel()' value="undergraduate">Undergraduate</label>
+              <label class="radio-inline"> <input id="radio-grad" type="radio" name="levelRadio" onclick='checkStudentLevel()' value="graduate">Graduate</label>
             </div>
 
             <!-- For highschool Students  -->
@@ -279,6 +354,7 @@
               <div class="form-group-required">
                 <label for="currentSchool" class="control-label">Current School</label>
                 <input type="text" id="currentSchool" class="form-control" placeholder="Current School" required>
+
               </div>
 
               <div class="form-group-required">
@@ -286,6 +362,7 @@
                 <input type="text" id="major" class="form-control" placeholder="Major" required>
               </div>
 
+              <div class="form-group-required">
               <div class="form-group">
                 <label for="minor" class="control-label">Minor</label>
                 <input type="text" id="minor" class="form-control" placeholder="Minor">
@@ -294,7 +371,6 @@
               <div class="form-group-required">
                 <label for="afterGrad" class="control-label">Plans after Graduation</label>
                 <textarea class="form-control" id="afterGrad" rows="2" placeholder=""></textarea>
-
               </div>
 
               <div class="form-group-required">
@@ -302,13 +378,13 @@
                 <input type="date" id="studentGradDate" class="form-control" placeholder="Graduation Date">
               </div>
 
-              <label class="checkbox" id="postGradCheck"> <input type="checkbox" id="postGradCheckBx">Interested in Post-Grad</label>
-
+              <label class="checkbox" id="postGradCheck">
+                <input type="checkbox" id="postGradCheckBx">Interested in Post-Grad
+              </label>
             </div><!-- /.studentRegForm -->
 
             <!-- Non-Student Start Form -->
             <div class="form-group" id="employedRegForm" style="display:none">
-
               <div class="form-group-required">
                 <label for="currentEmployer" class="control-label">Current Employer</label>
                 <input type="text" id="currentEmployer" class="form-control" placeholder="Current Employer">
@@ -338,13 +414,414 @@
                 <label for="careerGoals" class="control-label">Career Goals</label>
                 <textarea class="form-control" id="careerGoals" rows="2" placeholder=""></textarea>
               </div>
-
             </div><!-- /.employedRegForm -->
 
             <div class="form-group">
-              <a href="menteeForm.html"  disabled = 'disabled' class="btn btn-lg btn-danger btn-block" role="button" id="menteeContBtn" onclick="onMenteeContBtnClick(event)">Continue</a>
+              <a class="btn btn-lg btn-danger btn-block" role="button" id="advanceBtn" onclick="advance()">Continue</a>
+            </div>
+          </form>
+        </div> <!-- /.registercol -->
+
+        <!-- Registration Part 2 -->
+        <div id="part2" class="hidden">
+          <form class="form-signin">
+            <h4 id="mentorPrefID">Mentor Preferences</h4>
+
+            <div class="form-group-mentee-required">
+              <label for="languagePref" class="control-label">Language Preference</label>
+              <!-- <input type="text" id="languagePref" class="form-control" placeholder="Language Preference"> -->
+              <select id="languagePref-mentee" class="form-control" >
+                <option value="English">English</option>
+                <option value="Afrikaans">Afrikaans</option>
+                <option value="Albanian">Albanian</option>
+                <option value="Amharic">Amharic</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Armenian">Armenian</option>
+                <option value="Basque">Basque</option>
+                <option value="Bengali">Bengali</option>
+                <option value="Byelorussian">Byelorussian</option>
+                <option value="Burmese">Burmese</option>
+                <option value="Bulgarian">Bulgarian</option>
+                <option value="Catalan">Catalan</option>
+                <option value="Czech">Czech</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Croatian">Croatian</option>
+                <option value="Danish">Danish</option>
+                <option value="Dari">Dari</option>
+                <option value="Dzongkha">Dzongkha</option>
+                <option value="Dutch">Dutch</option>
+                <option value="Esperanto">Esperanto</option>
+                <option value="Estonian">Estonian</option>
+                <option value="Faroese">Faroese</option>
+                <option value="Farsi">Farsi</option>
+                <option value="Finnish">Finnish</option>
+                <option value="French">French</option>
+                <option value="Gaelic">Gaelic</option>
+                <option value="Galician">Galician</option>
+                <option value="German">German</option>
+                <option value="Greek">Greek</option>
+                <option value="Hebrew">Hebrew</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Hungarian">Hungarian</option>
+                <option value="Icelandic">Icelandic</option>
+                <option value="Indonesian">Indonesian</option>
+                <option value="Inuktitut">Inuktitut</option>
+                <option value="Italian">Italian</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Khmer">Khmer</option>
+                <option value="Korean">Korean</option>
+                <option value="Kurdish">Kurdish</option>
+                <option value="Laotian">Laotian</option>
+                <option value="Latvian">Latvian</option>
+                <option value="Lappish">Lappish</option>
+                <option value="Lithuanian">Lithuanian</option>
+                <option value="Macedonian">Macedonian</option>
+                <option value="Malay">Malay</option>
+                <option value="Maltese">Maltese</option>
+                <option value="Nepali">Nepali</option>
+                <option value="Norwegian">Norwegian</option>
+                <option value="Pashto">Pashto</option>
+                <option value="Polish">Polish</option>
+                <option value="Portuguese">Portuguese</option>
+                <option value="Romanian">Romanian</option>
+                <option value="Russian">Russian</option>
+                <option value="Scots">Scots</option>
+                <option value="Serbian">Serbian</option>
+                <option value="Slovak">Slovak</option>
+                <option value="Slovenian">Slovenian</option>
+                <option value="Somali">Somali</option>
+                <option value="Spanish">Spanish</option>
+                <option value="Swedish">Swedish</option>
+                <option value="Swahili">Swahili</option>
+                <option value="Tagalog-Filipino">Tagalog-Filipino</option>
+                <option value="Tajik">Tajik</option>
+                <option value="Tamil">Tamil</option>
+                <option value="Thai">Thai</option>
+                <option value="Tibetan">Tibetan</option>
+                <option value="Tigrinya">Tigrinya</option>
+                <option value="Tongan">Tongan</option>
+                <option value="Turkish">Turkish</option>
+                <option value="Turkmen">Turkmen</option>
+                <option value="Ukrainian">Ukrainian</option>
+                <option value="Urdu">Urdu</option>
+                <option value="Uzbek">Uzbek</option>
+                <option value="Vietnamese">Vietnamese</option>
+                <option value="Welsh">Welsh</option>
+              </select>
             </div>
 
+            <div class="form-group-mentee-required">
+              <label for="fieldPref" class="control-label">Field Preference</label>
+              <!-- <input type="text" id="fieldPref" class="form-control" placeholder="Field Preference"> -->
+              <select id="field-mentee" class="form-control"  >
+                <option value="Accounting">Accounting</option>
+                <option value="Advertising">Advertising</option>
+                <option value="Agribusiness">Agribusiness</option>
+                <option value="Agriculture (general)">Agriculture (general)</option>
+                <option value="Agronomy & Plant Science">Agronomy & Plant Science</option>
+                <option value="American Studies">American Studies</option>
+                <option value="Animal Science">Animal Science</option>
+                <option value="Anthropological Science">Anthropological Science</option>
+                <option value="Anthropology">Anthropology</option>
+                <option value="Aquaculture & Fisheries">Aquaculture & Fisheries</option>
+                <option value="Architecture">Architecture</option>
+                <option value="Art History & Theory">Art History & Theory</option>
+                <option value="Asian Studies">Asian Studies</option>
+                <option value="Astronomy">Astronomy</option>
+                <option value="Aviation">Aviation</option>
+                <option value="Aviation Management">Aviation Management</option>
+                <option value="Biblical Studies">Biblical Studies</option>
+                <option value="Biochemistry">Biochemistry</option>
+                <option value="Bioinformatics">Bioinformatics</option>
+                <option value="Biology (general)">Biology (general)</option>
+                <option value="Biomedical Engineering">Biomedical Engineering</option>
+                <option value="Biomedical Sciences (not elsewhere classified)">Biomedical Sciences (not elsewhere classified)</option>
+                <option value="Biotechnology">Biotechnology</option>
+                <option value="Botany">Botany</option>
+                <option value="Chemical & Process Engineering">Chemical & Process Engineering</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Chinese Studies">Chinese Studies</option>
+                <option value="Christian Thought & History">Christian Thought & History</option>
+                <option value="Civil Engineering">Civil Engineering</option>
+                <option value="Classical Studies">Classical Studies</option>
+                <option value="Clothing & Textiles">Clothing & Textiles</option>
+                <option value="Commercial Law">Commercial Law</option>
+                <option value="Communication & Professional Writing">Communication & Professional Writing</option>
+                <option value="Computer Engineering">Computer Engineering</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Conflict Resolution">Conflict Resolution</option>
+                <option value="Construction & Project Management">Construction & Project Management</option>
+                <option value="Counselling">Counselling</option>
+                <option value="Creative Writing">Creative Writing</option>
+                <option value="Criminology & Justice">Criminology & Justice</option>
+                <option value="Cultural Studies">Cultural Studies</option>
+                <option value="Dance">Dance</option>
+                <option value="Defence Studies">Defence Studies</option>
+                <option value="Dental Technology">Dental Technology</option>
+                <option value="Dentistry">Dentistry</option>
+                <option value="Design (general)">Design (general)</option>
+                <option value="Drama / Theatre Studies">Drama / Theatre Studies</option>
+                <option value="Earth Science (general)">Earth Science (general)</option>
+                <option value="Ecology">Ecology</option>
+                <option value="e-Commerce">e-Commerce</option>
+                <option value="Economics">Economics</option>
+                <option value="Education Studies">Education Studies</option>
+                <option value="Electrical Engineering">Electrical Engineering</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Energy Studies & Management">Energy Studies & Management</option>
+                <option value="Engineering Science">Engineering Science</option>
+                <option value="English">English</option>
+                <option value="English as a Second Language">English as a Second Language</option>
+                <option value="Entrepreneurship">Entrepreneurship</option>
+                <option value="Environmental & Natural Resources Engineering">Environmental & Natural Resources Engineering</option>
+                <option value="Environmental Health">Environmental Health</option>
+                <option value="Environmental Science">Environmental Science</option>
+                <option value="Environmental Studies">Environmental Studies</option>
+                <option value="Ethics">Ethics</option>
+                <option value="European Languages & Cultures">European Languages & Cultures</option>
+                <option value="European Studies">European Studies</option>
+                <option value="Fashion Design">Fashion Design</option>
+                <option value="Film & Media Studies">Film & Media Studies</option>
+                <option value="Film-making">Film-making</option>
+                <option value="Finance">Finance</option>
+                <option value="Fine Arts">Fine Arts</option>
+                <option value="Food Science">Food Science</option>
+                <option value="Forensic Analytical Science">Forensic Analytical Science</option>
+                <option value="Forestry">Forestry</option>
+                <option value="French">French</option>
+                <option value="Gender Studies">Gender Studies</option>
+                <option value="Genetics">Genetics</option>
+                <option value="Geography">Geography</option>
+                <option value="Geology">Geology</option>
+                <option value="German">German</option>
+                <option value="Graphic Design">Graphic Design</option>
+                <option value="Greek">Greek</option>
+                <option value="Health Promotion">Health Promotion</option>
+                <option value="History">History</option>
+                <option value="Hospitality Management">Hospitality Management</option>
+                <option value="Human Development Studies">Human Development Studies</option>
+                <option value="Human Nutrition">Human Nutrition</option>
+                <option value="Human Resource Management">Human Resource Management</option>
+                <option value="Information Science">Information Science</option>
+                <option value="International Business">International Business</option>
+                <option value="International Relations">International Relations</option>
+                <option value="International Studies">International Studies</option>
+                <option value="Interpreting & Translating">Interpreting & Translating</option>
+                <option value="Italian">Italian</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Japanese Studies">Japanese Studies</option>
+                <option value="Journalism">Journalism</option>
+                <option value="Korean">Korean</option>
+                <option value="Labour & Industrial Relations">Labour & Industrial Relations</option>
+                <option value="Land Use Planning & Management">Land Use Planning & Management</option>
+                <option value="Latin">Latin</option>
+                <option value="Law">Law</option>
+                <option value="Linguistics">Linguistics</option>
+                <option value="Management">Management</option>
+                <option value="Māori Development">Māori Development</option>
+                <option value="Māori Health">Māori Health</option>
+                <option value="Māori Language / Te Reo Māori">Māori Language / Te Reo Māori</option>
+                <option value="Māori Media Studies">Māori Media Studies</option>
+                <option value="Māori Studies">Māori Studies</option>
+                <option value="Māori Visual Arts">Māori Visual Arts</option>
+                <option value="Marine Biology">Marine Biology</option>
+                <option value="Marine Science">Marine Science</option>
+                <option value="Maritime Engineering">Maritime Engineering</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                <option value="Mechatronics">Mechatronics</option>
+                <option value="Medical Laboratory Science">Medical Laboratory Science</option>
+                <option value="Medicine">Medicine</option>
+                <option value="Microbiology">Microbiology</option>
+                <option value="Midwifery">Midwifery</option>
+                <option value="Music Composition">Music Composition</option>
+                <option value="Music Performance">Music Performance</option>
+                <option value="Music Studies">Music Studies</option>
+                <option value="Nanoscience">Nanoscience</option>
+                <option value="Neuroscience">Neuroscience</option>
+                <option value="New Zealand Sign Language">New Zealand Sign Language</option>
+                <option value="Nursing">Nursing</option>
+                <option value="Occupational Therapy & Rehabilitation">Occupational Therapy & Rehabilitation</option>
+                <option value="Optometry">Optometry</option>
+                <option value="Oral Health">Oral Health</option>
+                <option value="Pacific Island Studies">Pacific Island Studies</option>
+                <option value="Paramedicine">Paramedicine</option>
+                <option value="Pastoral Studies">Pastoral Studies</option>
+                <option value="Pharmacology">Pharmacology</option>
+                <option value="Pharmacy">Pharmacy</option>
+                <option value="Philosophy">Philosophy</option>
+                <option value="Photography">Photography</option>
+                <option value="Physics">Physics</option>
+                <option value="Physiology">Physiology</option>
+                <option value="Physiotherapy">Physiotherapy</option>
+                <option value="Podiatry">Podiatry</option>
+                <option value="Political Studies">Political Studies</option>
+                <option value="Population & Development Studies">Population & Development Studies</option>
+                <option value="Population Health">Population Health</option>
+                <option value="Product & Industrial Design">Product & Industrial Design</option>
+                <option value="Psychology">Psychology</option>
+                <option value="Public Policy">Public Policy</option>
+                <option value="Public Relations">Public Relations</option>
+                <option value="Quantity Surveying">Quantity Surveying</option>
+                <option value="Radiation Therapy">Radiation Therapy</option>
+                <option value="Radio & TV Production & Broadcasting">Radio & TV Production & Broadcasting</option>
+                <option value="Religious Studies">Religious Studies</option>
+                <option value="Russian">Russian</option>
+                <option value="Samoan Studies / Fa'asamoa">Samoan Studies / Fa'asamoa</option>
+                <option value="Social Policy">Social Policy</option>
+                <option value="Social Science (general)">Social Science (general)</option>
+                <option value="Social Work">Social Work</option>
+                <option value="Sociology">Sociology</option>
+                <option value="Spanish">Spanish</option>
+                <option value="Speech & Language Therapy">Speech & Language Therapy</option>
+                <option value="Sport & Exercise Science">Sport & Exercise Science</option>
+                <option value="Sport & Leisure Studies & Management">Sport & Leisure Studies & Management</option>
+                <option value="Sport Coaching">Sport Coaching</option>
+                <option value="Statistics">Statistics</option>
+                <option value="Supply Chain Management">Supply Chain Management</option>
+                <option value="Surveying">Surveying</option>
+                <option value="Taxation">Taxation</option>
+                <option value="Teaching – Early Childhood">Teaching – Early Childhood</option>
+                <option value="Teaching – Māori Language">Teaching – Māori Language</option>
+                <option value="Teaching – Physical Education">Teaching – Physical Education</option>
+                <option value="Teaching – Primary">Teaching – Primary</option>
+                <option value="Teaching – Secondary">Teaching – Secondary</option>
+                <option value="Teaching – Technology">Teaching – Technology</option>
+                <option value="Theology">Theology</option>
+                <option value="Tourism">Tourism</option>
+                <option value="Valuation & Property Management">Valuation & Property Management</option>
+                <option value="Veterinary Science & Technology">Veterinary Science & Technology</option>
+                <option value="Web & Digital Design">Web & Digital Design</option>
+                <option value="Zoology">Zoology</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="genderPref">Gender Preference</label>
+              <select class="form-control" id="genderPref">
+                <option>Male</option>
+                <option>Female</option>
+                <option>No Preference</option>
+              </select>
+            </div>
+
+            <div class="form-group-mentee-required">
+              <label for="meetingDatePref" class="control-label">Initial Meeting Date Preference</label>
+              <input type="date" id="meetingDatePref" class="form-control">
+            </div>
+
+            <div class="form-group-mentee-required">
+              <label for="menteeBio" class="control-label">Mentee Bio</label>
+              <textarea class="form-control" id="menteeBio" rows="3" placeholder=""></textarea>
+            </div>
+
+            <div class="form-group-mentee-required">
+              <label for="menteeSkills" class="control-label">Skills</label>
+              <textarea class="form-control" id="menteeSkills" rows="2" placeholder=""></textarea>
+            </div>
+
+            <div class="col-xs-12 regUploadBtns">
+              <div class="col-xs-5">
+                <div class="form-group">
+                  <label>Upload Resume</label>
+                  <input type="file" id="resumeBtn">
+                </div>
+              </div>
+              <div class="col-xs-5 col-xs-offset-2">
+                <div class="form-group">
+                  <label>Upload Picture</label>
+                  <input type="file" id="picBtn">
+                </div>
+              </div>
+            </div>
+
+            <h4 id="MenteeFormHeader">Mentee Form</h4>
+            <div class="form-group-mentee-required">
+              <label for="mFormQ1" class="control-label">Where do you want to improve?</label>
+              <textarea class="form-control menteeForm" id="mFormQ1" rows="3" placeholder=""></textarea>
+            </div>
+
+            <div class="form-group-mentee-required">
+              <label for="mFormQ2" class="control-label">What will you do to achieve this?</label>
+              <textarea class="form-control menteeForm" id="mFormQ2" rows="3" placeholder=""></textarea>
+            </div>
+
+            <div class="form-group-mentee-required">
+              <label for="mFormQ3" class="control-label">How will you know you succeeded?</label>
+              <textarea class="form-control menteeForm" id="mFormQ3" rows="3" placeholder=""></textarea>
+            </div>
+
+            <div class="form-group-mentee-required">
+              <label for="mFormQ4" class="control-label">When will you be satisfied?</label>
+              <textarea class="form-control menteeForm" id="mFormQ4" rows="3" placeholder=""></textarea>
+            </div>
+
+            <div class="form-group-mentee-required">
+              <label for="mFormQ5" class="control-label">How can my mentor help me?</label>
+              <textarea class="form-control menteeForm" id="mFormQ5" rows="3" placeholder=""></textarea>
+            </div>
+
+            <div class="form-group-mentee-required">
+              <label for="mFormQ6" class="control-label">What is my time frame to succeed?</label>
+              <textarea class="form-control menteeForm" id="mFormQ6" rows="3" placeholder=""></textarea>
+            </div>
+
+            <div class="form-group">
+              <a class="btn btn-lg btn-danger btn-block" role="button" id="advanceBtn2" onclick="advance()" disabled='disabled'>Continue</a>
+            </div>
+          </form>
+        </div> <!-- /.registercol -->
+
+        <!-- Registration Part 3 -->
+        <div id="part3" class="hidden">
+          <form class="form-signin">
+            <h2>Terms and Conditions</h2>
+
+            <div class="form-group desc" id="menteeTerms">
+              <label class="terms-label">
+                “I, the undersigned, agree to participate in U-Beyond Mentorship, Inc.’s mentoring,
+                college visits and any and all other activities provided by U-Beyond Mentorship, Inc. (the
+                “Program”). I agree to the following Release, Waiver of Liability and Indemnity Agreement.”
+              </label>
+
+              <div class="form-group mentee-question">
+                <label class="radio-inline"><input type="radio" name="particRad" value="Yes" id="">Yes</label>
+                <label class="radio-inline"><input type="radio" name="particRad" value="No" id="" checked>No</label>
+              </div>
+
+              <label class="terms-label">
+                “In consideration of my participation in the Program, I voluntarily release, hold harmless,
+                and forever discharge U-Beyond Mentorship, Inc. and its trustees, administrators,
+                directors, representatives, executors, agents, officers, volunteers, and employees, other
+                participants, any sponsors, advertisers, and, if applicable, owners and lessors of
+                premises on which U-Beyond Mentorship, Inc.’s activities take place, representatives,
+                executors, and successors of all of the above (together, the “Releasees”), on behalf of
+                myself and my successors and assigns from any and all claims, lawsuits and liability for
+                bodily injury, property damage, death or other loss or damage which may incur in
+                connection with or arising out of my participation in the Program.”
+              </label>
+
+              <div class="form-group mentee-question">
+                <label class="radio-inline"><input type="radio" name="releaseRad" value="Yes" id="">Yes</label>
+                <label class="radio-inline"><input type="radio" name="releaseRad" value="No" id="" checked>No</label>
+              </div>
+
+              <label class="terms-label">
+                “I have read and understand this RELEASE, WAIVER OF LIABILITY AND INDEMNITY AGREEMENT.”
+              </label>
+
+              <div class="form-group mentee-question">
+                <label class="radio-inline"><input type="radio" name="agreeRad" value="Yes" id="">Yes</label>
+                <label class="radio-inline"><input type="radio" name="agreeRad" value="No" id="" checked>No</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <!-- TODO: Update href -->
+              <input type="submit" disabled='disabled' class="btn btn-lg btn-danger btn-block" href="#" id="registerBtn" value="Register" onclick="register(event);">
+            </div>
           </form>
         </div> <!-- /.registercol -->
 
