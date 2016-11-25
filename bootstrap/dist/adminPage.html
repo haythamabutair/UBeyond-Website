@@ -14,14 +14,11 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- CSS file for multiselect box -->
-    <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
-
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/mentee.css" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet">
     <!-- JQuery script -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Bootstrap JS -->
@@ -30,7 +27,6 @@
     <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
 
     <!-- Custom javascript for this template -->
-    <script src="js/mentee.js"></script>
     <script src="js/database.js"></script>
     <script src="js/global.js"></script>
     <script src="js/model.js"></script>
@@ -79,36 +75,16 @@
                 </div>
             </div>
         </nav>
+    </div> <!--End of Nav Div-->
+    
+    <!--Div to dynammically store all the matches -->
+    <div id="containerMM">
+        <div id="title" class="col-md-12">
+            <h3 class="col-md-6"> Mentee </h3>
+            <h3 class="col-md-6"> Mentor </h3>            
+        </div>
 
-        <!-- </div> -->
-    </div>
-
-    <button id="cloneBtn">Clone button</button>
-    <div id="matches-div">
-
-        <!--Start of DropDown -->
-        <div class="container">
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#collapse1">List of Mentee/Mentor Matches</a>
-                        </h4>
-                    </div>
-                    <!--Make this section Dynamically-->
-                    <div id="collapse1" class="panel-collapse collapse">
-                        <ul class="list-group">
-                            <li class="list-group-item">Mentor 1, Key Information about them. Link to page?</li>
-                            <li class="list-group-item">Two</li>
-                            <li class="list-group-item">Three</li>
-                        </ul>
-                        <div class="panel-footer">Key Information about Mentee. </div>
-                    </div>
-                </div>
-            </div>
-        </div><!--End DropDown -->
-
-    </div><!--End Matches Div-->
+    </div>    <!--End Container Div-->
 
 </body>
 
