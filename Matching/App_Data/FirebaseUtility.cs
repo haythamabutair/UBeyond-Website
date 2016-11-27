@@ -69,7 +69,7 @@ namespace Matching
             {
                 foreach (KeyValuePair<string, Match> mentorMatch in mentorMatches)
                 {
-                    if (mentorMatch.Value.User == menteeUid)
+                    if (mentorMatch.Value.User.Equals(menteeUid))
                     {
                         foundMatch = true;
                         client.Delete("MentorMatch/" + mentorUid + "/" + mentorMatch.Key);
@@ -80,7 +80,7 @@ namespace Matching
             {
                 foreach (KeyValuePair<string, Match> menteeMatch in menteeMatches)
                 {
-                    if (menteeMatch.Value.User == mentorUid)
+                    if (menteeMatch.Value.User.Equals(mentorUid))
                     {
                         foundMatch = true;
                         client.Delete("MenteeMatch/" + menteeUid + "/" + menteeMatch.Key);
@@ -92,10 +92,12 @@ namespace Matching
             {
                 Mentor mentor = client.Get("Mentor/" + mentorUid).ResultAs<Mentor>();
                 mentor.Match = menteeUid;
+                mentor.IsAvailable = false;
                 FirebaseResponse response1 = client.Set<Mentor>("Mentor/" + mentorUid, mentor);
 
                 Mentee mentee = client.Get("Mentee/" + menteeUid).ResultAs<Mentee>();
                 mentee.Match = mentorUid;
+                mentee.IsAvailable = false;
                 FirebaseResponse response2 = client.Set<Mentee>("Mentee/" + menteeUid, mentee);
             }
 
@@ -114,7 +116,7 @@ namespace Matching
             {
                 foreach (KeyValuePair<string, Match> mentorMatch in mentorMatches)
                 {
-                    if (mentorMatch.Value.User == menteeUid)
+                    if (mentorMatch.Value.User.Equals(menteeUid))
                     {
                         foundMatch = true;
                         client.Delete("MentorMatch/" + mentorUid + "/" + mentorMatch.Key);
@@ -125,7 +127,7 @@ namespace Matching
             {
                 foreach (KeyValuePair<string, Match> menteeMatch in menteeMatches)
                 {
-                    if (menteeMatch.Value.User == mentorUid)
+                    if (menteeMatch.Value.User.Equals(mentorUid))
                     {
                         foundMatch = true;
                         client.Delete("MenteeMatch/" + menteeUid + "/" + menteeMatch.Key);
@@ -156,7 +158,7 @@ namespace Matching
             {
                 foreach (KeyValuePair<string, Match> currentMatch in currentMatches)
                 {
-                    if (currentMatch.Value.User == menteeUid)
+                    if (currentMatch.Value.User.Equals(menteeUid))
                     {
                         return null; //match already exists. return null
                     }
@@ -187,7 +189,7 @@ namespace Matching
             {
                 foreach (KeyValuePair<string, Match> currentMatch in currentMatches)
                 {
-                    if (currentMatch.Value.User == menteeUid)
+                    if (currentMatch.Value.User.Equals(menteeUid))
                     {
                         return null; //match already exists. return null
                     }
