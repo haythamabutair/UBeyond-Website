@@ -15,8 +15,8 @@ function onSigninBtnClick(caller) {
     if (success) {
       var userID = response;
 
-      // TODO: Eventually, navigate to home page
-      alert("Sign-in successful! userID: " + userID);
+      //todo split on admin or not once admin page is available
+      window.open("home.html", "_self");
     }
     // Sign-in failed
     else {
