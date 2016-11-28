@@ -366,11 +366,10 @@ function register(event) {
                 Database.setMenteeFormData(menteeFormData, function(success, response) {
                   if (success) {
                     // Navigate to home page via href in button of notification div
-                    // (see Global.showNotification)
-                    // TODO: Add notification
-                    Global.showNotification('Registration successful!', false);
-                    
-                    //window.location.href = href;
+                    window.open("home.html", "_self");
+                  } else {
+                    //failed to save initial
+                    Global.showNotification('Something went wrong! Error:\n' + response, true);
                   }
                 });
               }

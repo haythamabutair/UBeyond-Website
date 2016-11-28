@@ -101,12 +101,46 @@ namespace Matching.Controllers
 
         }
 
+        /// <summary>
+        /// A method that will be called to confirm a match
+        /// </summary>
+        /// <param name="menteeUID"></param>
+        [Route("match/confirm/{mentorUid}/{menteeUid}")]
+        public IHttpActionResult ConfirmMatch(string mentorUid, string menteeUid)
+        {
+            if(FirebaseUtility.ConfirmMatch(mentorUid, menteeUid))
+            {
+                return Ok(1);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// A method that will be called to reject a match
+        /// </summary>
+        /// <param name="menteeUID"></param>
+        [Route("match/reject/{mentorUid}/{menteeUid}")]
+        public IHttpActionResult RejectMatch(string mentorUid, string menteeUid)
+        {
+            if (FirebaseUtility.RejectMatch(mentorUid, menteeUid))
+            {
+                return Ok(1);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         public double GetMatchStrength(Mentor mentor, Mentee mentee)
         {
             double strength = 1.0;
 
             //todo: find better metric for finding field similarity
-            //strength *= CalcNormalizedLevenshteinDistance(mentor.FieldOfExpertise, mentee.FieldPreference);
+            strength *= CalcNormalizedLevenshteinDistance(mentor.FieldOfExpertise, mentee.FieldPreference);
 
             //gender metric
             strength *= mentee.Gender.Equals(mentor.GenderPreference) ? 1.2 : 0.8;
@@ -114,7 +148,7 @@ namespace Matching.Controllers
 
             //language metric
             strength *= mentee.Languages.Contains(mentor.LanguagePreference) ? 1.1 : 0.9;
-            //strength *= mentor.Languages.Contains(mentee.LanguagePreference) ? 1.1 : 0.9;
+            strength *= mentor.Languages.Contains(mentee.LanguagePreference) ? 1.1 : 0.9;
 
             return strength;
         }

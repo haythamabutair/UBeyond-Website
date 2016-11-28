@@ -350,10 +350,7 @@ function register(event) {
               Database.setMentorFormData(mentorFormData, function(success, response) {
                 if (success) {
                   // Navigate to home page via href in button of notification div
-                  // (see Global.showNotification)
-                  // TODO: Add notification
-                  Global.showNotification('Registration successful!', false);
-                  //window.location.href = href;
+                  window.open("home.html", "_self");
                 }
                 // Display notification on failure
                 // TODO: Handle specific errors
