@@ -57,6 +57,86 @@ namespace Matching
             return mentee;
         }
 
+        public static bool ConfirmMatch(string mentorUid, string menteeUid)
+        {
+            IFirebaseClient client = new FirebaseClient(FirebaseUtility.config);
+            FirebaseResponse mentorMatchesResponse = client.Get("MentorMatch/" + mentorUid);
+            FirebaseResponse menteeMatchesResponse = client.Get("MenteeMatch/" + menteeUid);
+            Dictionary<string, Match> mentorMatches = mentorMatchesResponse.ResultAs<Dictionary<string, Match>>();
+            Dictionary<string, Match> menteeMatches = menteeMatchesResponse.ResultAs<Dictionary<string, Match>>();
+            bool foundMatch = false;
+            if (mentorMatches != null)
+            {
+                foreach (KeyValuePair<string, Match> mentorMatch in mentorMatches)
+                {
+                    if (mentorMatch.Value.User.Equals(menteeUid))
+                    {
+                        foundMatch = true;
+                        client.Delete("MentorMatch/" + mentorUid + "/" + mentorMatch.Key);
+                    }
+                }
+            }
+            if (menteeMatches != null)
+            {
+                foreach (KeyValuePair<string, Match> menteeMatch in menteeMatches)
+                {
+                    if (menteeMatch.Value.User.Equals(mentorUid))
+                    {
+                        foundMatch = true;
+                        client.Delete("MenteeMatch/" + menteeUid + "/" + menteeMatch.Key);
+                    }
+                }
+            }
+
+            if (foundMatch)
+            {
+                Mentor mentor = client.Get("Mentor/" + mentorUid).ResultAs<Mentor>();
+                mentor.Match = menteeUid;
+                mentor.IsAvailable = false;
+                FirebaseResponse response1 = client.Set<Mentor>("Mentor/" + mentorUid, mentor);
+
+                Mentee mentee = client.Get("Mentee/" + menteeUid).ResultAs<Mentee>();
+                mentee.Match = mentorUid;
+                mentee.IsAvailable = false;
+                FirebaseResponse response2 = client.Set<Mentee>("Mentee/" + menteeUid, mentee);
+            }
+
+            return foundMatch;
+        }
+
+        public static bool RejectMatch(string mentorUid, string menteeUid)
+        {
+            IFirebaseClient client = new FirebaseClient(FirebaseUtility.config);
+            FirebaseResponse mentorMatchesResponse = client.Get("MentorMatch/" + mentorUid);
+            FirebaseResponse menteeMatchesResponse = client.Get("MenteeMatch/" + menteeUid);
+            Dictionary<string, Match> mentorMatches = mentorMatchesResponse.ResultAs<Dictionary<string, Match>>();
+            Dictionary<string, Match> menteeMatches = menteeMatchesResponse.ResultAs<Dictionary<string, Match>>();
+            bool foundMatch = false;
+            if (mentorMatches != null)
+            {
+                foreach (KeyValuePair<string, Match> mentorMatch in mentorMatches)
+                {
+                    if (mentorMatch.Value.User.Equals(menteeUid))
+                    {
+                        foundMatch = true;
+                        client.Delete("MentorMatch/" + mentorUid + "/" + mentorMatch.Key);
+                    }
+                }
+            }
+            if (menteeMatches != null)
+            {
+                foreach (KeyValuePair<string, Match> menteeMatch in menteeMatches)
+                {
+                    if (menteeMatch.Value.User.Equals(mentorUid))
+                    {
+                        foundMatch = true;
+                        client.Delete("MenteeMatch/" + menteeUid + "/" + menteeMatch.Key);
+                    }
+                }
+            }
+            return foundMatch;
+        }
+
         public static FirebaseResponse PushMentorMatch(string mentorUid, string menteeUid)
         {
             //setup required structures
@@ -73,12 +153,15 @@ namespace Matching
             }
 
             Dictionary<string, Match> currentMatches = getResponse.ResultAs<Dictionary<string, Match>>();
-            
-            foreach(KeyValuePair<string, Match> currentMatch in currentMatches)
+
+            if (currentMatches != null)
             {
-                if(currentMatch.Value.User == menteeUid)
+                foreach (KeyValuePair<string, Match> currentMatch in currentMatches)
                 {
-                    return null; //match already exists. return null
+                    if (currentMatch.Value.User.Equals(menteeUid))
+                    {
+                        return null; //match already exists. return null
+                    }
                 }
             }
             
@@ -101,12 +184,15 @@ namespace Matching
             }
 
             Dictionary<string, Match> currentMatches = getResponse.ResultAs<Dictionary<string, Match>>();
-            
-            foreach (KeyValuePair<string, Match> currentMatch in currentMatches)
+
+            if (currentMatches != null)
             {
-                if (currentMatch.Value.User == menteeUid)
+                foreach (KeyValuePair<string, Match> currentMatch in currentMatches)
                 {
-                    return null; //match already exists. return null
+                    if (currentMatch.Value.User.Equals(menteeUid))
+                    {
+                        return null; //match already exists. return null
+                    }
                 }
             }
             

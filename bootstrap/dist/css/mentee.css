@@ -189,7 +189,7 @@ textarea {
   margin-bottom: 25px;
 }
 
-#menteeContBtn2 {
+#registerBtn {
   margin-top: 30px;
 }
 
@@ -202,4 +202,10 @@ textarea {
   .background-right {
     width: 29%;
   }
+}
+
+
+/* Generic Classes */
+.hidden {
+  display: none;
 }

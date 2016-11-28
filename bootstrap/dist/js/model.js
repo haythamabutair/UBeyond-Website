@@ -69,9 +69,29 @@ var Model = (function() {
         return baseObject;
     }
 
+    var createReferenceObject = function(
+            baseObject,
+            firstName,
+            lastName,
+            address,
+            phoneNumber,
+            email,
+            relationship
+    ) {
+        baseObject["FirstName"]    = firstName;
+        baseObject["LastName"]     = lastName;
+        baseObject["Address"]      = address;
+        baseObject["PhoneNumber"]  = phoneNumber;
+        baseObject["Email"]        = email;
+        baseObject["Relationship"] = relationship;
+
+        return baseObject;
+    }
+
     return {
         createPersonObject: createPersonObject,
-        createUserObject: createUserObject
+        createUserObject: createUserObject,
+        createReferenceObject: createReferenceObject
     }
 
 })();

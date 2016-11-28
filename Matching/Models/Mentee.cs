@@ -11,13 +11,13 @@ namespace Matching.Models
         public List<MenteeQuestionnaire> questionnaires { get; set; }
 
         public string MenteeSkills { get; set; }
-        public List<string> FieldPreference { get; set; }
+        public string FieldPreference { get; set; }
 
         public string EmploymentStatus { get; set; } //student or employed, internal
 
         //JSon serializer
         [JsonConstructor]
-        public Mentee(string Address, string Bio, string Birthdate, string Email, string EmploymentStatus, List<string> FieldPreference, string FirstName, string Gender, string GenderPreference, string IsAvailable, string LanguagePreference, List<string> Languages, string LastName, string MenteeSkills, string MiddleInitial, string PhoneNumber, string PreferredName, string PreferredStartDate): base(FirstName, LastName, MiddleInitial, PreferredName, Address, PhoneNumber, Email, Gender, Birthdate, Bio, PreferredStartDate, LanguagePreference, GenderPreference, Languages, IsAvailable)
+        public Mentee(string Address, string Bio, string Birthdate, string Email, string EmploymentStatus, string FieldPreference, string FirstName, string Gender, string GenderPreference, string IsAvailable, string LanguagePreference, List<string> Languages, string LastName, string MenteeSkills, string MiddleInitial, string PhoneNumber, string PreferredName, string PreferredStartDate): base(FirstName, LastName, MiddleInitial, PreferredName, Address, PhoneNumber, Email, Gender, Birthdate, Bio, PreferredStartDate, LanguagePreference, GenderPreference, Languages, IsAvailable)
         {
             this.MenteeSkills = MenteeSkills;
             this.FieldPreference = FieldPreference;
