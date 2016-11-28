@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace Matching.Controllers.Tests
 {
@@ -15,7 +16,7 @@ namespace Matching.Controllers.Tests
         public void MatchMentorTest()
         {
             MatchingController controller = new MatchingController();
-            controller.MatchMentor("LBSd2c8BuqVQq4osY2H9oKv5Gnv2");
+            IHttpActionResult result = controller.MatchMentee("9so938TlYRVvEMwt5ZohUIwifhr2");
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Matching.Models
         public string LanguagePreference { get; set; }
         public List<string> Languages { get; set; }
         public string GenderPreference { get; set; } //Male or Female
+        public string Match { get; set; }
 
 
         //internal

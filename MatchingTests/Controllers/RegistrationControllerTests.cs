@@ -29,7 +29,7 @@ namespace Matching.Controllers.Tests
         public void RegisterMentorTest()
         {
             RegistrationController controller = new RegistrationController();
-            controller.RegisterMentor("YyhDeQ2Qn2dp0VAAhHIB040dqVF3");
+            controller.RegisterMentor("LBSd2c8BuqVQq4osY2H9oKv5Gnv2");
         }
 
         [TestMethod()]
