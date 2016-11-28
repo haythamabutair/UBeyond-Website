@@ -71,3 +71,7 @@ body {
 .div-border{
     border-style: solid;
 }
+
+div{
+    padding-top: 5px;
+}
