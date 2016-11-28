@@ -261,7 +261,7 @@ function register(event) {
           // TODO: Headshot upload
           $('#picBtn').filestyle({
             buttonName : 'btn-danger',
-            buttonText : 'Upload Piccccc'
+            buttonText : 'Upload Picture'
           });
 
           var resumeFile   = null;
