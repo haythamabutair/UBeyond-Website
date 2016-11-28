@@ -122,7 +122,6 @@
             </div>
 
             <div class="form-group-mentee-required">
-            <div class="form-group-mentee">
               <label for="middleInitial" class="control-label">Middle Initial</label>
               <input type="text" id="middleInitial" class="form-control" placeholder="Middle Initial" required>
             </div>
@@ -318,20 +317,19 @@
             </div>
 
             <div class="form-group levelRadios" id="levelRadios" style="display:block">
-              <label class="radio-inline"><input id="radio-highschool" type="radio" name="levelRadio" value="highSchool" onclick='checkStudentLevel()' checked>High School</label>
-              <label class="radio-inline"> <input id="radio-Undergrad" type="radio" name="levelRadio" onclick='checkStudentLevel()' value="undergraduate">Undergraduate</label>
-              <label class="radio-inline"> <input id="radio-grad" type="radio" name="levelRadio" onclick='checkStudentLevel()' value="graduate">Graduate</label>
+              <label class="radio-inline"><input id="radio-highschool" type="radio" name="levelRadio" value="highSchool" onclick='showHideRegisterInfo()' checked>High School</label>
+              <label class="radio-inline"> <input id="radio-Undergrad" type="radio" name="levelRadio" onclick='showHideRegisterInfo()' value="undergraduate">Undergraduate</label>
+              <label class="radio-inline"> <input id="radio-grad" type="radio" name="levelRadio" onclick='showHideRegisterInfo()' value="graduate">Graduate</label>
             </div>
 
             <!-- For highschool Students  -->
             <div class="form-group" id="highSchoolStudentRegForm" style="display:block">
-
               <div class="form-group-required">
                 <label for="gradeLevel" class="control-label">Grade Level</label>
                 <input type="number" id="gradeLevel" class="form-control" placeholder="11" required>
               </div>
 
-              <div class="form-group">
+              <div class="form-group-required">
                 <label for="currentHSSchool" class="control-label">Current School</label>
                 <input type="text" id="currentHSSchool" class="form-control" placeholder="Current School" required>
               </div>
@@ -345,16 +343,14 @@
                 <label for="afterHSGrad" class="control-label">Plans after Graduation</label>
                 <textarea class="form-control" id="afterHSGrad" rows="2" placeholder=""></textarea>
               </div>
-
             </div>
+
             <!-- For College students and above -->
             <!-- Student Start Form -->
             <div class="form-group" id="studentRegForm" style="display:none">
-
               <div class="form-group-required">
                 <label for="currentSchool" class="control-label">Current School</label>
                 <input type="text" id="currentSchool" class="form-control" placeholder="Current School" required>
-
               </div>
 
               <div class="form-group-required">
@@ -362,7 +358,7 @@
                 <input type="text" id="major" class="form-control" placeholder="Major" required>
               </div>
 
-              <div class="form-group-required">
+              <!--<div class="form-group-required">-->
               <div class="form-group">
                 <label for="minor" class="control-label">Minor</label>
                 <input type="text" id="minor" class="form-control" placeholder="Minor">

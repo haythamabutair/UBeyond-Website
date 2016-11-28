@@ -19,32 +19,24 @@ var currentPart = 1;
 function showHideRegisterInfo() {
   if ($('#studentRad').is(':checked')) {
     $('#levelRadios').show();
-    $('#studentRegForm').show();
     $('#employedRegForm').hide();
 
-    checkStudentLevel();
+    // Check high school vs college
+    if ($('#radio-highschool').is(':checked')) {
+      $('#studentRegForm').hide();
+      $('#highSchoolStudentRegForm').show();
+    }
+    else {
+      $('#studentRegForm').show();
+      $('#highSchoolStudentRegForm').hide();
+    }
   }
   else {
     $('#levelRadios').hide();
     $('#studentRegForm').hide();
+    $('#highSchoolStudentRegForm').hide();
     $('#employedRegForm').show();
   }
-}
-
-function checkStudentLevel() {
-    // Check if HS or Undergrad / Graduate
-    if ($('#radio-highschool').is(':checked')) {
-      $('#gradeLevel').parent().show();
-
-      $('#major').parent().hide();
-      $('#minor').parent().hide();
-    }
-    else {
-      $('#gradeLevel').parent().hide();
-
-      $('#major').parent().show();
-      $('#minor').parent().show();
-    }
 }
 
 // function to check if password and confirmation password match. gives alert if they do not.
@@ -56,7 +48,7 @@ function checkPasswordsMatch() {
   if (pass1.value == pass2.value) {
     message.innerHTML = "";
   } else {
-    message.innerHTML = "Passwords do not match."
+    message.innerHTML = "Passwords do not match.";
   }
 }
 
@@ -72,38 +64,36 @@ $(function(){
         // If something is missing
         $('#part1').find('.form-group-mentee-required').children('input.form-control').each(function() {
           if ($(this).val() == '') {
-                mainForm = false;
-            }
+            mainForm = false;
+          }
         });
 
           // Check for student selection and the fields that matter
         if ($('input[name=studentRadio]:checked').val() == 'student'){
-          $('#studentRegForm').children('.form-group-required').children('.form-control').each(function() {
-            // Check if highschool student or not
-            if($('input[name=levelRadio]:checked').val() == 'highSchool') {
-              // Ignore major and minor if in high school
-              if ($(this).attr('id') != 'major' && $(this).attr('id') != 'minor') {
-                if ($(this).val() == '') {
-                  radioForm = false;
-                }
-              }
-            } else {
-              // Ignore grade level if not in high school
-              if ($(this).attr('id') != 'gradeLevel') {
-                if($(this).val() == ''){
-                  radioForm = false;
-                }
-              }
-            }
-          });
-        } else {
-          $('#employedRegForm').children('.form-group-required').children('.form-control').each(function(){
-            if($(this).val() == ''){
+          // Check if high school
+          if($('input[name=levelRadio]:checked').val() == 'highSchool') {
+            $('#highSchoolStudentRegForm').children('.form-group-required').children('.form-control').each(function() {
+              if ($(this).val() == '') {
                 radioForm = false;
               }
             });
           }
-
+          else {
+            $('#studentRegForm').children('.form-group-required').children('.form-control').each(function() {
+              if ($(this).val() == '') {
+                radioForm = false;
+              }
+            });
+          }
+        } 
+        else {
+          $('#employedRegForm').children('.form-group-required').children('.form-control').each(function(){
+            if($(this).val() == ''){
+              radioForm = false;
+            }
+          });
+        }
+        
         if (radioForm == false || mainForm == false){
           allFilledOut = false;
         }
@@ -420,5 +410,5 @@ $(document).ready(function() {
   });
 
   // Update student info section
-  checkStudentLevel();
+  showHideRegisterInfo();
 });
