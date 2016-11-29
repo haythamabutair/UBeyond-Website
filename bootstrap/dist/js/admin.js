@@ -209,7 +209,18 @@ function onAccept(index, menteeUid, mentorUid){
 
 function onReject(index, menteeUid, mentorUid){
     $("#mentee-mentor-comparision" + index).remove();
-
+    
+    $.ajax({
+        url:"http://mentorshipatlanta.info/match/reject/"+ mentorUid + "/" + menteeUid,
+        type: "POST",
+        success: function(response){
+            console.log('It sent' + response);
+        },
+        error: function(xhr){
+            console.log('It failed' + xhr);
+ 
+        }
+    });
 }
 
 
