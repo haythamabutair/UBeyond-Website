@@ -272,6 +272,25 @@ var Database = (function() {
     /*
      * TODO: Documentation
      */
+    var uploadResume = function(file, callback) {
+        var currentUser = firebase.auth().currentUser;
+
+        // Ensure a user is signed-in
+        if (currentUser) {
+            var fileName = currentUser.uid + "_" + file.name;
+            var filePath = STORAGE_RESUME + "/" + fileName;
+
+            // Call file upload function
+            uploadFile(filePath, file, callback);
+        }
+        else {
+            callback(false, "cust-auth/no-sign-in: Not signed in");
+        }
+    }
+
+    /*
+     * TODO: Documentation
+     */
     var uploadHeadshot = function(file, callback) {
         var currentUser = firebase.auth().currentUser;
 
@@ -288,7 +307,6 @@ var Database = (function() {
         }
     }
 
-
     //
     // Explicitly reveal pointers to functions we want to make public
     //
@@ -302,6 +320,7 @@ var Database = (function() {
         setMentorFormData: setMentorFormData,
         setStudentInfoData: setStudentInfoData,
         setEmployeeInfoData: setEmployeeInfoData,
+        uploadResume: uploadResume,
         uploadHeadshot: uploadHeadshot
     }
 })();

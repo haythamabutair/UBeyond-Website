@@ -85,7 +85,7 @@ $(function(){
               }
             });
           }
-        } 
+        }
         else {
           $('#employedRegForm').children('.form-group-required').children('.form-control').each(function(){
             if($(this).val() == ''){
@@ -93,7 +93,7 @@ $(function(){
             }
           });
         }
-        
+
         if (radioForm == false || mainForm == false){
           allFilledOut = false;
         }
@@ -164,7 +164,7 @@ function advance(event) {
   const classesOnShow = 'col-xs-12 registercol';
   const classesOnHide = 'hidden';
 
-  // Hide part 1, display part 2  
+  // Hide part 1, display part 2
   if (currentPart == 1 && isPart1Complete) {
     $('#part1').removeClass(classesOnShow).addClass(classesOnHide);
     $('#part2').removeClass(classesOnHide).addClass(classesOnShow); // Will be shown
@@ -200,9 +200,9 @@ function regress(event) {
   }
   // Hide part 3, display part 2
   else if (currentPart == 3) {
-    $('#part1').removeClass(classesOnHide).addClass(classesOnShow);
-    $('#part2').removeClass(classesOnShow).addClass(classesOnHide); // Will be shown
-    $('#part3').removeClass(classesOnHide).addClass(classesOnShow);
+    $('#part1').removeClass(classesOnShow).addClass(classesOnHide);
+    $('#part2').removeClass(classesOnHide).addClass(classesOnShow); // Will be shown
+    $('#part3').removeClass(classesOnShow).addClass(classesOnHide);
 
     currentPart = 2;
   }
