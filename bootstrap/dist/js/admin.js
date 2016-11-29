@@ -23,7 +23,7 @@ $(function(){
     });
 });
 
-
+//TODO: Save MentorID and MenteeID
 
 function getMatches(){
     //Setup Firebase Ref information and get current Admin 
@@ -31,6 +31,7 @@ function getMatches(){
     var curUser = firebase.auth().currentUser;
     var curUserID = firebase.auth().currentUser.uid;
     var menteeMatches = database.ref("MenteeMatch/");
+    var mentorMatches = database.ref("MentorMatch/");
 
     //Gets all of the matches 
     var count = 0;
@@ -39,14 +40,14 @@ function getMatches(){
             //Loop through each pair of matches  
             snapshot.forEach(function(childSnapshot){
                 //Addes containers for each mentor/mentee match 
-                makeContainters(count);
-                count++;
+
                 var mentee = childSnapshot.key;
                 var mentor;  
                 for(x in childSnapshot.val()){
                     mentor = childSnapshot.val()[x]["User"];
                 }
-
+                makeContainters(count, mentee , mentor);
+                count++;
                 // Firebase calls to get Specific information about mentor and mentee
                 var mentorInfo = database.ref("Mentor/" + mentor);
                 var menteeInfo = database.ref("Mentee/" + mentee);
@@ -81,10 +82,57 @@ function getMatches(){
 
     });//End of Mentee Matching 
 
+    mentorMatches.on('value',function(snapshot){
+    if(snapshot.val() != null){
+        //Loop through each pair of matches  
+        snapshot.forEach(function(childSnapshot){
+            //Addes containers for each mentor/mentee match 
+
+            var mentor = childSnapshot.key;
+            var mentee;  
+            for(x in childSnapshot.val()){
+                mentee = childSnapshot.val()[x]["User"];
+            }
+            makeContainters(count, mentee , mentor);
+            count++;
+            // Firebase calls to get Specific information about mentor and mentee
+            var mentorInfo = database.ref("Mentor/" + mentor);
+            var menteeInfo = database.ref("Mentee/" + mentee);
+
+            //Get Mentee Information 
+            menteeInfo.once('value',function(snapshot){
+                //Can be a student or employed
+                if(snapshot.val().EmploymentStatus == "student"){
+                    //Firabse call to get student information
+                    var studentInfo = database.ref("StudentInfo/" + mentee);
+                    studentInfo.once('value', function(childSnapshot){
+                        createMenteeObject(snapshot.val(), childSnapshot.val());
+                    });
+
+                }else{
+                    //Firebase call to get Employed Information
+                    var employedInfo = database.ref("EmployeeInfo/" + mentee);
+                    employedInfo.once('value', function(childSnapshot){
+                        createMenteeObject(snapshot.val(), childSnapshot.val());
+                    });
+                }
+            }); //End MenteeInfo Method 
+
+            //Gets information about Mentor
+            mentorInfo.once('value',function(snapshot){
+                    createMentorObject(snapshot.val());
+            });
+
+        }); //End of Foreach method for each pair
+
+    } //End Of snapshot != Null
+
+});//End of Mentee Matching 
+
 }//End of getMatches()
 
 //dynamically makes the container to hold the information of mentors and metee matching 
-function makeContainters(index){
+function makeContainters(index, menteeUID, mentorUID){
     //Main container to hold all the information 
     var container = document.getElementById("containerMM");
     var fluidContainer = document.createElement("div");
@@ -93,7 +141,7 @@ function makeContainters(index){
     var menteeDiv = document.createElement("div");
     var mentorDiv = document.createElement("div");
     //Function to creat buttons 
-    var btnDiv = createButtons(index);
+    var btnDiv = createButtons(index, menteeUID, mentorUID);
     
     fluidContainer.setAttribute("class","row well");
     fluidContainer.setAttribute("id","mentee-mentor-comparision" + index);
@@ -112,7 +160,7 @@ function makeContainters(index){
     container.appendChild(fluidContainer);
 }
 
-function createButtons(index){
+function createButtons(index, menteeUid, mentorUid){
 
     //Create html objects
     var btnDiv = document.createElement("div");
@@ -129,8 +177,12 @@ function createButtons(index){
     declineBtn.innerText = "Reject"
 
     //Set function to send information back to firebase and remove from html
-    accceptBtn.setAttribute('onclick','onAccept(' + index +')');
-    declineBtn.setAttribute('onclick','onReject(' + index + ')');
+    accceptBtn.addEventListener("click", function(){
+        onAccept(index, menteeUid, mentorUid)
+    } ,false);
+    declineBtn.addEventListener("click", function(){
+        onReject(index, menteeUid, mentorUid)
+    } ,false);
 
     btnDiv.appendChild(accceptBtn);
     btnDiv.appendChild(declineBtn); 
@@ -138,14 +190,24 @@ function createButtons(index){
 }
 
 
-function onAccept(index){
+function onAccept(index, menteeUid, mentorUid){
     // remove div with mentee and mentor
     $("#mentee-mentor-comparision" + index).remove();
-    console.log(menteeKeys)
-    //Send information back to firebase
+    //Use Ajax calls to send information back to the server
+    $.ajax({
+        url:"http://mentorshipatlanta.info/match/confirm/"+ mentorUid + "/" + menteeUid,
+        type: "POST",
+        success: function(response){
+            console.log('It sent' + response);
+        },
+        error: function(xhr){
+            console.log('It failed' + xhr);
+ 
+        }
+    });
 }
 
-function onReject(index){
+function onReject(index, menteeUid, mentorUid){
     $("#mentee-mentor-comparision" + index).remove();
 
 }
