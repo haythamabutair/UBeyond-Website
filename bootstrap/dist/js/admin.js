@@ -81,7 +81,7 @@ function getMatches(){
         } //End Of snapshot != Null
 
     });//End of Mentee Matching 
-
+    //Checkes mentor matches as well. Have to check both
     mentorMatches.on('value',function(snapshot){
     if(snapshot.val() != null){
         //Loop through each pair of matches  
