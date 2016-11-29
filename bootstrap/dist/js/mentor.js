@@ -85,9 +85,9 @@ $(function(){
         });
 
         if (empty) {
-            $('#registerBtn').attr('disabled', 'disabled');
+            $('#advanceBtn2').attr('disabled', 'disabled');
         } else {
-            $('#registerBtn').removeAttr('disabled');
+            $('#advanceBtn2').removeAttr('disabled');
         }
 
         isPart2Complete = !empty;
@@ -136,7 +136,7 @@ function addReference() {
     clone.attr('id', 'reference' + referenceCount);
     clone.removeClass('hidden');
     clone.find('[name="refHeader"]').text('Reference ' + referenceCount);
-    
+
     clone.appendTo('#references');
   }
 
@@ -165,7 +165,7 @@ function advance(event) {
   const classesOnShow = 'col-xs-12 registercol';
   const classesOnHide = 'hidden';
 
-  // Hide part 1, display part 2  
+  // Hide part 1, display part 2
   if (currentPart == 1 && isPart1Complete) {
     $('#part1').removeClass(classesOnShow).addClass(classesOnHide);
     $('#part2').removeClass(classesOnHide).addClass(classesOnShow); // Will be shown
@@ -201,9 +201,9 @@ function regress(event) {
   }
   // Hide part 3, display part 2
   else if (currentPart == 3) {
-    $('#part1').removeClass(classesOnHide).addClass(classesOnShow);
-    $('#part2').removeClass(classesOnShow).addClass(classesOnHide); // Will be shown
-    $('#part3').removeClass(classesOnHide).addClass(classesOnShow);
+    $('#part1').removeClass(classesOnShow).addClass(classesOnHide);
+    $('#part2').removeClass(classesOnHide).addClass(classesOnShow); // Will be shown
+    $('#part3').removeClass(classesOnShow).addClass(classesOnHide);
 
     currentPart = 2;
   }
@@ -252,36 +252,54 @@ function register(event) {
           // So we can navigate to the target HREF on success
           var href = $('#registerBtn').attr('href');
 
-          // TODO: Resume upload
+          // Resume upload
           $('#resumeBtn').filestyle({
             buttonName : 'btn-danger',
             buttonText : 'Upload Resume'
           });
 
-          // TODO: Headshot upload
+          // Headshot upload
           $('#picBtn').filestyle({
             buttonName : 'btn-danger',
-            buttonText : 'Upload Piccccc'
+            buttonText : 'Upload Picture'
           });
 
-          var resumeFile   = null;
-          var headshotFile = null;
+          var resumeFileName = null;
+          var headshotFileName = null;
 
           // Get uploaded resume file name
           if ($('#resumeBtn')[0].files[0]) {
-            resumeFile = response + '_' + $('#resumeBtn')[0].files[0].name;
+            var resumeFile = $('#resumeBtn')[0].files[0];
+
+            // TODO: since we are not waiting to hear back from uploadResume,
+            // TODO:    we will just manually build the path. If we change where
+            // TODO:    we store resumes, update this.
+            resumeFileName = "documents/" + response + "_" + resumeFile.name; // response is uid
+
+            // upload resume
+            // NOTE: doing nothing with callback
+            Database.uploadResume(resumeFile, function(a,b) {});
           }
 
           // Get uploaded headshot file name
           if ($('#picBtn')[0].files[0]) {
-            headshotFile = response + '_' + $('#picBtn')[0].files[0].name;
+            var headshotFile = $('#picBtn')[0].files[0];
+
+            // TODO: since we are not waiting to hear back from uploadHeadshot,
+            // TODO:    we will just manually build the path. If we change where
+            // TODO:    we store headshots, update this.
+            headshotFileName = "images/" + response + "_" + headshotFile.name; // response is uid
+
+            // upload headshot
+            // NOTE: doing nothing with callback
+            Database.uploadHeadshot(headshotFile, function(a,b) {});
           }
 
           // Gather user registration information
           var userObj = Model.createUserObject(
             {},
-            headshotFile,
-            resumeFile,
+            headshotFileName,
+            resumeFileName,
             $('#mentorBio').val(),
             $('#preferedStartDate').val(),
             $('#fluentLang').val(),
