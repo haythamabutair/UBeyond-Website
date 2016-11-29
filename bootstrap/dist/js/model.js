@@ -2,7 +2,8 @@
  * 
  * model.js
  *
- * <Describe file>
+ * Provides functions for packing data into objects whose structure matches the schema of the
+ * database.
  *
  * -----------------------------------------------------------------------------------------------
  */
@@ -10,7 +11,9 @@
 var Model = (function() {
 
     /*
-     * TODO: Documentation
+     * Structures persob object data into a schema-adhering object.
+     *
+     * See Mentee and Mentor in database.
      */
     var createPersonObject = function(
             baseObject,
@@ -26,9 +29,11 @@ var Model = (function() {
     ) {
         baseObject["FirstName"]     = firstName;
         baseObject["LastName"]      = lastName;
+
         if (middleInitial != "") {
             baseObject["MiddleInitial"] = middleInitial;
         }
+
         baseObject["PreferredName"] = preferredName;
         baseObject["Address"]       = address;
         baseObject["PhoneNumber"]   = phoneNumber;
@@ -41,8 +46,9 @@ var Model = (function() {
     }
 
     /*
-     * TODO: Documentation
-     * Note: Modifies an existing PERSON object
+     * Structures user object data into a schema-adhering object.
+     *
+     * See Mentee and Mentor in database.
      */
     var createUserObject = function(
             baseObject,
@@ -59,16 +65,25 @@ var Model = (function() {
         baseObject["ResumeFilename"]     = resumeFilename;
         baseObject["Bio"]                = bio;
         baseObject["PreferredStartDate"] = preferredStartDate;
+        
         // Languages technically in Person model, but not available until here
         baseObject["Languages"]          = languages;
         baseObject["LanguagePreference"] = languagePreference;
         baseObject["GenderPreference"]   = genderPreference;
         baseObject["IsAvailable"]        = isAvailable;
 
+        // Not possible for a pending match to exist at creation
+        baseObject["PendingApproval"]    = false;
+
         // Return personObject for convenience
         return baseObject;
     }
 
+    /*
+     * Structures mentor reference data into a schema-adhering object.
+     *
+     * See MentorReference in database.
+     */
     var createReferenceObject = function(
             baseObject,
             firstName,
