@@ -306,36 +306,54 @@ function register(event) {
           updateObj  = employeeInfoObj;
         }
 
-        // TODO: Resume upload
+        // Resume upload
         $('#resumeBtn').filestyle({
           buttonName : 'btn-danger',
           buttonText : 'Upload Resume'
         });
 
-        // TODO: Headshot upload
+        // Headshot upload
         $('#picBtn').filestyle({
           buttonName : 'btn-danger',
           buttonText : 'Upload Picture'
         });
 
-        var resumeFile   = null;
-        var headshotFile = null;
+        var resumeFileName = null;
+        var headshotFileName = null;
 
-        // Get uploaded resume file name (response == userID)
+        // Get uploaded resume file name
         if ($('#resumeBtn')[0].files[0]) {
-          resumeFile = response + '_' + $('#resumeBtn')[0].files[0].name;
+          var resumeFile = $('#resumeBtn')[0].files[0];
+
+          // TODO: since we are not waiting to hear back from uploadResume,
+          // TODO:    we will just manually build the path. If we change where
+          // TODO:    we store resumes, update this.
+          resumeFileName = "documents/" + response + "_" + resumeFile.name; // response is uid
+
+          // upload resume
+          // NOTE: doing nothing with callback
+          Database.uploadResume(resumeFile, function(a,b) {});
         }
 
-        // Get uploaded headshot file name (response == userID)
+        // Get uploaded headshot file name
         if ($('#picBtn')[0].files[0]) {
-          headshotFile = response + '_' + $('#picBtn')[0].files[0].name;
+          var headshotFile = $('#picBtn')[0].files[0];
+
+          // TODO: since we are not waiting to hear back from uploadHeadshot,
+          // TODO:    we will just manually build the path. If we change where
+          // TODO:    we store headshots, update this.
+          headshotFileName = "images/" + response + "_" + headshotFile.name; // response is uid
+
+          // upload headshot
+          // NOTE: doing nothing with callback
+          Database.uploadHeadshot(headshotFile, function(a,b) {});
         }
 
         // Gather user registration information
         personObj = Model.createUserObject(
           personObj,
-          headshotFile,
-          resumeFile,
+          headshotFileName,
+          resumeFileName,
           $('#menteeBio').val(),
           $('#meetingDatePref').val(),
           $('#languagesSpoken').val(),

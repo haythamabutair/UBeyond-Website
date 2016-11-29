@@ -307,6 +307,45 @@ var Database = (function() {
         }
     }
 
+    /*
+     * Returns the downloadUrl to the callback for the file stored at the specified path in the
+     * database.
+     *
+     * @storagePath:    the local path on the database at which this file is found, for
+     *                  example, 'images/my_image.png'
+     *
+     * @callback:       callback function
+     *
+     * Callback: function(success, response)
+     *   If the update operation is successful, the callback recieves (true, null). If it fails, the
+     *   callback receives (false, errorMessage).
+     *
+     * Returns null to the callback if:
+     *         file doesn't exist,
+     *         an error occurs,
+     *         or there is no user signed-in.
+     * Returns the download URL of the file otherwise.
+     */
+    var getDownloadURL = function(storagePath, callback) {
+        var currentUser = firebase.auth().currentUser;
+
+        // Authentication required for storage interaction
+        if (currentUser) {
+            var storageRef = firebase.storage().ref();
+            var fileRef = storageRef.child(storagePath);
+
+            // fetch download URL asynchronously
+            fileRef.getDownloadURL().then(function(downloadURL) {
+                callback(true, downloadURL);
+            }).catch(function(error) {
+                callback(false, error.code + ": " + error.message);
+            });
+        }
+        else {
+            callback(false, "cust-auth/no-sign-in: Not signed in");
+        }
+    }
+
     //
     // Explicitly reveal pointers to functions we want to make public
     //
@@ -321,6 +360,7 @@ var Database = (function() {
         setStudentInfoData: setStudentInfoData,
         setEmployeeInfoData: setEmployeeInfoData,
         uploadResume: uploadResume,
-        uploadHeadshot: uploadHeadshot
+        uploadHeadshot: uploadHeadshot,
+        getDownloadURL: getDownloadURL
     }
 })();
