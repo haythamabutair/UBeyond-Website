@@ -7,24 +7,6 @@ var listOfMentorKeys = ["First Name","Last Name","Birthdate","Gender", "Language
 var listOfMenteeKeys =  ["First Name","Last Name","Birthdate","Gender", "Languages", "Gender Preference","Bio",
 "Language Preference", "Preferred StartDate", "Mentee Skills", "Field Of Expertise", "Field Preference", "Employment Status"];
 
-// Sign-in to use Firebase, Will change after Login Screen Linked 
-$(function(){
-    var email = "dev@ubeyond-website.com";
-    var password = "qCLcZjQFtqTpDHW"
-    Database.authenticate(email, password, function(success, response) {
-        // Sign-in succeeded
-        if (success) {
-            var userID = response;
-            getMatches();
-        }
-        else {
-
-        }
-    });
-});
-
-//TODO: Save MentorID and MenteeID
-
 function getMatches(){
     //Setup Firebase Ref information and get current Admin 
     var database = firebase.database();
