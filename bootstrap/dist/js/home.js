@@ -5,11 +5,19 @@ $(document).ready(function() {
   //
   //TESTER USERS FOR THE HOMEPAGES
   //
-  // firebase.auth().signInWithEmailAndPassword("example.mentee@host.com", "testpassword").then(function(error) {
+  // firebase.auth().signInWithEmailAndPassword("test_emailhere123@gmail.com", "testPassword").then(function(error) {
   //   // alert(error);
   //   fetchData();
   // })
-  // firebase.auth().signInWithEmailAndPassword("mentortest@gmail.com", "asdasd").then(function(error) {
+  // firebase.auth().signInWithEmailAndPassword("testtest@gmail.com", "asdasd").then(function(error) {
+  //   // alert(error);
+  //   fetchData();
+  // })
+  // firebase.auth().signInWithEmailAndPassword("mentor_test_123@test.com", "testPassword").then(function(error) {
+  //   // alert(error);
+  //   fetchData();
+  // });
+  // firebase.auth().signInWithEmailAndPassword("testty@gmail.com", "asdasd").then(function(error) {
   //   // alert(error);
   //   fetchData();
   // })
@@ -45,8 +53,8 @@ function fetchData() {
     // if mentee get mentee info and StudentInfo/EmployeeInfo data and display the info
     // if mentor then supply mentor info to display the info
     menteeRef.on("value", function(snapData) {
-      if (snapData.val() != null) {
-        // console.log("menteeRefSnapDataVal: " + snapData.val());
+      if (snapData.val() !== null) {
+        //console.log("menteeRefSnapDataVal: " + snapData.val());
         var refInfo;
 
         if (snapData.val()["EmploymentStatus"] == "student") {
@@ -55,48 +63,25 @@ function fetchData() {
           refInfo = db.ref("EmployeeInfo/" + curUserID);
         }
 
+
+
+        var menteeMatchID = snapData.val()["Match"]
+
         refInfo.on("value", function(infoSnapshot) {
-          // console.log(infoSnapshot.val());
+          //console.log(infoSnapshot.val());
 
-          var menteeMatchToRef = db.ref("MenteeMatch/" + curUserID);
+          if (menteeMatchID != null) {
+            $(".home-user-col").show();
+            $(".home-match-col").show();
 
-          //check if the mentee has any matches.
-          //if yes, then get the match and populate match fields
-          //if no, then just use user's info and hide match field
-
-          menteeMatchToRef.on("value", function(matchSnapshot) {
-
-            if (matchSnapshot.val() != null) {
-              //this will be strings of all user matches
-              var menteeCheckArray = [];
-              //this has db ref for all user matches
-              var menteeMatchArray = []
-
-              //for all the matches (non duplicate) for the current user, add them to match array
-              for (x in matchSnapshot.val()) {
-                var matchUser = matchSnapshot.val()[x]["User"];
-
-                if (!menteeCheckArray.includes(matchUser)) {
-                  menteeCheckArray.push(matchUser);
-                  menteeMatchArray.push(db.ref("Mentor/" + matchUser));
-                }
-              }
-
-              // console.log(menteeMatchArray);
-
-              //show the 2 columns because there is data available
-              $(".home-user-col").show();
-              $(".home-match-col").show();
-
-              //call the display data functions to fill in the page
-              displayDataMentee(snapData.val(), infoSnapshot.val());
-              displayDataMenteesMatch(menteeMatchArray);
-            } else {
-              $(".home-user-col").show();
-              //call the display data functions to fill in the page
-              displayDataMentee(snapData.val(), infoSnapshot.val());
-            }
-          });
+            //call the display data functions to fill in the page
+            displayDataMentee(snapData.val(), infoSnapshot.val());
+            displayDataMenteesMatch(db.ref("Mentor/" + menteeMatchID));
+          } else {
+            $(".home-user-col").show();
+            //call the display data functions to fill in the page
+            displayDataMentee(snapData.val(), infoSnapshot.val());
+          }
 
         });
       }
@@ -107,39 +92,20 @@ function fetchData() {
       if (mentorSnapData.val() != null) {
       // console.log(mentorSnapData.val());
 
-        //get the matches for the current user
-        var mentorMatchToRef = db.ref("MentorMatch/" + curUserID);
-        mentorMatchToRef.on("value", function(mentorMatchSnapshot) {
+        mentorMatchID = mentorSnapData.val()["Match"]
 
-          if (mentorMatchSnapshot.val() != null) {
-            //this will be strings of all user matches
-            var mentorCheckArray = [];
-            //this has db ref for all user matches
-            var mentorMatchArray = []
+        //if there is a match, show and display match data. else show user data
+        if (mentorMatchID != null) {
+          $(".home-user-col").show();
+          $(".home-match-col").show();
 
-            //for all the matches (non duplicate) for the current user, add them to match array
-            for (x in mentorMatchSnapshot.val()) {
-              var matchUser = mentorMatchSnapshot.val()[x]["User"];
+          displayDataMentor(mentorSnapData.val());
+          displayDataMentorsMatch(db.ref("Mentee/" + mentorMatchID));
+        } else {
+          $(".home-user-col").show();
 
-              if (!mentorCheckArray.includes(matchUser)) {
-                mentorCheckArray.push(matchUser);
-                mentorMatchArray.push(db.ref("Mentor/" + matchUser));
-              }
-            }
-
-            $(".home-user-col").show();
-            $(".home-match-col").show();
-
-            displayDataMentor(mentorSnapData.val());
-            displayDataMentorsMatch(mentorMatchArray);
-            // console.log(mentorMatchArray);
-          } else {
-            displayDataMentor(mentorSnapData.val());
-            // $(".home-match-col").hide();
-            $(".home-user-col").show();
-          }
-
-        });
+          displayDataMentor(mentorSnapData.val());
+        }
       }
     });
 
@@ -184,6 +150,12 @@ function displayDataMentee(snapDataAsJson, studentOrEmployeeInfo) {
   //   $("#home-user-pic").attr("src", snapDataAsJson["HeadshotFilename"]);
   // }
 
+  Database.getDownloadURL(snapDataAsJson["HeadshotFilename"], function(result, response) {
+    if (result) {
+      $("#home-user-pic").attr("src", response)
+    }
+  });
+
 
 }
 
@@ -192,15 +164,13 @@ function displayDataMentee(snapDataAsJson, studentOrEmployeeInfo) {
 //
 //TODO implement this code and home.html to be able to display multiple matches.
 //It currently only displays one match
-function displayDataMenteesMatch(menteeMatchArray) {
+function displayDataMenteesMatch(menteeMatch) {
 
-  var menteeMatchOneRef = menteeMatchArray[0];
+  var menteeMatchOneRef = menteeMatch;
 
   menteeMatchOneRef.on("value", function(menteeMatchSnap) {
     // console.log("test", menteeMatchSnap.val());
     var menteeMatchSnapVal = menteeMatchSnap.val();
-
-
 
     //if current user is mentee (only way this code should run) hide this fields
     $("#home-match-fieldPreference-header").hide();
@@ -220,6 +190,11 @@ function displayDataMenteesMatch(menteeMatchArray) {
     // if (menteeMatchSnapVal["HeadshotFilename"] != null) {
     //   $("#home-match-pic").attr("src", menteeMatchSnapVal["HeadshotFilename"]);
     // }
+    Database.getDownloadURL(menteeMatchSnapVal["HeadshotFilename"], function(result, response) {
+      if (result) {
+        $("#home-match-pic").attr("src", response)
+      }
+    });
 
   });
 }
@@ -239,13 +214,19 @@ function displayDataMentor(snapDataAsJson) {
   $("#home-user-languagePreference").text(snapDataAsJson["LanguagePreference"]);
   $("#home-user-bio-para").text(snapDataAsJson["Bio"]);
 
-
+  //display their picture if present
+  Database.getDownloadURL(snapDataAsJson["HeadshotFilename"], function(result, response) {
+    console.log(response)
+    if (result) {
+      $("#home-user-pic").attr("src", response)
+    }
+  });
 }
 
 //displaying user's match's info if user is a mentor
-function displayDataMentorsMatch(mentorMatchArray) {
+function displayDataMentorsMatch(mentorMatch) {
 
-  var mentorMatchOneRef = menteeMatchArray[0];
+  var mentorMatchOneRef = mentorMatch;
 
 
   mentorMatchOneRef.on("value", function(mentorMatchSnap) {
@@ -265,11 +246,12 @@ function displayDataMentorsMatch(mentorMatchArray) {
     $("#home-match-contact-email").text(mentorMatchSnapVal["Email"]);
     $("#home-match-contact-phoneNumber").text(mentorMatchSnapVal["PhoneNumber"]);
 
-
-    //TODO implement getting the match's picture and uplodading to the page
-    // if (mentorMatchSnapVal["HeadshotFilename"] != null) {
-    //   $("#home-match-pic").attr("src", mentorMatchSnapVal["HeadshotFilename"]);
-    // }
+    //display their picture if present
+    Database.getDownloadURL(mentorMatchSnapVal["HeadshotFilename"], function(result, response) {
+      if (result) {
+        $("#home-match-pic").attr("src", response)
+      }
+    });
 
   });
 }
