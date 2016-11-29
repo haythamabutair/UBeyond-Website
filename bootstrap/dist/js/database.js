@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------------------------------------------
- * 
+ *
  * database.js
  *
  * <Describe file>
@@ -44,6 +44,10 @@ var Database = (function() {
     // URI headers for info structures
     var STUDENT_INFO   = "StudentInfo";
     var EMPLOYYEE_INFO = "EmployeeInfo";
+
+    // URI headers for file storage
+    const STORAGE_RESUME   = "documents"; // document storage node
+    const STORAGE_HEADSHOT = "images";    // image storage node
 
     //
     // Meta functions.
@@ -239,6 +243,110 @@ var Database = (function() {
     }
 
     //
+    // File upload functions
+    //
+
+    /*
+     * Uploads a file to the firebase database.
+     *
+     * @path:       path at which to save the file in the database.
+     * @file:       file to upload.
+     * @callback:   callback function to call upon completion.
+     *
+     * TODO: Example
+     *
+     * NOTE: file upload requires authentication.
+     */
+    var uploadFile = function(path, file, callback) {
+        const storageRef = firebase.storage().ref();
+        var fileRef = storageRef.child(path);
+
+        // Upload file
+        fileRef.put(file).then(function(snapshot) {
+            callback(true, null);
+        }).catch(function(error) {
+            callback(false, error.code + ": " + error.message);
+        });
+    }
+
+    /*
+     * TODO: Documentation
+     */
+    var uploadResume = function(file, callback) {
+        var currentUser = firebase.auth().currentUser;
+
+        // Ensure a user is signed-in
+        if (currentUser) {
+            var fileName = currentUser.uid + "_" + file.name;
+            var filePath = STORAGE_RESUME + "/" + fileName;
+
+            // Call file upload function
+            uploadFile(filePath, file, callback);
+        }
+        else {
+            callback(false, "cust-auth/no-sign-in: Not signed in");
+        }
+    }
+
+    /*
+     * TODO: Documentation
+     */
+    var uploadHeadshot = function(file, callback) {
+        var currentUser = firebase.auth().currentUser;
+
+        // Ensure a user is signed-in
+        if (currentUser) {
+            var fileName = currentUser.uid + "_" + file.name;
+            var filePath = STORAGE_HEADSHOT + "/" + fileName;
+
+            // Call file upload function
+            uploadFile(filePath, file, callback);
+        }
+        else {
+            callback(false, "cust-auth/no-sign-in: Not signed in");
+        }
+    }
+
+    /*
+     * Returns the downloadUrl to the callback for the file stored at the specified path in the
+     * database.
+     *
+     * @storagePath:    the local path on the database at which this file is found, for
+     *                  example, 'images/my_image.png'
+     *
+     * @callback:       callback function
+     *
+     * Callback: function(success, response)
+     *   If the update operation is successful, the callback recieves (true, null). If it fails, the
+     *   callback receives (false, errorMessage).
+     *
+     * Returns null to the callback if:
+     *         file doesn't exist,
+     *         an error occurs,
+     *         or there is no user signed-in.
+     * Returns the download URL of the file otherwise.
+     */
+    var getDownloadURL = function(storagePath, callback) {
+        var currentUser = firebase.auth().currentUser;
+
+        // Authentication required for storage interaction
+        if (currentUser) {
+            var storageRef = firebase.storage().ref();
+            var fileRef = storageRef.child(storagePath);
+
+            // fetch download URL asynchronously
+            fileRef.getDownloadURL().then(function(downloadURL) {
+                callback(true, downloadURL);
+            }).catch(function(error) {
+                callback(false, error.code + ": " + error.message);
+            });
+        }
+        else {
+            callback(false, "cust-auth/no-sign-in: Not signed in");
+        }
+    }
+
+    //
     // Explicitly reveal pointers to functions we want to make public
     //
     return {
@@ -250,6 +358,9 @@ var Database = (function() {
         setMenteeFormData: setMenteeFormData,
         setMentorFormData: setMentorFormData,
         setStudentInfoData: setStudentInfoData,
-        setEmployeeInfoData: setEmployeeInfoData
+        setEmployeeInfoData: setEmployeeInfoData,
+        uploadResume: uploadResume,
+        uploadHeadshot: uploadHeadshot,
+        getDownloadURL: getDownloadURL
     }
 })();
