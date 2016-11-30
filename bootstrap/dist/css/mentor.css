@@ -63,7 +63,7 @@ body {
 .default-menu.navbar-default .navbar-nav > .active > a:focus,
 .default-menu.navbar-default .navbar-nav > .active > a:hover{
     background-color: transparent;
-    color: white;
+    color: lightblue;
 }
 
 .navbar-default .navbar-nav > .open > a,
@@ -76,6 +76,10 @@ body {
 .navbar-collapse > li > a{
   margin-top: -30px;
   margin-bottom: -15px;
+}
+
+.navbar-brand {
+  padding: 0 30px 0 30px;
 }
 
 

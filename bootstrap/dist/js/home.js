@@ -6,28 +6,6 @@ $(document).ready(function() {
       }
   });
 
-  //
-  //TESTER USERS FOR THE HOMEPAGES
-  //
-  // firebase.auth().signInWithEmailAndPassword("test_emailhere123@gmail.com", "testPassword").then(function(error) {
-  //   // alert(error);
-  //   fetchData();
-  // })
-  // firebase.auth().signInWithEmailAndPassword("testtest@gmail.com", "asdasd").then(function(error) {
-  //   // alert(error);
-  //   fetchData();
-  // })
-  // firebase.auth().signInWithEmailAndPassword("mentor_test_123@test.com", "testPassword").then(function(error) {
-  //   // alert(error);
-  //   fetchData();
-  // });
-  // firebase.auth().signInWithEmailAndPassword("testty@gmail.com", "asdasd").then(function(error) {
-  //   // alert(error);
-  //   fetchData();
-  // })
-
-
-
 });
 
 
