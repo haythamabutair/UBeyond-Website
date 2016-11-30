@@ -1,6 +1,10 @@
 $(document).ready(function() {
-
-  fetchData();
+  firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+          // Fetch user profile data
+          fetchData();
+      }
+  });
 
   //
   //TESTER USERS FOR THE HOMEPAGES
@@ -112,14 +116,12 @@ function fetchData() {
 
   } else {
     // alert("NO USER");
-
-    function Redirect() {
-        window.location = "mentorshipatlanta.info";
-      }
-    setTimeout('Redirect()', 1000);
-
-
+    setTimeout('redirect()', 1000);
   }
+}
+
+function redirect() {
+  window.location = "index.html";
 }
 
 //displaying the homepage user data
