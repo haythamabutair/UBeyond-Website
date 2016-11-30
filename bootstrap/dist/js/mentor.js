@@ -369,7 +369,6 @@ function register(event) {
                 if (success) {
                   // Call registration endpoint & matching endpoint
                   callRegistrationEndpoint();
-                  
                 }
                 // Display notification on failure
                 // TODO: Handle specific errors
