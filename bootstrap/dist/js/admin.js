@@ -132,11 +132,15 @@ function makeContainters(index, menteeUID, mentorUID){
     //Make div's for mentee and mentor since Firebase calls are async don't know when they will return
     var menteeDiv = document.createElement("div");
     var mentorDiv = document.createElement("div");
+
+    var mentorTitle = document.createElement("h3");
+    var menteeTitle = document.createElement("h3");
     //Function to creat buttons 
     var btnDiv = createButtons(index, menteeUID, mentorUID);
     
     fluidContainer.setAttribute("class","row well");
     fluidContainer.setAttribute("id","mentee-mentor-comparision" + index);
+    fluidContainer.style.backgroundColor = "#F0F8FF"
     informationDiv.setAttribute("clsss","col-md-12");
     //Need to handle floating div problem 
     informationDiv.setAttribute("style","overflow: hidden;");
@@ -144,6 +148,11 @@ function makeContainters(index, menteeUID, mentorUID){
     menteeDiv.setAttribute("id","mentee"+ index);
     mentorDiv.setAttribute("class","col-md-6");
     mentorDiv.setAttribute("id","mentor"+index);
+
+    mentorTitle.innerText = "Mentor";
+    menteeTitle.innerText = "Mentee";
+    menteeDiv.appendChild(menteeTitle);
+    mentorDiv.appendChild(mentorTitle);
     
     informationDiv.appendChild(menteeDiv);
     informationDiv.appendChild(mentorDiv);
