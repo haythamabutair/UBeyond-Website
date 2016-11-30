@@ -367,8 +367,9 @@ function register(event) {
               // Submit mentor form and navigate to home page
               Database.setMentorFormData(mentorFormData, function(success, response) {
                 if (success) {
-                  // Navigate to home page via href in button of notification div
-                  window.open("home.html", "_self");
+                  // Call registration endpoint & matching endpoint
+                  callRegistrationEndpoint();
+                  
                 }
                 // Display notification on failure
                 // TODO: Handle specific errors
@@ -396,4 +397,49 @@ function register(event) {
 
   // Stop auto-navigation to href (IE)
   return false;
+}
+
+function callRegistrationEndpoint() {
+  $.ajax({
+      url: "http://mentorshipatlanta.info/register/mentor/" + firebase.auth().currentUser.uid,
+      type: "POST",
+      success: function(response) {
+          console.log("registration endpoint for mentor returned successfully with " + response);
+          
+          // Call matching endpoint
+          callMatchingEndpoint();
+      },
+      error: function(xhr) {
+          console.log("registration endpoint for mentor returned an error: " + xhr);
+
+          // alert failure
+          alert("Failed to call registration endpoint, but registration was successful!");
+
+          // Call matching endpoint
+          callMatchingEndpoint();
+      }
+  });
+}
+
+function callMatchingEndpoint() {
+  // Run matching algorithm for mentor
+  $.ajax({
+      url: "http://mentorshipatlanta.info/match/mentor/" + firebase.auth().currentUser.uid,
+      type: "POST",
+      success: function(response) {
+          console.log("matching endpoint for mentor returned successfully with " + response);
+          
+          // Navigate to home page via href in button of notification div
+          window.open("home.html", "_self");
+      },
+      error: function(xhr) {
+          console.log("matching endpoint for mentor returned an error: " + xhr);
+
+          // alert failure
+          alert("Failed to call matching algorithm, but registration was successful!");
+
+          // Navigate to home page via href in button of notification div
+          window.open("home.html", "_self");
+      }
+  });
 }
