@@ -22,7 +22,16 @@ var Global = (function() {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
+    // To display an alert() more gracefully
+    //
+    // TODO: Take in the ID of the html element that will be displayed as the notification
+    var showNotification = function(message, isError) {
+        // TODO: use something other than alert()
+        alert(message);
+    }
+
     return {
-        getParameterByName: getParameterByName
+        getParameterByName: getParameterByName,
+        showNotification: showNotification
     }
 })();

@@ -1,61 +1,147 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Web.Http;
-
 using Matching.Models;
+using Matching;
+using System.Net.Mail;
 
 namespace Matching.Controllers
 {
     /// <summary>
-    /// A WebAPI controller class for the REST endpoints to get a list of matched mentors and get matching index.
+    /// A WebAPI controller class for the REST endpoints to match users.
     /// </summary>
     public class MatchingController : ApiController
     {
         /// <summary>
-        /// A method that will be called whenever a Mentee clicks the "Find a Mentor" button.
-        /// This will initiate the process for matching a mentee with a mentor. and finds a list of mentors
-        /// to be reviewed by an admin.
+        /// A method that will be called whenever a Mentor registers, and will match that user with the best available Mentee
         /// </summary>
-        /// <param name="menteeUsername"></param>
-        [Route("matching/{menteeUsername}/list")]
-        public IEnumerable<string> GetMatchedListOfMentors(string menteeUsername)
+        /// <param name="mentorUID"></param>
+        [Route("match/mentor/{mentorUID}")]
+        public IHttpActionResult MatchMentor(string mentorUID)
         {
-            //TODO: Query Database and find all users that are available.
-            
-            //TODO: Filter Mentors on whether they are matchable or not. 
-            //      If matchable, find matchingIndex and add to sorted list of (Mentor, matchingIndex)
-            /*
-             * for(Mentor mentor: AvailableMentorTable)
-             * {
-             *      if(!this.IsMatchable(mentor.username, menteeUsername)) 
-             *      {
-             *          AvailableMentorTable.Delete(mentor);
-             *      } else
-             *      {
-             *          MatchedList.add(mentor, this.GetMatchingIndex(mentor.username, menteeUsername));
-             *      }
-             * }
-             */
+            Mentor mentor = FirebaseUtility.GetMentor(mentorUID);
+            Dictionary<string, Mentee> mentees = FirebaseUtility.GetMenteeDictionary();
 
-            //TODO: return list of mentors sorted by matchability
-            return null;
+            if (mentor == null)
+            {
+                return BadRequest(); //mentor does not exist in database
+            }
+
+            if (mentees == null)
+            {
+                return InternalServerError(); //error retrieving mentees from Server
+            }
+
+            string bestMenteeUID = null;
+            double bestMatchStrength = -1;
+            if (mentor.Blacklist == null)
+            {
+                mentor.Blacklist = new List<string>();
+            }
+            foreach (KeyValuePair<string, Mentee> mentee in mentees)
+            {
+                if(mentee.Value.IsAvailable && !mentee.Value.PendingApproval && !mentor.Blacklist.Contains(mentee.Key))
+                {
+                    double matchStrength = GetMatchStrength(mentor, mentee.Value);
+                    if (matchStrength > bestMatchStrength)
+                    {
+                        bestMenteeUID = mentee.Key;
+                        bestMatchStrength = matchStrength;
+                    }
+                }
+            }
+
+            //save the mentee as a match for this mentor
+            if (bestMenteeUID != null && FirebaseUtility.PushMentorMatch(mentorUID, bestMenteeUID) != null)
+            {
+                return Ok(1);
+            }
+
+            return Ok(2); //return different error code if no match added (not a failure)
+            
         }
 
         /// <summary>
-        /// Returns a value that determines how close of a match the mentor and mentee are.
+        /// A method that will be called whenever a Mentee registers, and will match that user with the best available Mentor
         /// </summary>
-        /// <param name="mentorUsername"></param>
-        /// <param name="menteeUsername"></param>
-        /// <returns></returns>
-        [Route("matching/{menteeUsername}/{mentorUsername}/index")]
-        public IHttpActionResult GetMatchingIndex(string menteeUsername, string mentorUsername)
+        /// <param name="menteeUID"></param>
+        [Route("match/mentee/{menteeUid}")]
+        public IHttpActionResult MatchMentee(string menteeUID)
         {
-            //TODO: Retrieve mentor and mentee data from database
+            Mentee mentee = FirebaseUtility.GetMentee(menteeUID);
+            Dictionary<string, Mentor> mentors = FirebaseUtility.GetMentorDictionary();
 
-            //TODO: Check if the mentor and mentee have the basic mecessary requirements to match
-            return Ok(-1);
+            if (mentee == null)
+            {
+                return BadRequest(); //mentor does not exist in database
+            }
+
+            if (mentors == null)
+            {
+                return InternalServerError(); //error retrieving mentees from Server
+            }
+
+            string bestMentorUID = null;
+            double bestMatchStrength = -1;
+            if (mentee.Blacklist == null)
+            {
+                mentee.Blacklist = new List<string>();
+            }
+            foreach (KeyValuePair<string, Mentor> mentor in mentors)
+            {
+                if (mentor.Value.IsAvailable && !mentor.Value.PendingApproval && !mentee.Blacklist.Contains(mentor.Key))
+                {
+                    double matchStrength = GetMatchStrength(mentor.Value, mentee);
+                    if (matchStrength > bestMatchStrength)
+                    {
+                        bestMentorUID = mentor.Key;
+                        bestMatchStrength = matchStrength;
+                    }
+                }
+            }
+
+            //save the mentee as a match for this mentor
+            if (bestMentorUID != null && FirebaseUtility.PushMenteeMatch(menteeUID, bestMentorUID) != null)
+            {
+                return Ok(1);
+            }
+
+            return Ok(2); //return different error code if no match added (not a failure)
+
+        }
+
+        /// <summary>
+        /// A method that will be called to confirm a match
+        /// </summary>
+        /// <param name="menteeUID"></param>
+        [Route("match/confirm/{mentorUid}/{menteeUid}")]
+        public IHttpActionResult ConfirmMatch(string mentorUid, string menteeUid)
+        {
+            if(FirebaseUtility.ConfirmMatch(mentorUid, menteeUid))
+            {
+                return Ok(1);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// A method that will be called to reject a match
+        /// </summary>
+        /// <param name="menteeUID"></param>
+        [Route("match/reject/{mentorUid}/{menteeUid}")]
+        public IHttpActionResult RejectMatch(string mentorUid, string menteeUid)
+        {
+            if (FirebaseUtility.RejectMatch(mentorUid, menteeUid))
+            {
+                return Ok(1);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         public double GetMatchStrength(Mentor mentor, Mentee mentee)

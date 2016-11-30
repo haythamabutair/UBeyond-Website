@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Sign In | UBeyond</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/signin.css" rel="stylesheet">
+
+    <!-- JQuery script -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src = "js/bootstrap.min.js"></script>
+
+    <script src="js/signin.js"></script>
+    <script src="js/database.js"></script>
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+    <script>
+      /*
+       * Configure and initialize our firebase connection.
+       */
+      Database.initialize();
+    </script>
+  </head>
+
+  <body>
+
+
+
+
+    <div class="navbar-wrapper">
+      <!-- <div class="container"> -->
+
+      <nav class="navbar navbar-default navbar-static-top default-menu" style="background-image: url('img/black_paper.jpg')">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand default-logo" href="index.html">U-Beyond</a>
+          </div>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="signin.html">Home</a></li>
+              <li><a href="mentee.html">Mentee Registration</a></li>
+              <li><a href="mentor.html">Mentor Registration</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- </div> -->
+    </div>
+
+
+
+
+
+
+    <div class="container singinMinusHeader-container">
+
+      <div class="row">
+
+        <div class="col-sm-5 col-sm-offset-1 col-xs-12 signincol">
+
+          <form class="form-signin">
+            <h2 class="form-signin-heading">User Sign In</h2>
+
+            <div class="form-group">
+              <label for="inputEmail" class="sr-only">Email</label>
+              <input type="text" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword" class="sr-only">Password</label>
+              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="remember-me"> Remember me
+              </label>
+            </div>
+
+
+            <a href="#" class="btn btn-lg btn-danger btn-block" role="button" id="signinBtn" onclick="return onSigninBtnClick(this);">Sign In</a>
+
+
+
+          </form>
+        </div> <!-- /.signincol -->
+
+        <div class="col-sm-5 col-xs-12 registercol">
+
+          <form class="form-register">
+            <h2 class="form-register-heading"> Registration</h2>
+            <a href="mentee.html" class="btn btn-lg btn-danger btn-block" role="button" id="menteeRegBtn">Mentee</a>
+            <a href="mentor.html" class="btn btn-lg btn-danger btn-block" role="button" id="mentorRegBtn">Mentor</a>
+
+
+          </form>
+        </div> <!-- /.registercol -->
+      </div> <!-- /row -->
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

@@ -6,7 +6,6 @@ function onSigninBtnClick(caller) {
   
   // So we can navigate to the target HREF on success
   var href = document.getElementById(caller.id).href;
-
   var email = document.getElementById('inputEmail').value;
   var password = document.getElementById('inputPassword').value;
   
@@ -14,9 +13,16 @@ function onSigninBtnClick(caller) {
     // Sign-in succeeded
     if (success) {
       var userID = response;
+      //Loop through admins and see if userID is an Admin
+      var adminRef = firebase.database().ref("Admin/");
+      adminRef.child(userID).once('value', function(snapshot) {
+        if (snapshot.val() !== null){
+          window.open("adminPage.html","_self");
+        }else{
+          window.open("home.html", "_self");
+        }
+      });
 
-      // TODO: Eventually, navigate to home page
-      alert("Sign-in successful! userID: " + userID);
     }
     // Sign-in failed
     else {
@@ -24,7 +30,6 @@ function onSigninBtnClick(caller) {
       alert("Sign-in failed. Error:\n" + response);
     }
   });
-
   // Stop auto-navigation to href (IE)
   return false;
 }

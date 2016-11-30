@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>User | UBeyond</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/home.css" rel="stylesheet">
+
+    <!-- JQuery script -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src = "js/bootstrap.min.js"></script>
+    <script src = "js/database.js"></script>
+    <script src = "js/home.js"></script>
+
+
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+    <script>
+      /*
+       * Configure and initialize our firebase connection.
+       */
+      Database.initialize();
+    </script>
+  </head>
+
+  <body>
+
+
+
+
+    <div class="navbar-wrapper">
+      <!-- <div class="container"> -->
+
+      <nav class="navbar navbar-default navbar-static-top default-menu" style="background-image: url('img/black_paper.jpg')">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand default-logo" href="home.html">U-Beyond</a>
+          </div>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="home.html">Home</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><a href="#">Sign Out</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- </div> -->
+    </div>
+
+
+    <div class="container home-container">
+
+      <div class="row home-box-row">
+
+        <div class="col-xs-10 col-xs-offset-1 home-user-col">
+
+          <div class="well home-user-well">
+            <center>
+              <h2>You</h2>
+
+              <!-- change this src image to the user image from registration -->
+              <img src="img/blank_profile.jpg" alt="img/blank_profile.jpg" class="img-circle" id="home-user-pic" />
+
+              <h3 id="home-user-name"> </h3>
+              <h6 id="home-user-status"> </h6>
+              <h4><span class="label label-danger " id="home-user-majorOrEmployer"></span></h4>
+
+
+
+              <!-- <div id = "home-user-skills">
+                <span > Skills:  </span>
+                <span class="label label-info " id="home-user-skill-one">Java</span>
+                <span class="label label-warning" id="home-user-skill-two">HTML/CSS</span>
+                <span class="label label-danger" id="home-user-skill-three">Python</span>
+              </div> -->
+
+
+              <div id="home-user-fieldExpertise-header">
+                <h5 >Field Expertise: <span class="label label-info " id="home-user-fieldExpertise"></span></h5>
+              </div>
+
+              <div id="home-user-fieldPreference-header">
+                <h5>Field preference: <span class="label label-info " id="home-user-fieldPreference"></span></h5>
+              </div>
+
+              <h5>Language preference: <span class="label label-warning " id="home-user-languagePreference"></span></h5>
+
+
+
+              <hr>
+
+              <div class="home-user-bio">
+                <h4 id="home-user-bio-heading">Bio</h4>
+                <p id="home-user-bio-para"> </p>
+              </div>
+            <center>
+          </div> <!-- /.home-user-well -->
+
+        </div> <!-- ./home-user-col-->
+
+
+
+        <div class="col-xs-10 col-xs-offset-1 home-match-col">
+
+          <div class="match-div">
+
+
+
+            <div class="well home-match-well">
+              <center>
+                <h2>Your Match</h2>
+
+                <!-- change this src image to the user image from registration -->
+                <img src="img/blank_profile.jpg" alt="img/blank_profile.jpg" class="img-circle" id="home-match-pic" />
+
+                <h3 id="home-match-name"> </h3>
+
+                <h4><span class="label label-danger " id="home-match-majorOrEmployer"></span></h4>
+
+
+                <div id="home-match-fieldExpertise-header">
+                  <h5 >Field Expertise: <span class="label label-info " id="home-match-fieldExpertise"></span></h5>
+                </div>
+
+                <div id="home-match-fieldPreference-header">
+                  <h5>Field preference: <span class="label label-info " id="home-match-fieldPreference"></span></h5>
+                </div>
+
+                <h5>LanguagePreference: <span class="label label-primary " id="home-match-languagePreference"></span></h5>
+                <h5>Gender: <span class="label label-warning " id="home-match-gender"></span></h5>
+
+                <hr>
+
+                <div class="home-match-bio">
+                  <h4 id="home-match-bio-heading">Bio</h4>
+                  <p id="home-match-bio-para"></p>
+                </div>
+
+                <hr>
+
+                <div class="home-match-contact">
+                  <!-- <h4 id="home-match-contact-heading"> Contact Info </h4> -->
+                  <h4>Phone: <span class="label label-default" id="home-match-contact-phoneNumber"></span> </h4>
+                  <h4>Email: <span class="label label-default" id="home-match-contact-email"></span> </h4>
+
+
+                </div>
+              </center>
+            </div> <!-- /.home-match-well -->
+          </div> <!-- /.match-div -->
+        </div> <!-- ./home-match-col-->
+      </div> <!-- /.home-box-row -->
+
+    </div> <!-- /.container-->
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

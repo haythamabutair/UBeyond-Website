@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,7 +16,8 @@ namespace Matching.Models
         public List<string> MenteeLevelPreference { get; set; } //subset of <high school, graduate, undergraduate>
         public string Strengths { get; set; }
 
-        public Mentor(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, List<string> languages, DateTime birthdate, string pathToHeadshot, string pathToResume, string bio, DateTime preferredStartDate, string languagePreference, string genderPreference, string employer, int yearsOfExperience, string fieldOfExpertise, List<string> menteeLevelPreference, string strengths, MentorQuestionnaire initialQuestionnaire) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, languages, birthdate, pathToHeadshot, pathToResume, bio, preferredStartDate, languagePreference, genderPreference)
+        [JsonConstructor]
+        public Mentor(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, string birthdate, string pathToHeadshot, string pathToResume, string bio, string preferredStartDate, string languagePreference, string genderPreference, string employer, int yearsOfExperience, string fieldOfExpertise, List<string> menteeLevelPreference, List<string> Languages, string strengths, MentorQuestionnaire initialQuestionnaire, string isAvailable, bool PendingApproval, List<string> Blacklist) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, birthdate, bio, preferredStartDate, languagePreference, genderPreference, Languages, isAvailable, PendingApproval, Blacklist)
         {
             this.Employer = employer;
             this.YearsOfExperience = yearsOfExperience;

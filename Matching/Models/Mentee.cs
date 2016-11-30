@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,32 +10,22 @@ namespace Matching.Models
     {
         public List<MenteeQuestionnaire> questionnaires { get; set; }
 
-        public string Skills { get; set; }
+        public string MenteeSkills { get; set; }
         public string FieldPreference { get; set; }
 
         public string EmploymentStatus { get; set; } //student or employed, internal
 
-        //if student
-        public string SchoolStatus { get; set; } //high school, graduate, or undergraduate, internal
-        public string CurrentSchool { get; set; }
-        public DateTime ExpectedGradDate { get; set; }
-        public string FuturePlans { get; set; }
-        //  if high school
-        public int Grade { get; set; }
-        //  if not high school
-        public string Major { get; set; }
-        public string Minor { get; set; }
-        public bool InterestedInPostGrad { get; set; }
+        //JSon serializer
+        [JsonConstructor]
+        public Mentee(string Address, string Bio, string Birthdate, string Email, string EmploymentStatus, string FieldPreference, string FirstName, string Gender, string GenderPreference, string IsAvailable, string LanguagePreference, List<string> Languages, string LastName, string MenteeSkills, string MiddleInitial, string PhoneNumber, string PreferredName, string PreferredStartDate, bool PendingApproval, List<string> Blacklist): base(FirstName, LastName, MiddleInitial, PreferredName, Address, PhoneNumber, Email, Gender, Birthdate, Bio, PreferredStartDate, LanguagePreference, GenderPreference, Languages, IsAvailable, PendingApproval, Blacklist)
+        {
+            this.MenteeSkills = MenteeSkills;
+            this.FieldPreference = FieldPreference;
+            this.EmploymentStatus = EmploymentStatus;
+        }
 
-        //if employed
-        public string HighestDegree { get; set; }
-        public string SchoolName { get; set; }
-        public string Employer { get; set; }
-        public DateTime GradDate { get; set; }
-        public string CareerGoals { get; set; }
-        public string CareerPlans { get; set; }
-
-        
+        //if undergraduate or graduate
+        /*
         //if in high school
         public Mentee(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, List<string> languages, DateTime birthdate, string pathToHeadshot, string pathToResume, string bio, DateTime preferredStartDate, string languagePreference, string genderPreference, string skills, string fieldPreference, string employmentStatus, string currentSchool, DateTime expectedGradDate, string futurePlans, int grade, MenteeQuestionnaire initialQuestionnaire) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, languages, birthdate, pathToHeadshot, pathToResume, bio, preferredStartDate, languagePreference, genderPreference)
         {
@@ -52,7 +43,6 @@ namespace Matching.Models
             questionnaires.Add(initialQuestionnaire);
         }
         
-        //if undergraduate or graduate
         public Mentee(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, List<string> languages, DateTime birthdate, string pathToHeadshot, string pathToResume, string bio, DateTime preferredStartDate, string languagePreference, string genderPreference, string skills, string fieldPreference, string employmentStatus, bool isUndergrad, string currentSchool, DateTime expectedGradDate, string futurePlans, string major, string minor, bool interestedInPostGrad, MenteeQuestionnaire initialQuestionnaire) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, languages, birthdate, pathToHeadshot, pathToResume, bio, preferredStartDate, languagePreference, genderPreference)
         {
             this.Skills = skills;
@@ -84,6 +74,6 @@ namespace Matching.Models
 
             questionnaires = new List<MenteeQuestionnaire>();
             questionnaires.Add(initialQuestionnaire);
-        }
+        }*/
     }
 }
