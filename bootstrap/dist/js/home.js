@@ -121,7 +121,7 @@ function fetchData() {
 }
 
 function redirect() {
-  window.location = "mentorshipatlanta.info";
+  window.location = "index.html";
 }
 
 //displaying the homepage user data
