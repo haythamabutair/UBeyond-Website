@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  fetchData();
+  // fetchData();
 
   //
   //TESTER USERS FOR THE HOMEPAGES
@@ -17,10 +17,10 @@ $(document).ready(function() {
   //   // alert(error);
   //   fetchData();
   // });
-  // firebase.auth().signInWithEmailAndPassword("testty@gmail.com", "asdasd").then(function(error) {
-  //   // alert(error);
-  //   fetchData();
-  // })
+  firebase.auth().signInWithEmailAndPassword("testty@gmail.com", "asdasd").then(function(error) {
+    // alert(error);
+    fetchData();
+  })
 
 
 
