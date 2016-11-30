@@ -7,8 +7,8 @@ namespace Matching.Models
 {
     public abstract class User : Person
     {
-        public string PathToHeadshot { get; set; }
-        public string PathToResume { get; set; }
+        public string HeadshotFilename { get; set; }
+        public string ResumeFilemane { get; set; }
         public string Bio { get; set; }
         public string PreferredStartDate { get; set; }
         public string LanguagePreference { get; set; }
@@ -22,7 +22,7 @@ namespace Matching.Models
         //internal
         public bool IsAvailable { get; set; }
 
-        protected User(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, string birthdate,  string bio, string preferredStartDate, string languagePreference, string genderPreference, List<string> languages, string isAvailable, bool PendingApproval, List<string> Blacklist) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, birthdate)
+        protected User(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, string birthdate,  string bio, string preferredStartDate, string languagePreference, string genderPreference, List<string> languages, string isAvailable, bool PendingApproval, List<string> Blacklist, string HeadshotFilename, string ResumeFilename) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, birthdate)
         {
             this.Bio = bio;
             this.PreferredStartDate = preferredStartDate;
@@ -31,6 +31,8 @@ namespace Matching.Models
             this.Languages = languages;
             this.PendingApproval = PendingApproval;
             this.Blacklist = Blacklist;
+            this.HeadshotFilename = HeadshotFilename;
+            this.ResumeFilemane = ResumeFilemane;
             if (isAvailable == "true")
             {
                 this.IsAvailable = true;

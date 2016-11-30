@@ -17,7 +17,7 @@ namespace Matching.Models
 
         //JSon serializer
         [JsonConstructor]
-        public Mentee(string Address, string Bio, string Birthdate, string Email, string EmploymentStatus, string FieldPreference, string FirstName, string Gender, string GenderPreference, string IsAvailable, string LanguagePreference, List<string> Languages, string LastName, string MenteeSkills, string MiddleInitial, string PhoneNumber, string PreferredName, string PreferredStartDate, bool PendingApproval, List<string> Blacklist): base(FirstName, LastName, MiddleInitial, PreferredName, Address, PhoneNumber, Email, Gender, Birthdate, Bio, PreferredStartDate, LanguagePreference, GenderPreference, Languages, IsAvailable, PendingApproval, Blacklist)
+        public Mentee(string Address, string Bio, string Birthdate, string Email, string EmploymentStatus, string FieldPreference, string FirstName, string Gender, string GenderPreference, string IsAvailable, string LanguagePreference, List<string> Languages, string LastName, string MenteeSkills, string MiddleInitial, string PhoneNumber, string PreferredName, string PreferredStartDate, bool PendingApproval, List<string> Blacklist, string HeadshotFilename, string ResumeFilename) : base(FirstName, LastName, MiddleInitial, PreferredName, Address, PhoneNumber, Email, Gender, Birthdate, Bio, PreferredStartDate, LanguagePreference, GenderPreference, Languages, IsAvailable, PendingApproval, Blacklist, HeadshotFilename, ResumeFilename)
         {
             this.MenteeSkills = MenteeSkills;
             this.FieldPreference = FieldPreference;
