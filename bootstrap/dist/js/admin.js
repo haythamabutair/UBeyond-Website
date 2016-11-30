@@ -7,16 +7,26 @@ var listOfMentorKeys = ["First Name","Last Name","Birthdate","Gender", "Language
 var listOfMenteeKeys =  ["First Name","Last Name","Birthdate","Gender", "Languages", "Gender Preference","Bio",
 "Language Preference", "Preferred StartDate", "Mentee Skills", "Field Of Expertise", "Field Preference", "Employment Status"];
 
+$(function(){
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            //Add check here to see if user is an admin then call function
+            getMatches();
+        } else {
+            // No user is signed in.
+        }
+    });
+});
+
+
 function getMatches(){
     //Setup Firebase Ref information and get current Admin 
     var database = firebase.database();
-    var curUser = firebase.auth().currentUser;
-    var curUserID = firebase.auth().currentUser.uid;
     var menteeMatches = database.ref("MenteeMatch/");
     var mentorMatches = database.ref("MentorMatch/");
 
     //Gets all of the matches 
-    var count = 0;
+    count = 0;
     menteeMatches.on('value',function(snapshot){
         if(snapshot.val() != null){
             //Loop through each pair of matches  
@@ -66,51 +76,51 @@ function getMatches(){
 
     //Checkes mentor matches as well. Have to check both
     mentorMatches.on('value',function(snapshot){
-    if(snapshot.val() != null){
-        //Loop through each pair of matches  
-        snapshot.forEach(function(childSnapshot){
-            //Addes containers for each mentor/mentee match 
+        if(snapshot.val() != null){
+            //Loop through each pair of matches  
+            snapshot.forEach(function(childSnapshot){
+                //Addes containers for each mentor/mentee match 
 
-            var mentor = childSnapshot.key;
-            var mentee;  
-            for(x in childSnapshot.val()){
-                mentee = childSnapshot.val()[x]["User"];
-            }
-            makeContainters(count, mentee , mentor);
-            count++;
-            // Firebase calls to get Specific information about mentor and mentee
-            var mentorInfo = database.ref("Mentor/" + mentor);
-            var menteeInfo = database.ref("Mentee/" + mentee);
-
-            //Get Mentee Information 
-            menteeInfo.once('value',function(snapshot){
-                //Can be a student or employed
-                if(snapshot.val().EmploymentStatus == "student"){
-                    //Firabse call to get student information
-                    var studentInfo = database.ref("StudentInfo/" + mentee);
-                    studentInfo.once('value', function(childSnapshot){
-                        createMenteeObject(snapshot.val(), childSnapshot.val());
-                    });
-
-                }else{
-                    //Firebase call to get Employed Information
-                    var employedInfo = database.ref("EmployeeInfo/" + mentee);
-                    employedInfo.once('value', function(childSnapshot){
-                        createMenteeObject(snapshot.val(), childSnapshot.val());
-                    });
+                var mentor = childSnapshot.key;
+                var mentee;  
+                for(x in childSnapshot.val()){
+                    mentee = childSnapshot.val()[x]["User"];
                 }
-            }); //End MenteeInfo Method 
+                makeContainters(count, mentee , mentor);
+                count++;
+                // Firebase calls to get Specific information about mentor and mentee
+                var mentorInfo = database.ref("Mentor/" + mentor);
+                var menteeInfo = database.ref("Mentee/" + mentee);
 
-            //Gets information about Mentor
-            mentorInfo.once('value',function(snapshot){
-                    createMentorObject(snapshot.val());
-            });
+                //Get Mentee Information 
+                menteeInfo.once('value',function(snapshot){
+                    //Can be a student or employed
+                    if(snapshot.val().EmploymentStatus == "student"){
+                        //Firabse call to get student information
+                        var studentInfo = database.ref("StudentInfo/" + mentee);
+                        studentInfo.once('value', function(childSnapshot){
+                            createMenteeObject(snapshot.val(), childSnapshot.val());
+                        });
 
-        }); //End of Foreach method for each pair
+                    }else{
+                        //Firebase call to get Employed Information
+                        var employedInfo = database.ref("EmployeeInfo/" + mentee);
+                        employedInfo.once('value', function(childSnapshot){
+                            createMenteeObject(snapshot.val(), childSnapshot.val());
+                        });
+                    }
+                }); //End MenteeInfo Method 
 
-    } //End Of snapshot != Null
+                //Gets information about Mentor
+                mentorInfo.once('value',function(snapshot){
+                        createMentorObject(snapshot.val());
+                });
 
-});//End of Mentor Matching 
+            }); //End of Foreach method for each pair
+
+        } //End Of snapshot != Null
+
+    });//End of Mentor Matching 
 
 }//End of getMatches()
 
