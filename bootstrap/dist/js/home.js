@@ -1,28 +1,10 @@
 $(document).ready(function() {
-
-  // fetchData();
-
-  //
-  //TESTER USERS FOR THE HOMEPAGES
-  //
-  // firebase.auth().signInWithEmailAndPassword("test_emailhere123@gmail.com", "testPassword").then(function(error) {
-  //   // alert(error);
-  //   fetchData();
-  // })
-  // firebase.auth().signInWithEmailAndPassword("testtest@gmail.com", "asdasd").then(function(error) {
-  //   // alert(error);
-  //   fetchData();
-  // })
-  // firebase.auth().signInWithEmailAndPassword("mentor_test_123@test.com", "testPassword").then(function(error) {
-  //   // alert(error);
-  //   fetchData();
-  // });
-  firebase.auth().signInWithEmailAndPassword("testty@gmail.com", "asdasd").then(function(error) {
-    // alert(error);
-    fetchData();
-  })
-
-
+  firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+          // Fetch user profile data
+          fetchData();
+      }
+  });
 
 });
 
@@ -112,14 +94,12 @@ function fetchData() {
 
   } else {
     // alert("NO USER");
-
-    function Redirect() {
-        window.location = "mentorshipatlanta.info";
-      }
-    setTimeout('Redirect()', 1000);
-
-
+    setTimeout('redirect()', 1000);
   }
+}
+
+function redirect() {
+  window.location = "index.html";
 }
 
 //displaying the homepage user data

@@ -45,6 +45,9 @@
        * Configure and initialize our firebase connection.
        */
       Database.initialize();
+
+      // Sign out any currently-signed-in user
+      firebase.auth().signOut();
     </script>
   </head>
 
