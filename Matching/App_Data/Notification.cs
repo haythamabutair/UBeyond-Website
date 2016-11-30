@@ -63,7 +63,7 @@ namespace Matching {
             }
             catch (Exception e) {
                 // Note: if needed, we can return more info based on this exception
-                result = false;
+                return false;
             }
 
             return result;
@@ -91,7 +91,7 @@ namespace Matching {
         /// An HTML-formatted <c>string</c> to serve as the body of the email.
         /// </returns>
         public static string GenerateWelcomeEmail(string name, string userID) {
-            string TEMPLATE_FILE = System.Web.Hosting.HostingEnvironment.MapPath("App_Data/templates/welcome.txt");
+            string TEMPLATE_FILE = System.Web.Hosting.HostingEnvironment.MapPath("~/template/welcome.txt");
             string message = null;
 
             // Read template into a file

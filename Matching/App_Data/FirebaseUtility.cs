@@ -93,11 +93,13 @@ namespace Matching
                 Mentor mentor = client.Get("Mentor/" + mentorUid).ResultAs<Mentor>();
                 mentor.Match = menteeUid;
                 mentor.IsAvailable = false;
+                mentor.PendingApproval = false;
                 FirebaseResponse response1 = client.Set<Mentor>("Mentor/" + mentorUid, mentor);
 
                 Mentee mentee = client.Get("Mentee/" + menteeUid).ResultAs<Mentee>();
                 mentee.Match = mentorUid;
                 mentee.IsAvailable = false;
+                mentee.PendingApproval = false;
                 FirebaseResponse response2 = client.Set<Mentee>("Mentee/" + menteeUid, mentee);
             }
 
@@ -134,6 +136,28 @@ namespace Matching
                     }
                 }
             }
+            if (foundMatch)
+            {
+                Mentor mentor = client.Get("Mentor/" + mentorUid).ResultAs<Mentor>();
+                mentor.IsAvailable = true;
+                mentor.PendingApproval = false;
+                if(mentor.Blacklist == null)
+                {
+                    mentor.Blacklist = new List<string>();
+                }
+                mentor.Blacklist.Add(menteeUid);
+                FirebaseResponse response1 = client.Set<Mentor>("Mentor/" + mentorUid, mentor);
+
+                Mentee mentee = client.Get("Mentee/" + menteeUid).ResultAs<Mentee>();
+                mentee.IsAvailable = true;
+                mentee.PendingApproval = false;
+                if (mentee.Blacklist == null)
+                {
+                    mentee.Blacklist = new List<string>();
+                }
+                mentee.Blacklist.Add(mentorUid);
+                FirebaseResponse response2 = client.Set<Mentee>("Mentee/" + menteeUid, mentee);
+            }
             return foundMatch;
         }
 
@@ -149,6 +173,13 @@ namespace Matching
             FirebaseResponse getResponse = client.Get("MentorMatch/" + mentorUid);
             if(getResponse.Body == "null")
             {
+                Mentor mentorUpdate = client.Get("Mentor/" + mentorUid).ResultAs<Mentor>();
+                mentorUpdate.PendingApproval = true;
+                client.Set<Mentor>("Mentor/" + mentorUid, mentorUpdate);
+
+                Mentee menteeUpdate = client.Get("Mentee/" + menteeUid).ResultAs<Mentee>();
+                menteeUpdate.PendingApproval = true;
+                client.Set<Mentee>("Mentee/" + menteeUid, menteeUpdate);
                 return client.Push("MentorMatch/" + mentorUid, match); //if no matches yet, push match
             }
 
@@ -164,7 +195,13 @@ namespace Matching
                     }
                 }
             }
-            
+            Mentor mentor = client.Get("Mentor/" + mentorUid).ResultAs<Mentor>();
+            mentor.PendingApproval = true;
+            FirebaseResponse response1 = client.Set<Mentor>("Mentor/" + mentorUid, mentor);
+
+            Mentee mentee = client.Get("Mentee/" + menteeUid).ResultAs<Mentee>();
+            mentee.PendingApproval = true;
+            FirebaseResponse response2 = client.Set<Mentee>("Mentee/" + menteeUid, mentee);
             return client.Push("MentorMatch/" + mentorUid, match); //if match doesn't exist push new match
         }
 
@@ -180,6 +217,13 @@ namespace Matching
             FirebaseResponse getResponse = client.Get("MenteeMatch/" + menteeUid);
             if (getResponse.Body == null)
             {
+                Mentor mentorUpdate = client.Get("Mentor/" + mentorUid).ResultAs<Mentor>();
+                mentorUpdate.PendingApproval = true;
+                client.Set<Mentor>("Mentor/" + mentorUid, mentorUpdate);
+
+                Mentee menteeUpdate = client.Get("Mentee/" + menteeUid).ResultAs<Mentee>();
+                menteeUpdate.PendingApproval = true;
+                client.Set<Mentee>("Mentee/" + menteeUid, menteeUpdate);
                 return client.Push("MenteeMatch/" + menteeUid, match); //if no matches yet, push match
             }
 
@@ -195,7 +239,13 @@ namespace Matching
                     }
                 }
             }
-            
+            Mentor mentor = client.Get("Mentor/" + mentorUid).ResultAs<Mentor>();
+            mentor.PendingApproval = true;
+            FirebaseResponse response1 = client.Set<Mentor>("Mentor/" + mentorUid, mentor);
+
+            Mentee mentee = client.Get("Mentee/" + menteeUid).ResultAs<Mentee>();
+            mentee.PendingApproval = true;
+            FirebaseResponse response2 = client.Set<Mentee>("Mentee/" + menteeUid, mentee);
             return client.Push("MenteeMatch/" + menteeUid, match); //if match doesn't exist push new match
         }
 
