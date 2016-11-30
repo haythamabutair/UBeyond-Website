@@ -20,20 +20,21 @@ $(function(){
 
 
 function getMatches(){
-    //Setup Firebase Ref information and get current Admin 
+    //Setup Firebase Ref information and get current Admin
     var database = firebase.database();
     var menteeMatches = database.ref("MenteeMatch/");
     var mentorMatches = database.ref("MentorMatch/");
-    //Gets all of the matches 
-    count = 0;
+
+    //Gets all of the matches
+    var count = 0;
     menteeMatches.on('value',function(snapshot){
-        if(snapshot.val() !== null){
-            //Loop through each pair of matches  
+        if(snapshot.val() != null){
+            //Loop through each pair of matches
             snapshot.forEach(function(childSnapshot){
-                //Addes containers for each mentor/mentee match 
+                //Addes containers for each mentor/mentee match
 
                 var mentee = childSnapshot.key;
-                var mentor;  
+                var mentor;
                 for(x in childSnapshot.val()){
                     mentor = childSnapshot.val()[x]["User"];
                 }
@@ -43,7 +44,7 @@ function getMatches(){
                 var mentorInfo = database.ref("Mentor/" + mentor);
                 var menteeInfo = database.ref("Mentee/" + mentee);
 
-                //Get Mentee Information 
+                //Get Mentee Information
                 menteeInfo.once('value',function(snapshot){
                     //Can be a student or employed
                     if(snapshot.val().EmploymentStatus == "student"){
@@ -60,7 +61,7 @@ function getMatches(){
                             createMenteeObject(snapshot.val(), childSnapshot.val());
                         });
                     }
-                }); //End MenteeInfo Method 
+                }); //End MenteeInfo Method
 
                 //Gets information about Mentor
                 mentorInfo.once('value',function(snapshot){
@@ -71,61 +72,61 @@ function getMatches(){
 
         } //End Of snapshot != Null
 
-    });//End of Mentee Matching 
+    });//End of Mentee Matching
 
     //Checkes mentor matches as well. Have to check both
     mentorMatches.on('value',function(snapshot){
-        if(snapshot.val() !== null){
-            //Loop through each pair of matches  
-            snapshot.forEach(function(childSnapshot){
-                //Addes containers for each mentor/mentee match 
+      if(snapshot.val() != null){
+          //Loop through each pair of matches
+          snapshot.forEach(function(childSnapshot){
+              //Addes containers for each mentor/mentee match
 
-                var mentor = childSnapshot.key;
-                var mentee;  
-                for(x in childSnapshot.val()){
-                    mentee = childSnapshot.val()[x]["User"];
-                }
-                makeContainters(count, mentee , mentor);
-                count++;
-                // Firebase calls to get Specific information about mentor and mentee
-                var mentorInfo = database.ref("Mentor/" + mentor);
-                var menteeInfo = database.ref("Mentee/" + mentee);
+              var mentor = childSnapshot.key;
+              var mentee;
+              for(x in childSnapshot.val()){
+                  mentee = childSnapshot.val()[x]["User"];
+              }
+              makeContainters(count, mentee , mentor);
+              count++;
+              // Firebase calls to get Specific information about mentor and mentee
+              var mentorInfo = database.ref("Mentor/" + mentor);
+              var menteeInfo = database.ref("Mentee/" + mentee);
 
-                //Get Mentee Information 
-                menteeInfo.once('value',function(snapshot){
-                    //Can be a student or employed
-                    if(snapshot.val().EmploymentStatus == "student"){
-                        //Firabse call to get student information
-                        var studentInfo = database.ref("StudentInfo/" + mentee);
-                        studentInfo.once('value', function(childSnapshot){
-                            createMenteeObject(snapshot.val(), childSnapshot.val());
-                        });
+              //Get Mentee Information
+              menteeInfo.once('value',function(snapshot){
+                  //Can be a student or employed
+                  if(snapshot.val().EmploymentStatus == "student"){
+                      //Firabse call to get student information
+                      var studentInfo = database.ref("StudentInfo/" + mentee);
+                      studentInfo.once('value', function(childSnapshot){
+                          createMenteeObject(snapshot.val(), childSnapshot.val());
+                      });
 
-                    }else{
-                        //Firebase call to get Employed Information
-                        var employedInfo = database.ref("EmployeeInfo/" + mentee);
-                        employedInfo.once('value', function(childSnapshot){
-                            createMenteeObject(snapshot.val(), childSnapshot.val());
-                        });
-                    }
-                }); //End MenteeInfo Method 
+                  }else{
+                      //Firebase call to get Employed Information
+                      var employedInfo = database.ref("EmployeeInfo/" + mentee);
+                      employedInfo.once('value', function(childSnapshot){
+                          createMenteeObject(snapshot.val(), childSnapshot.val());
+                      });
+                  }
+              }); //End MenteeInfo Method\
 
-                //Gets information about Mentor
-                mentorInfo.once('value',function(snapshot){
-                        createMentorObject(snapshot.val());
-                });
+              //Gets information about Mentor
+              mentorInfo.once('value',function(snapshot){
+                      createMentorObject(snapshot.val());
+              });
 
-            }); //End of Foreach method for each pair
+          }); //End of Foreach method for each pair
 
-        } //End Of snapshot != Null
+      } //End Of snapshot != Null
 
-    });//End of Mentor Matching 
+  });//End of Mentor Matching
 
 }//End of getMatches()
 
-//dynamically makes the container to hold the information of mentors and metee matching 
+//dynamically makes the container to hold the information of mentors and metee matching
 function makeContainters(index, menteeUID, mentorUID){
-    //Main container to hold all the information 
+    //Main container to hold all the information
     var container = document.getElementById("containerMM");
     var fluidContainer = document.createElement("div");
     var informationDiv = document.createElement("div");
@@ -135,14 +136,15 @@ function makeContainters(index, menteeUID, mentorUID){
 
     var mentorTitle = document.createElement("h3");
     var menteeTitle = document.createElement("h3");
-    //Function to creat buttons 
+    //Function to creat buttons
     var btnDiv = createButtons(index, menteeUID, mentorUID);
-    
+
     fluidContainer.setAttribute("class","row well");
     fluidContainer.setAttribute("id","mentee-mentor-comparision" + index);
+    informationDiv.setAttribute("clsss","col-md-12 dyn-div");
+    //Need to handle floating div problem
     fluidContainer.style.backgroundColor = "#F0F8FF"
-    informationDiv.setAttribute("clsss","col-md-12");
-    //Need to handle floating div problem 
+    //Need to handle floating div problem
     informationDiv.setAttribute("style","overflow: hidden;");
     menteeDiv.setAttribute("class","col-md-6");
     menteeDiv.setAttribute("id","mentee"+ index);
@@ -153,7 +155,8 @@ function makeContainters(index, menteeUID, mentorUID){
     menteeTitle.innerText = "Mentee";
     menteeDiv.appendChild(menteeTitle);
     mentorDiv.appendChild(mentorTitle);
-    
+
+
     informationDiv.appendChild(menteeDiv);
     informationDiv.appendChild(mentorDiv);
     fluidContainer.appendChild(informationDiv);
@@ -186,7 +189,7 @@ function createButtons(index, menteeUid, mentorUid){
     } ,false);
 
     btnDiv.appendChild(accceptBtn);
-    btnDiv.appendChild(declineBtn); 
+    btnDiv.appendChild(declineBtn);
     return btnDiv;
 }
 
@@ -203,14 +206,14 @@ function onAccept(index, menteeUid, mentorUid){
         },
         error: function(xhr){
             console.log('It failed' + xhr);
- 
+
         }
     });
 }
 
 function onReject(index, menteeUid, mentorUid){
     $("#mentee-mentor-comparision" + index).remove();
-    
+
     $.ajax({
         url: "http://mentorshipatlanta.info/match/reject/"+ mentorUid + "/" + menteeUid,
         type: "POST",
@@ -252,7 +255,7 @@ function triggerMatchingAlgorithm(userID) {
 
 }
 
-// Helper method to create elements 
+// Helper method to create elements
 function createElements(elementType, inText){
     var temp = document.createElement(elementType);
     temp.innerText = inText;
@@ -268,14 +271,14 @@ function createMenteeObject(coreSnapShot, addOnSnapShot){
     dl.setAttribute("class", "dl-horizontal");
     mainContainer.appendChild(dl);
 
-    //Add Core Mentee Info 
+    //Add Core Mentee Info
     listOfMenteeKeys.forEach(function(value){
         var tempdt = createElements("dt",value)
         var tempdd = createElements("dd",coreSnapShot[value.replace(/\s/g, '')])
         dl.appendChild(tempdt);
         dl.appendChild(tempdd);
     });
-    
+
     //Specific add on data ie. Worker or student
     for (var key in addOnSnapShot){
         var value = addOnSnapShot[key];
@@ -286,7 +289,7 @@ function createMenteeObject(coreSnapShot, addOnSnapShot){
     }
 }
 
-//Code to dynamically make Mentor HTML and add it to the page. 
+//Code to dynamically make Mentor HTML and add it to the page.
 function createMentorObject(mentorSnapshot){
     var mainContainer = document.getElementById("mentor" + mentorCount);
     mentorCount++;
@@ -296,7 +299,7 @@ function createMentorObject(mentorSnapshot){
     mainContainer.appendChild(dl);
 
 
-    //Loop through the Keys and creates an element for each 
+    //Loop through the Keys and creates an element for each
     listOfMentorKeys.forEach(function(value){
         var tempdt = createElements("dt",value)
         var tempdd = createElements("dd",mentorSnapshot[value.replace(/\s/g, '')])
@@ -304,4 +307,3 @@ function createMentorObject(mentorSnapshot){
         dl.appendChild(tempdd);
     });
 }
-
