@@ -16,7 +16,7 @@ namespace Matching.Controllers.Tests
         public void MatchMentorTest()
         {
             MatchingController controller = new MatchingController();
-            IHttpActionResult result = controller.MatchMentee("9so938TlYRVvEMwt5ZohUIwifhr2");
+            IHttpActionResult result = controller.MatchMentor("XblfTz6Q3ZR8Gym3RXBaOIfX4ox2");
         }
     }
 }

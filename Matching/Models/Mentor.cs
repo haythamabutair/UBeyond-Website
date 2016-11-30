@@ -17,7 +17,7 @@ namespace Matching.Models
         public string Strengths { get; set; }
 
         [JsonConstructor]
-        public Mentor(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, string birthdate, string pathToHeadshot, string pathToResume, string bio, string preferredStartDate, string languagePreference, string genderPreference, string employer, int yearsOfExperience, string fieldOfExpertise, List<string> menteeLevelPreference, List<string> Languages, string strengths, MentorQuestionnaire initialQuestionnaire, string isAvailable) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, birthdate, bio, preferredStartDate, languagePreference, genderPreference, Languages, isAvailable)
+        public Mentor(string firstName, string lastName, string middleInitial, string preferredName, string address, string phoneNumber, string email, string gender, string birthdate, string pathToHeadshot, string pathToResume, string bio, string preferredStartDate, string languagePreference, string genderPreference, string employer, int yearsOfExperience, string fieldOfExpertise, List<string> menteeLevelPreference, List<string> Languages, string strengths, MentorQuestionnaire initialQuestionnaire, string isAvailable, bool PendingApproval, List<string> Blacklist) : base(firstName, lastName, middleInitial, preferredName, address, phoneNumber, email, gender, birthdate, bio, preferredStartDate, languagePreference, genderPreference, Languages, isAvailable, PendingApproval, Blacklist)
         {
             this.Employer = employer;
             this.YearsOfExperience = yearsOfExperience;

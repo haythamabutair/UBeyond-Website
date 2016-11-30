@@ -7,11 +7,21 @@ var listOfMentorKeys = ["First Name","Last Name","Birthdate","Gender", "Language
 var listOfMenteeKeys =  ["First Name","Last Name","Birthdate","Gender", "Languages", "Gender Preference","Bio",
 "Language Preference", "Preferred StartDate", "Mentee Skills", "Field Of Expertise", "Field Preference", "Employment Status"];
 
+$(function(){
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            //Add check here to see if user is an admin then call function
+            getMatches();
+        } else {
+            // No user is signed in.
+        }
+    });
+});
+
+
 function getMatches(){
     //Setup Firebase Ref information and get current Admin
     var database = firebase.database();
-    var curUser = firebase.auth().currentUser;
-    var curUserID = firebase.auth().currentUser.uid;
     var menteeMatches = database.ref("MenteeMatch/");
     var mentorMatches = database.ref("MentorMatch/");
 
@@ -66,51 +76,51 @@ function getMatches(){
 
     //Checkes mentor matches as well. Have to check both
     mentorMatches.on('value',function(snapshot){
-    if(snapshot.val() != null){
-        //Loop through each pair of matches
-        snapshot.forEach(function(childSnapshot){
-            //Addes containers for each mentor/mentee match
+      if(snapshot.val() != null){
+          //Loop through each pair of matches
+          snapshot.forEach(function(childSnapshot){
+              //Addes containers for each mentor/mentee match
 
-            var mentor = childSnapshot.key;
-            var mentee;
-            for(x in childSnapshot.val()){
-                mentee = childSnapshot.val()[x]["User"];
-            }
-            makeContainters(count, mentee , mentor);
-            count++;
-            // Firebase calls to get Specific information about mentor and mentee
-            var mentorInfo = database.ref("Mentor/" + mentor);
-            var menteeInfo = database.ref("Mentee/" + mentee);
+              var mentor = childSnapshot.key;
+              var mentee;
+              for(x in childSnapshot.val()){
+                  mentee = childSnapshot.val()[x]["User"];
+              }
+              makeContainters(count, mentee , mentor);
+              count++;
+              // Firebase calls to get Specific information about mentor and mentee
+              var mentorInfo = database.ref("Mentor/" + mentor);
+              var menteeInfo = database.ref("Mentee/" + mentee);
 
-            //Get Mentee Information
-            menteeInfo.once('value',function(snapshot){
-                //Can be a student or employed
-                if(snapshot.val().EmploymentStatus == "student"){
-                    //Firabse call to get student information
-                    var studentInfo = database.ref("StudentInfo/" + mentee);
-                    studentInfo.once('value', function(childSnapshot){
-                        createMenteeObject(snapshot.val(), childSnapshot.val());
-                    });
+              //Get Mentee Information
+              menteeInfo.once('value',function(snapshot){
+                  //Can be a student or employed
+                  if(snapshot.val().EmploymentStatus == "student"){
+                      //Firabse call to get student information
+                      var studentInfo = database.ref("StudentInfo/" + mentee);
+                      studentInfo.once('value', function(childSnapshot){
+                          createMenteeObject(snapshot.val(), childSnapshot.val());
+                      });
 
-                }else{
-                    //Firebase call to get Employed Information
-                    var employedInfo = database.ref("EmployeeInfo/" + mentee);
-                    employedInfo.once('value', function(childSnapshot){
-                        createMenteeObject(snapshot.val(), childSnapshot.val());
-                    });
-                }
-            }); //End MenteeInfo Method
+                  }else{
+                      //Firebase call to get Employed Information
+                      var employedInfo = database.ref("EmployeeInfo/" + mentee);
+                      employedInfo.once('value', function(childSnapshot){
+                          createMenteeObject(snapshot.val(), childSnapshot.val());
+                      });
+                  }
+              }); //End MenteeInfo Method\
 
-            //Gets information about Mentor
-            mentorInfo.once('value',function(snapshot){
-                    createMentorObject(snapshot.val());
-            });
+              //Gets information about Mentor
+              mentorInfo.once('value',function(snapshot){
+                      createMentorObject(snapshot.val());
+              });
 
-        }); //End of Foreach method for each pair
+          }); //End of Foreach method for each pair
 
-    } //End Of snapshot != Null
+      } //End Of snapshot != Null
 
-});//End of Mentor Matching
+  });//End of Mentor Matching
 
 }//End of getMatches()
 
@@ -123,6 +133,9 @@ function makeContainters(index, menteeUID, mentorUID){
     //Make div's for mentee and mentor since Firebase calls are async don't know when they will return
     var menteeDiv = document.createElement("div");
     var mentorDiv = document.createElement("div");
+
+    var mentorTitle = document.createElement("h3");
+    var menteeTitle = document.createElement("h3");
     //Function to creat buttons
     var btnDiv = createButtons(index, menteeUID, mentorUID);
 
@@ -130,11 +143,19 @@ function makeContainters(index, menteeUID, mentorUID){
     fluidContainer.setAttribute("id","mentee-mentor-comparision" + index);
     informationDiv.setAttribute("clsss","col-md-12 dyn-div");
     //Need to handle floating div problem
+    fluidContainer.style.backgroundColor = "#F0F8FF"
+    //Need to handle floating div problem
     informationDiv.setAttribute("style","overflow: hidden;");
     menteeDiv.setAttribute("class","col-md-6");
     menteeDiv.setAttribute("id","mentee"+ index);
     mentorDiv.setAttribute("class","col-md-6");
     mentorDiv.setAttribute("id","mentor"+index);
+
+    mentorTitle.innerText = "Mentor";
+    menteeTitle.innerText = "Mentee";
+    menteeDiv.appendChild(menteeTitle);
+    mentorDiv.appendChild(mentorTitle);
+
 
     informationDiv.appendChild(menteeDiv);
     informationDiv.appendChild(mentorDiv);
@@ -194,18 +215,45 @@ function onReject(index, menteeUid, mentorUid){
     $("#mentee-mentor-comparision" + index).remove();
 
     $.ajax({
-        url:"http://mentorshipatlanta.info/match/reject/"+ mentorUid + "/" + menteeUid,
+        url: "http://mentorshipatlanta.info/match/reject/"+ mentorUid + "/" + menteeUid,
         type: "POST",
         success: function(response){
-            console.log('It sent' + response);
+            console.log('reject endpoint returned successfully with ' + response);
+
+            // Run matching algorithm for mentee
+            $.ajax({
+                url: "http://mentorshipatlanta.info/match/mentee/" + menteeUid,
+                type: "POST",
+                success: function(response) {
+                    console.log("matching endpoint for mentee returned successfully with " + response);
+                },
+                error: function(xhr) {
+                    console.log("matching endpoint for mentee returned an error: " + xhr);
+                }
+            });
+
+            // Run matching algorithm for mentor
+            $.ajax({
+                url: "http://mentorshipatlanta.info/match/mentor/" + mentorUid,
+                type: "POST",
+                success: function(response) {
+                    console.log("matching endpoint for mentor returned successfully with " + response);
+                },
+                error: function(xhr) {
+                    console.log("matching endpoint for mentor returned an error: " + xhr);
+                }
+            });
         },
         error: function(xhr){
-            console.log('It failed' + xhr);
-
+            console.log('reject endpoint returned an error: ' + xhr);
         }
     });
 }
 
+// Helpre method to hit the matching algorithm endpoint for a user
+function triggerMatchingAlgorithm(userID) {
+
+}
 
 // Helper method to create elements
 function createElements(elementType, inText){

@@ -143,6 +143,77 @@ var Database = (function() {
     }
 
     /*
+     * Check if the specified user is an admin.
+     *
+     * Callback: function(isAdmin)
+     *     - isAdmin will be true if the user was an admin, else false.
+     */
+    var isAdmin = function(uid, callback) {
+        var adminRef = firebase.database().ref('Admin/');
+
+        // Check if node @ Admin/{uid} exists
+        adminRef.child(uid).once('value', function(snapshot) {
+            callback(snapshot.val() !== null);
+        });
+    }
+
+    /*
+     * Updates fields in the database for the specified user.
+     *
+     * Note that the currently-signed-in user must be an admin for this function to work.
+     *
+     * See updateUserData for parameter information.
+     */
+    var updateUserDataFor = function(userType, uid, fields, callback) {
+        var currentUser = firebase.auth().currentUser;
+        
+        // Ensure a user is currently signed-in
+        if (currentUser) {
+            // Ensure currently-signed-in user is an admin
+            isAdmin(currentUser.uid, function(_isAdmin) {
+                if (_isAdmin) {
+                    var ref = firebase.database();
+
+                    // Update data
+                    ref.ref(userType + '/' + uid).update(fields, function(error) {
+                        // Return (false, errorMessage) on error
+                        if (error) {
+                            callback(false, error.code + ': ' + error.message);
+                        }
+                        // Return (true, null) on completion
+                        else {
+                            callback(true, null);
+                        }
+                    });
+                }
+                else {
+                    // Return (false, errorMessage) on error
+                    callback(false, 'cust-auth/access-denied: You do not have permission to do this');
+                }
+            });
+        }
+        else {
+            // Return (false, errorMessage) on error
+            callback(false, 'cust-auth/no-sign-in: Not signed in');
+        }
+    }
+
+    /*
+     * TODO Documenation
+     */
+    var updateMenteeDataFor = function(uid, fields, callback) {
+        updateUserDataFor(MENTEE, uid, fields, callback);
+    }
+
+    /*
+     * TODO Documenation
+     */
+    var updateMentorDataFor = function(uid, fields, callback) {
+        updateUserDataFor(MENTOR, uid, fields, callback);
+    }
+
+
+    /*
      * Updates fields in the database for the currently-signed-in user.
      *
      * Since the update is done asynchronously, the result of the update operation is returned via a
@@ -353,6 +424,8 @@ var Database = (function() {
         initialize: initialize,
         authenticate: authenticate,
         registerUser: registerUser,
+        updateMenteeDataFor: updateMenteeDataFor,
+        updateMentorDataFor: updateMentorDataFor,
         updateMenteeData: updateMenteeData,
         updateMentorData: updateMentorData,
         setMenteeFormData: setMenteeFormData,
