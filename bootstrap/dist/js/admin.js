@@ -24,11 +24,10 @@ function getMatches(){
     var database = firebase.database();
     var menteeMatches = database.ref("MenteeMatch/");
     var mentorMatches = database.ref("MentorMatch/");
-
     //Gets all of the matches 
     count = 0;
     menteeMatches.on('value',function(snapshot){
-        if(snapshot.val() != null){
+        if(snapshot.val() !== null){
             //Loop through each pair of matches  
             snapshot.forEach(function(childSnapshot){
                 //Addes containers for each mentor/mentee match 
@@ -76,7 +75,7 @@ function getMatches(){
 
     //Checkes mentor matches as well. Have to check both
     mentorMatches.on('value',function(snapshot){
-        if(snapshot.val() != null){
+        if(snapshot.val() !== null){
             //Loop through each pair of matches  
             snapshot.forEach(function(childSnapshot){
                 //Addes containers for each mentor/mentee match 
