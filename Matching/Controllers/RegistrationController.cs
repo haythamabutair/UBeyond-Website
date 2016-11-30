@@ -26,8 +26,8 @@ namespace Matching.Controllers
             string message = Notification.GenerateWelcomeEmail(email, userUID);
             MailAddressCollection addresses = new MailAddressCollection();
             addresses.Add(mentee.Email);
-            Notification.SendEmail(addresses, "welcome to U-Beyond! " + mentee.FirstName, message);
-            return Ok(1);
+            bool result = Notification.SendEmail(addresses, "welcome to U-Beyond! " + mentee.FirstName, message);
+            return Ok(result);
         }
 
         // GET: Registration email for Mentors

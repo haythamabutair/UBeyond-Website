@@ -212,18 +212,45 @@ function onReject(index, menteeUid, mentorUid){
     $("#mentee-mentor-comparision" + index).remove();
     
     $.ajax({
-        url:"http://mentorshipatlanta.info/match/reject/"+ mentorUid + "/" + menteeUid,
+        url: "http://mentorshipatlanta.info/match/reject/"+ mentorUid + "/" + menteeUid,
         type: "POST",
         success: function(response){
-            console.log('It sent' + response);
+            console.log('reject endpoint returned successfully with ' + response);
+
+            // Run matching algorithm for mentee
+            $.ajax({
+                url: "http://mentorshipatlanta.info/match/mentee/" + menteeUid,
+                type: "POST",
+                success: function(response) {
+                    console.log("matching endpoint for mentee returned successfully with " + response);
+                },
+                error: function(xhr) {
+                    console.log("matching endpoint for mentee returned an error: " + xhr);
+                }
+            });
+
+            // Run matching algorithm for mentor
+            $.ajax({
+                url: "http://mentorshipatlanta.info/match/mentor/" + mentorUid,
+                type: "POST",
+                success: function(response) {
+                    console.log("matching endpoint for mentor returned successfully with " + response);
+                },
+                error: function(xhr) {
+                    console.log("matching endpoint for mentor returned an error: " + xhr);
+                }
+            });
         },
         error: function(xhr){
-            console.log('It failed' + xhr);
- 
+            console.log('reject endpoint returned an error: ' + xhr);
         }
     });
 }
 
+// Helpre method to hit the matching algorithm endpoint for a user
+function triggerMatchingAlgorithm(userID) {
+
+}
 
 // Helper method to create elements 
 function createElements(elementType, inText){

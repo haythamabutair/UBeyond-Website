@@ -62,8 +62,8 @@ $(function(){
         var radioForm = true;
 
         // If something is missing
-        $('#part1').find('.form-group-mentee-required').children('input.form-control').each(function() {
-          if ($(this).val() == '') {
+        $('#part1').find('.form-group-mentee-required').find('.form-control').each(function() {
+          if ($(this).val() == '' || $(this).val() == null) {
             mainForm = false;
           }
         });
@@ -72,23 +72,23 @@ $(function(){
         if ($('input[name=studentRadio]:checked').val() == 'student'){
           // Check if high school
           if($('input[name=levelRadio]:checked').val() == 'highSchool') {
-            $('#highSchoolStudentRegForm').children('.form-group-required').children('.form-control').each(function() {
-              if ($(this).val() == '') {
+            $('#highSchoolStudentRegForm').children('.form-group-required').find('.form-control').each(function() {
+              if ($(this).val() == '' || $(this).val() == null) {
                 radioForm = false;
               }
             });
           }
           else {
-            $('#studentRegForm').children('.form-group-required').children('.form-control').each(function() {
-              if ($(this).val() == '') {
+            $('#studentRegForm').children('.form-group-required').find('.form-control').each(function() {
+              if ($(this).val() == '' || $(this).val() == null) {
                 radioForm = false;
               }
             });
           }
         }
         else {
-          $('#employedRegForm').children('.form-group-required').children('.form-control').each(function(){
-            if($(this).val() == ''){
+          $('#employedRegForm').children('.form-group-required').find('.form-control').each(function(){
+            if ($(this).val() == '' || $(this).val() == null) {
               radioForm = false;
             }
           });
@@ -111,8 +111,8 @@ $(function(){
       else if (currentPart == 2) {
         var empty = false;
 
-        $('#part2').find('.form-group-mentee-required').children('.form-control').each(function() {
-          if ($(this).val() == '') {
+        $('#part2').find('.form-group-mentee-required').find('.form-control').each(function() {
+          if ($(this).val() == '' || $(this).val() == null) {
               empty = true;
           }
         });

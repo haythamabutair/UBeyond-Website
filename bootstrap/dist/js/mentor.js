@@ -54,8 +54,8 @@ $(function(){
       if (currentPart == 1) {
         var empty = false;
 
-        $('#part1').find('.form-group-mentor-required').children('input.form-control').each(function() {
-            if ($(this).val() == '') {
+        $('#part1').find('.form-group-mentor-required').find('.form-control').each(function() {
+            if ($(this).val() == '' || $(this).val() == null) {
                 empty = true;
             }
         });
@@ -71,15 +71,15 @@ $(function(){
       else if (currentPart == 2) {
         var empty = false;
 
-        $('#part2').find('.form-group-mentor-required').children('.form-control').each(function() {
-            if ($(this).val() == '') {
+        $('#part2').find('.form-group-mentor-required').find('.form-control').each(function() {
+            if ($(this).val() == '' || $(this).val() == null) {
                 empty = true;
             }
         });
 
         // References
         $('.reference:not(#reference-template)').find(':input').each(function() {
-          if ($(this).val() == '') {
+          if ($(this).val() == '' || $(this).val() == null) {
             empty = true;
           }
         });
