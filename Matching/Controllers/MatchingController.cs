@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Matching.Models;
 using Matching;
+using System.Net.Mail;
 
 namespace Matching.Controllers
 {
@@ -32,10 +33,14 @@ namespace Matching.Controllers
             }
 
             string bestMenteeUID = null;
-            double bestMatchStrength = 0;
-            foreach(KeyValuePair<string, Mentee> mentee in mentees)
+            double bestMatchStrength = -1;
+            if (mentor.Blacklist == null)
             {
-                if(mentee.Value.IsAvailable)
+                mentor.Blacklist = new List<string>();
+            }
+            foreach (KeyValuePair<string, Mentee> mentee in mentees)
+            {
+                if(mentee.Value.IsAvailable && !mentee.Value.PendingApproval && !mentor.Blacklist.Contains(mentee.Key))
                 {
                     double matchStrength = GetMatchStrength(mentor, mentee.Value);
                     if (matchStrength > bestMatchStrength)
@@ -77,10 +82,14 @@ namespace Matching.Controllers
             }
 
             string bestMentorUID = null;
-            double bestMatchStrength = 0;
+            double bestMatchStrength = -1;
+            if (mentee.Blacklist == null)
+            {
+                mentee.Blacklist = new List<string>();
+            }
             foreach (KeyValuePair<string, Mentor> mentor in mentors)
             {
-                if (mentor.Value.IsAvailable)
+                if (mentor.Value.IsAvailable && !mentor.Value.PendingApproval && !mentee.Blacklist.Contains(mentor.Key))
                 {
                     double matchStrength = GetMatchStrength(mentor.Value, mentee);
                     if (matchStrength > bestMatchStrength)
