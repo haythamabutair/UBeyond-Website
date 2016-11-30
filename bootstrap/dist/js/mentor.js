@@ -397,3 +397,14 @@ function register(event) {
   // Stop auto-navigation to href (IE)
   return false;
 }
+
+
+// Code needed to initialize the multiselect function
+$(function() {
+  // Setup the multiselect
+  $('.need-multi').multiselect({
+    // Shortens the height and makes the box small
+    maxHeight: 200
+  });
+
+});
