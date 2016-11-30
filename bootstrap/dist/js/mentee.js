@@ -383,8 +383,8 @@ function register(event) {
                 // Submit mentee form and navigate to home page
                 Database.setMenteeFormData(menteeFormData, function(success, response) {
                   if (success) {
-                    // Navigate to home page via href in button of notification div
-                    window.open("home.html", "_self");
+                    // Call registration endpoint & matching endpoint
+                    callRegistrationEndpoint();
                   } else {
                     //failed to save initial
                     Global.showNotification('Something went wrong! Error:\n' + response, true);
@@ -429,3 +429,48 @@ $(document).ready(function() {
   // Update student info section
   showHideRegisterInfo();
 });
+
+function callRegistrationEndpoint() {
+  $.ajax({
+      url: "http://mentorshipatlanta.info/register/mentee/" + firebase.auth().currentUser.uid,
+      type: "POST",
+      success: function(response) {
+          console.log("registration endpoint for mentee returned successfully with " + response);
+          
+          // Call matching endpoint
+          callMatchingEndpoint();
+      },
+      error: function(xhr) {
+          console.log("registration endpoint for mentee returned an error: " + xhr);
+
+          // alert failure
+          alert("Failed to call registration endpoint, but registration was successful!");
+
+          // Call matching endpoint
+          callMatchingEndpoint();
+      }
+  });
+}
+
+function callMatchingEndpoint() {
+  // Run matching algorithm for mentor
+  $.ajax({
+      url: "http://mentorshipatlanta.info/match/mentee/" + firebase.auth().currentUser.uid,
+      type: "POST",
+      success: function(response) {
+          console.log("matching endpoint for mentee returned successfully with " + response);
+          
+          // Navigate to home page via href in button of notification div
+          window.open("home.html", "_self");
+      },
+      error: function(xhr) {
+          console.log("matching endpoint for mentee returned an error: " + xhr);
+
+          // alert failure
+          alert("Failed to call matching algorithm, but registration was successful!");
+
+          // Navigate to home page via href in button of notification div
+          window.open("home.html", "_self");
+      }
+  });
+}
