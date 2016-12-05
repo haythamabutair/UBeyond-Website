@@ -11,9 +11,8 @@ Version 1.0
 - Admin is able to approve a match. 
 - Mentee/Mentor have a "blacklist" so they aren't matched twice if Admin rejects the match.
 
-Known bugs and defects
+Bugs and defects
 - No current way for Mentor/Mentee to modify their orginal input data. 
-- 
 
 #Install Guide
 
