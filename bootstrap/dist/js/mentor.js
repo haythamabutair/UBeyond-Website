@@ -267,6 +267,10 @@ function register(event) {
           var resumeFileName = null;
           var headshotFileName = null;
 
+          // get newly-registered user's UID
+          var userID = firebase.auth().currentUser.uid;
+          alert('userID = ' + userID);
+
           // Get uploaded resume file name
           if ($('#resumeBtn')[0].files[0]) {
             var resumeFile = $('#resumeBtn')[0].files[0];
@@ -274,7 +278,7 @@ function register(event) {
             // TODO: since we are not waiting to hear back from uploadResume,
             // TODO:    we will just manually build the path. If we change where
             // TODO:    we store resumes, update this.
-            resumeFileName = "documents/" + response + "_" + resumeFile.name; // response is uid
+            resumeFileName = "documents/" + userID + "_" + resumeFile.name; // response is uid
 
             // upload resume
             // NOTE: doing nothing with callback
@@ -288,7 +292,7 @@ function register(event) {
             // TODO: since we are not waiting to hear back from uploadHeadshot,
             // TODO:    we will just manually build the path. If we change where
             // TODO:    we store headshots, update this.
-            headshotFileName = "images/" + response + "_" + headshotFile.name; // response is uid
+            headshotFileName = "images/" + userID + "_" + headshotFile.name; // response is uid
 
             // upload headshot
             // NOTE: doing nothing with callback
