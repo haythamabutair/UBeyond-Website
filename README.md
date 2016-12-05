@@ -4,9 +4,16 @@ UBeyond-Website
 #Release Notes
 
 New software features
+Version 1.0
+- Able to create Mentor's and Mentee Account's.
+- Admin Accounts are created through the Firebase Dash, then added to the Firebase Database.
+- Algorithm uses heuristic checking three fields (Field Preference, Gender, Langauge) in that order of imporatnce, to match Mentor/Mentee.
+- Admin is able to approve a match. 
+- Mentee/Mentor have a "blacklist" so they aren't matched twice if Admin rejects the match.
 
 Known bugs and defects
-
+- No current way for Mentor/Mentee to modify their orginal input data. 
+- 
 
 #Install Guide
 
