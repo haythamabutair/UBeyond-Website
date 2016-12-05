@@ -1,14 +1,14 @@
 UBeyond-Website
 ---------------------
    
- * Release Notes
+#Release Notes
 
 New software features
 
 Known bugs and defects
 
 
- * Install Guide
+#Install Guide
 
 Pre-requisites: what is the required configuration of software and hardware that
 the customer must have before they can begin the installation process.
