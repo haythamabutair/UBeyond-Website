@@ -136,7 +136,7 @@ function makeContainters(index, menteeUID, mentorUID){
 
     var mentorTitle = document.createElement("h3");
     var menteeTitle = document.createElement("h3");
-    //Function to creat buttons
+    //Function to create buttons
     var btnDiv = createButtons(index, menteeUID, mentorUID);
 
     fluidContainer.setAttribute("class","row well");
