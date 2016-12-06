@@ -16,25 +16,25 @@ Bugs and defects
 
 #Install Guide
 
-Pre-requisites: what is the required configuration of software and hardware that
-the customer must have before they can begin the installation process.
+Pre-requisites
+A web server that can support ASP.NET web applications
 
-Dependent Libraries that must be installed: what third party software must be
-installed for your software to function
+Dependent Libraries that must be installed:
+FireSharp
+Bootstrap
 
-Download instructions: how will the customer and users get access to the project?
+Download instructions
+All files necessary to run the application are available through this repository.
 
-Build instructions (if needed): if you are providing the raw source code rather
-than a binary build, how will the customer and users create the required
-executable application
+Installation of actual application
+1. Copy frontend libraries to root folder of the Web Server through FTP
+2. publish the endpoints from visual studios
+   a) Open U-Beyond Website.sln in Visual Studio 2015
+   b) Under the "build" menu, click publish
+   c) click "next" and then "finish" when promted by VS
 
-Installation of actual application: what steps have to be taken after the software is
-built, what directories are required for installation
-CS 3312/LMC 3431
-Fall 2016 -- All Sections
+Run instructions
+Access this web server through any web browser
 
-Run instructions: what does the user/customer actually have to do to get the
-software to execute
-
-Troubleshooting: what are common errors that occur during installation and
-what is the corrective action
+Troubleshooting
+Make sure that the correct Web.config file is located on the web server
